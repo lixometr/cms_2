@@ -1,0 +1,75 @@
+version: "3.9"
+services:
+  admin:
+    volumes:
+      - ./admin:/admin
+      - /admin/node_modules
+      - ./common:/common
+    build:
+      context: .
+      dockerfile: ./admin/Dockerfile
+      target: "${NODE_ENV}"
+    ports:
+      - ${ADMIN_PORT}:${ADMIN_PORT}
+    environment: 
+      - ADMIN_PORT=${ADMIN_PORT}
+      - NODE_ENV=${NODE_ENV}
+    depends_on:
+      - app
+  app:
+
+    # Important to send volumes instead of making Volume in Dockerfile
+    volumes:
+     - ./api:/app
+     - /app/node_modules
+    build:
+      context: .
+      dockerfile: ./api/Dockerfile
+      target: "${NODE_ENV}"
+    ports:
+      - ${API_PORT}:${API_PORT}
+    environment: 
+      - API_PORT=${API_PORT}
+      - NODE_ENV=${NODE_ENV}
+    #command: sh -c "npm install && npm run start:dev"
+    networks:
+      - backend
+    depends_on:
+      - db
+  # redis:
+  #   image: "redis:alpine"
+  #   networks: 
+  #     - backend
+  db:
+    image: mysql:5.7
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    ports: 
+      - "${DB_PORT}:${DB_PORT}"
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=${DB_NAME}
+      - MYSQL_USER=${DB_USER}
+      - MYSQL_PASSWORD=${DB_PASSWORD}
+      #MYSQL_ROOT_HOST: '%'
+    volumes:
+      - data:/var/lib/mysql
+    networks:
+      - backend
+    command: ['mysqld', '--character-set-server=utf8mb4', '--collation-server=utf8mb4_unicode_ci']
+  # phpmyadmin:
+  #   image: phpmyadmin/phpmyadmin:latest
+  #   restart: always
+  #   environment:
+  #     PMA_USER: ${DB_USER}
+  #     PMA_PASSWORD: ${DB_PASSWORD}
+  #     PMA_CONTROLUSER: ${PHP_MY_ADMIN_USER}
+  #     PMA_CONTROLPASS: ${PHP_MY_ADMIN_PASSWORD}
+  #   networks:
+  #     - backend
+  #   ports:
+  #     - "8090:80"
+networks:
+  backend: 
+volumes: 
+  data: {}
