@@ -7,11 +7,11 @@ COPY ./frontend/package*.json ./
 
 RUN npm install 
 
-
+EXPOSE 3002
+ENV HOST 0.0.0.0
 
 CMD npm run dev
 
-EXPOSE 3000
 
 
 FROM node:12.13-alpine as production

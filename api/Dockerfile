@@ -9,7 +9,7 @@ RUN npm install
 # Do it in docker-compose 
 # VOLUME [ ".:/app", "/app/node_modules" ]
 
-EXPOSE 8080
+EXPOSE 3001
 
 
 CMD npm run start:dev
@@ -32,7 +32,8 @@ RUN npm install --only=dev
 COPY . .
 
 RUN npm run build
-EXPOSE 8080
+
+EXPOSE 3001
 
 
 CMD npm run start
