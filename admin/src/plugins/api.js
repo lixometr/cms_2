@@ -13,9 +13,9 @@ instance.interceptors.request.use(config => {
     return config
 }
 );
-let baseUrl = 'http://localhost:4000'
+let baseUrl = 'http://localhost:3001'
 if (process.env.NODE_ENV === 'production') {
-    baseUrl = 'http://localhost:4000'
+    baseUrl = 'http://localhost:3001'
 
 }
 export default new Api(ApiRoutes({ baseUrl }), instance)

@@ -2,3 +2,7 @@ node_modules
 public
 dist
 .env
+acme.json
+logs
+traefic.toml
+traefik_dynamic
