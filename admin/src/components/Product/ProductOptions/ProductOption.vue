@@ -28,7 +28,7 @@
       </CRow>
       <CRow>
         <CCol col="6"
-          ><AInput class="mt-3" label="Подсказка" v-model="item.description"
+          ><AInput class="mt-3" label="Подсказка" v-model="item.comment"
         /></CCol>
       </CRow>
       <CRow v-if="item.type === 'line'">

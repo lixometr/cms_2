@@ -54,7 +54,7 @@
       :product="item"
       v-model="item.kitProducts"
     />
-    <CollapseCard :open="false" v-if="item.type === 'simple'">
+    <CollapseCard :open="false" v-if="item.type === 'simple' || item.type === 'kit'">
       <div slot="header">Цена</div>
       <div>
         <ProductPrice v-model="item.prices" />
