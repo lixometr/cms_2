@@ -31,6 +31,6 @@ COPY ./frontend .
 RUN npm run build 
 
 EXPOSE 3002
-
+ENV HOST 0.0.0.0
 
 CMD npm run start
