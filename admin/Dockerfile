@@ -30,4 +30,4 @@ RUN npm install --only=dev
 
 COPY ./admin .
 
-RUN npm run build
+CMD npm run build
