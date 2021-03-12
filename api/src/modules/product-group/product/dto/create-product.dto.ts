@@ -1,5 +1,5 @@
 import { Type } from 'class-transformer';
-import { IsString, IsInt, IsOptional, IsArray, ValidateNested, IsEnum, ArrayNotEmpty, IsBoolean } from 'class-validator';
+import { IsString, IsInt, IsOptional, IsArray, ValidateNested, IsEnum, ArrayNotEmpty, IsBoolean, ValidateIf } from 'class-validator';
 import { IdDto } from 'src/internal';
 import { CreateProductAttributeDto } from 'src/internal';
 import { CreateProductOptionDto } from '../../product-option/dto/create-product-option.dto';
@@ -21,6 +21,7 @@ export class CreateProductDto {
     slug: string;
 
 
+    @ValidateIf((item) => item.type === ProductType.simple)
     @ArrayNotEmpty()
     @IsArray()
     @ValidateNested({ each: true })
