@@ -19,14 +19,14 @@ FROM node:12.13-alpine as production
 ARG NODE_ENV=production
 ENV NODE_ENV=${NODE_ENV}
 
-WORKDIR /app
+WORKDIR /frontend
 
 COPY ./frontend/package*.json ./
 
 RUN npm install
 RUN npm install --only=dev
 
-COPY . .
+COPY ./frontend .
 
 RUN npm run build 
 

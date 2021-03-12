@@ -29,7 +29,7 @@ COPY ./api/package*.json ./
 RUN npm install
 RUN npm install --only=dev
 
-COPY . .
+COPY ./api .
 
 RUN npm run build
 
