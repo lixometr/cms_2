@@ -1,14 +1,14 @@
 module.exports = {
     "api": {
-        "baseUrl": "https://api.cms.com",
-        "baseName": "api.cms.com"
+        "baseUrl": "http://api.st-cms.com",
+        "baseName": "api.st-cms.com"
     },
     "frontend": {
-        "baseUrl": "https://cms.com",
-        "baseName": "cms.com"
+        "baseUrl": "http://st-cms.com",
+        "baseName": "st-cms.com"
     },
     "admin": {
-        "baseUrl": "https://admin.cms.com",
-        "baseName": "admin.cms.com"
+        "baseUrl": "http://admin.st-cms.com",
+        "baseName": "admin.st-cms.com"
     }
 }

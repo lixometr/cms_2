@@ -13,8 +13,8 @@ instance.interceptors.request.use(config => {
     return config
 }
 );
-let baseUrl = 'http://yaroslav.st-cms.ru'
+let baseUrl = 'http://localhost:3001'
 if (process.env.NODE_ENV === 'production') {
-    baseUrl = `http://yaroslav.st-cms.ru`
+    baseUrl = `http://api.st-cms.ru`
 }
 export default new Api(ApiRoutes({ baseUrl }), instance)
