@@ -28,9 +28,8 @@ RUN npm install --only=dev
 
 COPY ./frontend .
 
-RUN npm run build 
 
 EXPOSE 3002
 ENV HOST 0.0.0.0
 
-CMD npm run start
+CMD npm run build  && npm run start
