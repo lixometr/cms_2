@@ -12,7 +12,7 @@ export default {
     this.$loading.start();
     try {
       const resolvers = this.settings.map(async (setting) => {
-        const { data: response } = await this.$api.get("setting", {
+        const { data: response } = await this.$api.get("settingAdmin", {
           slug: setting.slug,
         });
         this.$set(this.values, setting.slug, response && response.value);

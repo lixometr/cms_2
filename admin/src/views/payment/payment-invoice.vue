@@ -11,6 +11,11 @@
         <AInput class="mb-3" label="ИНН" v-model="values.inn" />
         <AInput class="mb-3" label="ОГРН" v-model="values.ogrn" />
         <AInput class="mb-3" label="КПП" v-model="values.kpp" />
+        <AInput class="mb-3" label="Банк" v-model="values.bank" />
+        <AInput class="mb-3" label="Расчетный счет" v-model="values.rc" />
+        <AInput class="mb-3" label="Кор счет" v-model="values.kc" />
+        <AInput class="mb-3" label="Руководитель" v-model="values.leader" />
+        <AInput class="mb-3" label="Главный бухгалтер" v-model="values.buhgalter" />
         <BtnSave class="mt-5" @click="save">Сохранить</BtnSave>
       </CCardBody>
     </CCard>

@@ -23,22 +23,22 @@ services:
     depends_on: 
       - frontend
       - api
-  admin:
-    volumes:
-      - ./admin:/admin
-      - /admin/node_modules
-      - ./common:/common
-    build:
-      context: .
-      dockerfile: ./admin/Dockerfile
-      target: "${NODE_ENV}"
-    ports:
-      - ${ADMIN_PORT}:${ADMIN_PORT}
-    environment: 
-      - ADMIN_PORT=${ADMIN_PORT}
-      - NODE_ENV=${NODE_ENV}
-    depends_on:
-      - api
+  # admin:
+  #   volumes:
+  #     - ./admin:/admin
+  #     - /admin/node_modules
+  #     - ./common:/common
+  #   build:
+  #     context: .
+  #     dockerfile: ./admin/Dockerfile
+  #     target: "${NODE_ENV}"
+  #   ports:
+  #     - ${ADMIN_PORT}:${ADMIN_PORT}
+  #   environment: 
+  #     - ADMIN_PORT=${ADMIN_PORT}
+  #     - NODE_ENV=${NODE_ENV}
+  #   depends_on:
+  #     - api
 
   frontend:
     volumes:
