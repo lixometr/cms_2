@@ -17,7 +17,7 @@ server {
     gzip_min_length 0;
     gzip_types text/plain application/javascript text/css text/xml application/xml application/xml+rss text/javascript application/vnd.ms-fontobject application/x-font-ttf font/opentype;
 
-    listen [::]:443;
+    listen [::]:443 ssl;
     listen 443 ssl; 
 	location / {
 		# First attempt to serve request as file, then
@@ -34,7 +34,7 @@ server {
 	}
     location /.well-known/acme-challenge/ { root /frontend; }
    
-    ssl_certificate /etc/letsencrypt/live/${HOST}/cert.pem; # managed by Certbot
+    ssl_certificate /etc/letsencrypt/live/${HOST}/fullchain.pem; # managed by Certbot
     ssl_certificate_key /etc/letsencrypt/live/${HOST}/privkey.pem; # managed by Certbot
     #include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
     error_page   500 502 503 504  /50x.html;
