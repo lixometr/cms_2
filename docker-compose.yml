@@ -107,7 +107,7 @@ services:
       - ./:/var/www/cms
     depends_on:
       - nginx
-    command: certonly --webroot --email lixometr@gmail.com --agree-tos --no-eff-email --force-renewal -w /var/www/cms/frontend -d st-cms.ru -w /var/www/cms/admin -d admin.st-cms.ru -w /var/www/cms/api -d api.st-cms.ru
+    command: certonly --webroot --email lixometr@gmail.com --agree-tos --no-eff-email --force-renewal -w /var/www/cms/ -d st-cms.ru -d admin.st-cms.ru -d api.st-cms.ru 
 
   # adminer:
   #   image: adminer:4.6.3-standalone
