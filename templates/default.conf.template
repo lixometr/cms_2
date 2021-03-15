@@ -89,20 +89,20 @@ server {
 }
 
 
-server {
-    if ($host = ${HOST}) {
-        return 301 https://$host$request_uri;
-    } # managed by Certbot
+#server {
+  #  if ($host = ${HOST}) {
+#        return 301 https://$host$request_uri;
+#    } # managed by Certbot
 
 
-	listen 80 default_server;
-	listen [::]:80 ;
+#	listen 80 default_server;
+#	listen [::]:80 ;
 
-	server_name ${HOST};
-    return 404; # managed by Certbot
+#	server_name ${HOST};
+  #  return 404; # managed by Certbot
 
 
-}
+#}
 
 
 
