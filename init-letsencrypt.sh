@@ -4,7 +4,7 @@ domains=("st-cms.ru" "api.st-cms.ru" "admin.st-cms.ru")
 email="lixometr@gmail.com" # Adding a valid address is strongly recommended
 staging=1 # Set to 1 if you're testing your setup to avoid hitting request limits
 
-data_path="./ssl/"
+data_path="./ssl"
 rsa_key_size=4096
 regex="([^www.].+)"
 
@@ -52,7 +52,7 @@ for domain in ${!domains[*]}; do
 
   if [ ! -e "$data_path/conf/live/$domain_name/cert.pem" ]; then
     echo "### Creating dummy certificate for $domain_name domain..."
-    path="/etc/letsencrypt/live/$domain_name"
+    path="./ssl/$domain_name"
     docker-compose run --rm --entrypoint "openssl req -x509 -nodes -newkey rsa:1024 \
     -days 1 -keyout '$path/privkey.pem' -out '$path/fullchain.pem' -subj '/CN=localhost'" certbot
   fi
