@@ -102,7 +102,7 @@ services:
     volumes:
       - ./ssl:/etc/letsencrypt
       - /dev/null:/var/lib/letsencrypt
-      - ./:var/www/cms
+      - ./:/var/www/cms
     depends_on:
       - nginx
     command: certonly --webroot --webroot-path=/var/www/cms --email lixometr@gmail.com --agree-tos --no-eff-email --staging -d st-cms.ru  -d admin.st-cms.ru -d api.st-cms.ru
