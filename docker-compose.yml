@@ -101,7 +101,7 @@ services:
     container_name: certbot
     volumes:
       - ./ssl:/etc/letsencrypt
-      - /dev/null:/var/lib/letsencrypt
+      - /var/lib/letsencrypt:/var/lib/letsencrypt
       - ./:/var/www/cms
     depends_on:
       - nginx
