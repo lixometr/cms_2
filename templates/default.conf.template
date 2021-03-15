@@ -31,7 +31,7 @@ server {
                 proxy_set_header  X-Real-IP  $remote_addr;
                 proxy_http_version 1.1;
 	}
-
+    location /.well-known/acme-challenge/ { root /frontend; }
     listen [::]:80;
     listen 80; 
     #ssl_certificate /etc/letsencrypt/csr/certificate.pem; # managed by Certbot
@@ -60,6 +60,7 @@ server {
 		proxy_http_version 1.1;
         proxy_pass http://api:${API_PORT};
 	}
+    location /.well-known/acme-challenge/ { root /api; }
 
     listen [::]:80; 
     listen 80; 
@@ -77,6 +78,7 @@ server {
 		try_files $uri /index.html;
 		
 	}
+    location /.well-known/acme-challenge/ { root /admin; }
 
     listen [::]:80;
     listen 80; 
