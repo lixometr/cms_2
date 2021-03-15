@@ -109,10 +109,12 @@ services:
     image: phpmyadmin/phpmyadmin:latest
     restart: always
     environment:
-      PMA_USER: ${DB_USER}
-      PMA_PASSWORD: ${DB_PASSWORD}
-      PMA_CONTROLUSER: ${PHP_MY_ADMIN_USER}
-      PMA_CONTROLPASS: ${PHP_MY_ADMIN_PASSWORD}
+      - PMA_USER=${DB_USER}
+      - PMA_PASSWORD=${DB_PASSWORD}
+      - PMA_CONTROLUSER=${PHP_MY_ADMIN_USER}
+      - PMA_CONTROLPASS=${PHP_MY_ADMIN_PASSWORD}
+      - PHPMYADMIN_ALLOW_REMOTE_CONNECTIONS=false
+      - DATABASE_ALLOW_NO_PASSWORD=false
     networks:
       - backend
     ports:
