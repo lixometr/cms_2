@@ -34,7 +34,8 @@ export default {
   },
 
 server: {
-  host: process.env.NODE_ENV === 'production' ? '0.0.0.0' : 'localhost' 
+  host: process.env.NODE_ENV === 'production' ? '0.0.0.0' : 'localhost',
+  port: process.env.FRONTEND_PORT
 },
   /*
  ** Global CSS
