@@ -17,7 +17,9 @@ export default ({ slug } = {}) => ({
   },
   async asyncData({ $api, error, params }) {
     try {
+      console.log('fetching', slug)
       const page = await $api.$get("page", { slug: slug || params.slug });
+      console.log(page)
       if (!page) throw { statusCode: 404 }
       return {
         page,
