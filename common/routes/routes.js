@@ -1,6 +1,7 @@
 module.exports = {
-    "category": "cat",
+    "category": "catalog",
     "product": "product",
     "blog": "blog",
-    "section": "s"
+    "section": "s",
+    "page": 'page'
 }

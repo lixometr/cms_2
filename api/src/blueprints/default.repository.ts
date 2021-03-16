@@ -1,4 +1,3 @@
-import { AppConfig } from 'src/config';
 import { EntityBase, PaginationResponse, PaginationDto } from 'src/internal';
 import { ID, SLUG } from 'src/internal';
 import { FindOptionsUtils, Like, QueryBuilder, Repository, SelectQueryBuilder } from 'typeorm';

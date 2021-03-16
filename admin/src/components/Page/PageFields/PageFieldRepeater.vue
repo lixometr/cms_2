@@ -1,7 +1,7 @@
 <template>
   <div>
     <CCard>
-      <CCardHeader>{{ template.name }} ({{template.varName}}) </CCardHeader>
+      <CCardHeader>{{ label }} ({{template.varName}}) </CCardHeader>
       <CCardBody>
         <AppMultiplyer
           :value="arrValue"

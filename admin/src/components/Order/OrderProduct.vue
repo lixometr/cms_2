@@ -40,7 +40,6 @@
 </template>
 
 <script>
-import Product from "@/../../common/models/product";
 import _ from "lodash";
 export default {
   props: {

@@ -1,9 +1,9 @@
 <template>
   <div>
     <CCard :class="{ 'no-border-bottom': !isOpen }">
-      <CCardHeader class="cursor-pointer" @click="toggle">{{
-        label
-      }}</CCardHeader>
+      <CCardHeader class="cursor-pointer" @click="toggle"
+        >{{ label }} ({{ template.varName }})
+      </CCardHeader>
       <CCollapse class="" :show="isOpen">
         <CCardBody class="pt-4 pr-4">
           <PageField

@@ -11,6 +11,14 @@ export class CurrencyController extends ControllerBlueprint{
   public name = CurrencyName
   constructor(private readonly itemService: CurrencyService) {super(itemService)}
   
+  @SerializeOptions({ groups: [SerializeGroup.Info, SerializeGroup.Translate] })
+  @Get()
+  async findAll(
+    @GetRequestPayload() requestPayload?: RequestPayload,
+  ): Promise<any> {
+    return await this.itemService.findAll({}, requestPayload);
+  }
+  
   @SerializeOptions({ groups: [SerializeGroup.Admin, SerializeGroup.AdminFull] })
   @AuthAdmin()
   @Post()

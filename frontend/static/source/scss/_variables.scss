@@ -1,0 +1,29 @@
+// шрифт //
+@import url("https://fonts.googleapis.com/css2?family=Exo+2:wght@300;400;700;800&display=swap");
+
+$default-color: #2c2419;
+body {
+	font-family: "Exo 2";
+	color: $default-color;
+	position: relative;
+}
+// шрифт //
+
+// начало Переменные //
+$red: gray;
+$yellow: #ffa401;
+$flex: flex;
+$jsc-c: center;
+// конец  Переменные //
+
+// Адаптивный шрифт
+$maxWidth: 1920; // макетная ширина
+
+@mixin adaptiv-font($pcSize, $mobSize) {
+	$addSize: $pcSize - $mobSize;
+	$maxWidth: $maxWidth - 320;
+	font-size: calc(#{$mobSize + px} + #{$addSize} * ((100vw - 320px) / #{$maxWidth}));
+}
+
+// подключить к шрифту макс - мин значения где 40 макс по макету для пк, мин для мобилки
+// @include adaptiv-font(40, 20);

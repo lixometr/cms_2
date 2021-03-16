@@ -21,13 +21,13 @@ export class Page extends EntityLocaleItemBlueprint {
     @Column({ nullable: true })
     templateId: ID
 
-    @Expose({ groups: [SerializeGroup.AdminFull] })
+    @Expose({ groups: [SerializeGroup.AdminFull, SerializeGroup.Full] })
     @ManyToOne(() => PageTemplate, pageTemplate => pageTemplate.pages, { cascade: CASCADE_NOT_INSERT, onDelete: 'SET NULL', eager: true })
     template: PageTemplate
 
     @Column({default: PublishStatus.Published})
     status: PublishStatus
-    
+ 
     async serialize( payload: RequestPayload) {
         // const items = await this.pageTemplateRepository.find()
         // console.log(items)

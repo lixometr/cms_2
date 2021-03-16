@@ -1,10 +1,9 @@
 {
-  "name": "shop-api",
-  "version": "0.0.1",
+  "name": "api",
+  "version": "1",
   "description": "",
   "author": "lixometr",
   "private": true,
-  "license": "UNLICENSED",
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "nest build",

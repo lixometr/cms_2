@@ -11,10 +11,14 @@
     "outDir": "./dist",
     "baseUrl": "./",
     "incremental": true,
+    "paths": {
+      "common/*": ["../common/*"]
+    }
     
   },
   "exclude": [
     "public"
   ],
-  "include": ["src"]
+  "include": ["src"],
+  
 }
