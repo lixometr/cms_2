@@ -13,14 +13,18 @@ export default async ({ app, $axios, store }, inject) => {
         return config
     })
     let baseUrl = globalConfig.api.baseUrl
-   
+
     if (process.server) {
-        baseUrl = `http://localhost:${globalConfig.api.port}`
+        if (process.env.NODE_ENV === 'development') {
+            baseUrl = `http://localhost:${globalConfig.api.port}`
+        } else {
+            baseUrl = `http://api:${globalConfig.api.port}`
+        }
         // baseUrl = 'https://api.st-cms.ru'
     }
-    if(process.env.NODE_ENV === 'development') {
+    if (process.env.NODE_ENV === 'development') {
         baseUrl = `https://api.st-cms.ru`
-        
+
     }
     inject('api', new Api(ApiRoutes({ baseUrl }), $axios, {}))
 }
