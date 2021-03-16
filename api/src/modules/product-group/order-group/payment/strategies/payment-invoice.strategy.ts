@@ -8,11 +8,10 @@ import { PaymentStrategy } from "./payment.strategy";
 @Injectable()
 export class PaymentInvoiceStrategy extends PaymentStrategy {
     public name = PaymentTypes.invoice
-    constructor(public paymentService: PaymentService, public eventEmiter: EventEmitter2, private invoiceService: GenerateInvoiceService, public moduleRef: ModuleRef) { super(paymentService, eventEmiter) }
+    constructor(public paymentService: PaymentService, public eventEmiter: EventEmitter2, public moduleRef: ModuleRef) { super(paymentService, eventEmiter) }
     async toResponse({ order }) {
-        // const test = this.moduleRef.get(GenerateInvoiceService)
-        // console.log(test)
-        // await this.invoiceService.generate({ order })
+        const generateInvoice =  new GenerateInvoiceService()
+        generateInvoice.generate({ order })
         return { ok: true }
     }
 }

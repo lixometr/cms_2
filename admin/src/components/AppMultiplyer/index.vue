@@ -42,7 +42,7 @@ export default {
     },
     itemClass: {
       type: Array,
-      default: () => []
+      default: () => [],
     },
     value: {
       type: Array,
@@ -65,10 +65,16 @@ export default {
       this.$emit("input", items);
     },
     onDragChange(value) {
-      this.$emit("input", value);
+      const newValue = value.map((val, idx) => ({
+        ...val,
+        sortOrder: value.length - 1 - idx,
+      }));
+      this.$emit("input", newValue);
     },
     add() {
-      const newItem = {};
+      const newItem = {
+        sortOrder: this.value.length
+      };
       const items = [...this.value, newItem];
       this.$emit("input", items);
     },

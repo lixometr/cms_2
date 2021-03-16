@@ -98,17 +98,6 @@ services:
       - backend
    
     command: ['mysqld', '--character-set-server=utf8mb4', '--collation-server=utf8mb4_unicode_ci']
-  # certbot:
-  #   image: certbot/certbot
-  #   container_name: certbot
-  #   volumes:
-  #     - ./ssl:/etc/letsencrypt
-  #     - /var/lib/letsencrypt:/var/lib/letsencrypt
-  #     - ./:/var/www/cms
-  #   depends_on:
-  #     - nginx
-  #   command: certonly --webroot --email lixometr@gmail.com --agree-tos --no-eff-email --force-renewal -w /var/www/cms/ -d st-cms.ru -d admin.st-cms.ru -d api.st-cms.ru 
-
   # adminer:
   #   image: adminer:4.6.3-standalone
   #   ports:
@@ -118,21 +107,21 @@ services:
   #     - web
   #   depends_on:
   #     - db
-  # phpmyadmin:
-  #   image: phpmyadmin/phpmyadmin:latest
-  #   restart: always
-  #   environment:
-  #     - PMA_ARBITRARY=0
-  #     - PMA_USER=${DB_USER}
-  #     - PMA_PASSWORD=${DB_PASSWORD}
-  #     - PMA_CONTROLUSER=${PHP_MY_ADMIN_USER}
-  #     - PMA_CONTROLPASS=${PHP_MY_ADMIN_PASSWORD}
-  #     - PHPMYADMIN_ALLOW_REMOTE_CONNECTIONS=no
-  #     - DATABASE_ALLOW_NO_PASSWORD=no
-  #   networks:
-  #     - backend
-  #   ports:
-  #     - "8075:80"
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    restart: always
+    environment:
+      - PMA_ARBITRARY=0
+      - PMA_USER=${DB_USER}
+      - PMA_PASSWORD=${DB_PASSWORD}
+      - PMA_CONTROLUSER=${PHP_MY_ADMIN_USER}
+      - PMA_CONTROLPASS=${PHP_MY_ADMIN_PASSWORD}
+      - PHPMYADMIN_ALLOW_REMOTE_CONNECTIONS=no
+      - DATABASE_ALLOW_NO_PASSWORD=no
+    networks:
+      - backend
+    ports:
+      - "8075:80"
 networks:
   backend: 
   web:

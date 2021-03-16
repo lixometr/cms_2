@@ -1,19 +1,17 @@
 <template>
   <CCard>
     <CCardBody>
-      <Label class="mb-3" label="Название">{{ item.item.name }}</Label>
-      <Label class="mb-3" label="Цена">{{ currency }}{{ price }}</Label>
+      <Label class="mb-3" label="Название">{{ item.product.name }}</Label>
+      <Label class="mb-3" label="Цена">{{ item.product.price }} {{ currency }}</Label>
       <CCard>
         <CCardBody>
-          <Label class="mb-3" label="Date" v-if="date">
-            <span>{{ $moment(date.date).format("DD.MM.YYYY HH:mm") }}</span>
-          </Label>
+         
           <!-- <Label class="mb-3" :label="variation.attr.name" v-if="variation">
             {{ variation.attrValue.name }}
           </Label> -->
-          <!-- <div v-for="(option, idx) in options" :key="idx">
-            <Label class="mb-3" :label="option.option.name">
-              <template v-if="option.option.type === 'range'">
+          <div v-for="(option, idx) in options" :key="idx">
+            <Label class="mb-3" :label="option.name">
+              <template v-if="option.type === 'range'">
                 <span
                   class="cart-itm-bot__itm__val"
                   v-for="(value, index) in option.values"
@@ -29,12 +27,12 @@
                   :key="index"
                   >{{ value.name }}
                   <template v-if="value.price"
-                    >({{ currency }}{{ value.price }})</template
+                    >({{ value.price }} {{ currency }})</template
                   >{{ option.values.length - 1 > index ? ", " : "" }}
                 </span>
               </template>
             </Label>
-          </div> -->
+          </div>
         </CCardBody>
       </CCard>
     </CCardBody>
@@ -54,8 +52,11 @@ export default {
   },
   computed: {
     currency() {
-      return this.order.currency.slug;
+      return this.order.currency.sign;
     },
+    options() {
+      return this.item.product.options
+    }
   },
 };
 </script>

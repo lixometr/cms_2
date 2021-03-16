@@ -1,6 +1,8 @@
+import { ArrayResponse } from "src/internal";
 import { DeliveryCourierBo } from "./bo/delivery-courier.bo";
 import { DeliveryIntegrationBo } from "./bo/delivery-integration.bo";
 import { DeliveryPickupBo } from "./bo/delivery-pickup.bo";
+import { Delivery } from "./entities/delivery.entity";
 import { DeliveryCourierStrategy } from "./strategies/delivery-courier.strategy";
 import { DeliveryPickupStrategy } from "./strategies/delivery-pickup.strategy";
 import { DeliverySDEKStrategy } from "./strategies/integration-strategies/delivery-sdek.strategy";
@@ -27,5 +29,10 @@ export const DeliveryIntegrationStrategies = {
 export const DeliveryStrategies = {
     [DeliveryTypes.pickup]: DeliveryPickupStrategy,
     [DeliveryTypes.courier]: DeliveryCourierStrategy,
+}
 
+export interface IAvailableDeliveries {
+    [DeliveryTypes.courier]: ArrayResponse<Delivery>,
+    [DeliveryTypes.pickup]: ArrayResponse<Delivery>,
+    [DeliveryTypes.integraiton]: {}
 }

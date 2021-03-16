@@ -1,7 +1,7 @@
 
 <script>
-import cyrillicToTranslit from "cyrillic-to-translit-js";
 import _ from "lodash";
+import {makeSlug} from "@/helpers/slug"  
 export default {
   props: {
     isNew: Boolean,
@@ -16,8 +16,7 @@ export default {
       item: {},
       noSlug: true,
       autoSlug: true,
-      isLoading: false
-
+      isLoading: false,
     };
   },
   computed: {
@@ -60,7 +59,7 @@ export default {
       return;
     },
     async save() {
-      if(this.isLoading) return
+      if (this.isLoading) return;
       if (!this.validate()) {
         this.$notify({
           group: "main",
@@ -70,7 +69,7 @@ export default {
         return;
       }
       try {
-        this.isLoading = true
+        this.isLoading = true;
         let result;
         if (this.isNew) {
           result = await this.$api.post(this.createRoute, {}, this.item);
@@ -94,7 +93,7 @@ export default {
       } catch (err) {
         this.$error(err);
       } finally {
-        this.isLoading = false
+        this.isLoading = false;
       }
     },
     saveSuccess() {
@@ -113,9 +112,9 @@ export default {
     },
     afterDelete() {},
     async onDelete() {
-      if(this.isLoading) return
+      if (this.isLoading) return;
       try {
-        this.isLoading = true
+        this.isLoading = true;
         const { data } = await this.$api.delete(this.editRoute, {
           id: this.item.id,
         });
@@ -126,7 +125,7 @@ export default {
       } catch (err) {
         this.$error(err);
       } finally {
-        this.isLoading = false
+        this.isLoading = false;
       }
     },
   },
@@ -136,10 +135,7 @@ export default {
       handler() {
         if (this.autoSlug && this.noSlug) {
           const name = this.$getLocaleValue(this.item.locale, "name") || "";
-          const sValue = cyrillicToTranslit().transform(
-            name.toLowerCase(),
-            "-"
-          );
+          const sValue = makeSlug(name);
           this.$set(this.item, "slug", sValue);
         }
       },

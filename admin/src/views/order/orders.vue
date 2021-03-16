@@ -11,7 +11,6 @@
     :items="items"
     :showSearch="false"
     :createBtn="false"
-
   >
     <template #first_name="{ item }">
       <td>
@@ -24,7 +23,7 @@
       </td>
     </template>
     <template #totalPrice="{ item }">
-      <!-- <td>{{ item.region.currency }}{{ item.totalPrice }}</td> -->
+      <td> {{ item.totalPrice }}{{ item.currency.sign }}</td>
     </template>
     <template #status="{ item }">
       <td>
@@ -43,10 +42,10 @@ export default {
     return {
       fetchRoute: "orders",
       removeRoute: "orderById",
-      searchPhrase: "",
+      editRouteName: "Order",
+      createRouteName: "OrderNew",
       useSearch: false,
       fields: [
-        
         {
           key: "orderId",
           label: "Id заказа",
@@ -60,8 +59,6 @@ export default {
           key: "totalPrice",
           label: "Цена",
         },
-
-        
       ],
     };
   },

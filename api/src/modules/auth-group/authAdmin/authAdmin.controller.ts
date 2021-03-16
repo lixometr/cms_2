@@ -22,6 +22,7 @@ export class AuthAdminController {
     return this.authAdminService.login(req.user)
   }
 
+  @AuthAdmin()
   @Post('signup')
   async signup(@Body() data: SignupAdminDto, @GetRequestPayload() requestPayload: RequestPayload) {
     return this.authAdminService.signup(data, requestPayload)

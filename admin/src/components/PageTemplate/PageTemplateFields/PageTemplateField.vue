@@ -81,7 +81,7 @@
 <script>
 import _ from "lodash";
 import PageTemplateFieldChooser from "./PageTemplateFieldChooser";
-import cyrillicToTranslit from "cyrillic-to-translit-js";
+import * as slugify from "slugify"
 import { required } from "vuelidate/lib/validators";
 export default {
   props: {
@@ -211,7 +211,11 @@ export default {
       handler() {
         if (this.hasVarName) return;
         const name = this.item.name || "";
-        let sValue = cyrillicToTranslit().transform(name.toLowerCase(), "_");
+        let sValue = slugify(name, {
+          replacement: "_",
+          lower: true,
+          strict: true,
+        });
         sValue = sValue.replace(/\/-\./g, "_");
         this.$set(this.item, "varName", sValue);
         // this.emitData()

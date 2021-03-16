@@ -90,7 +90,11 @@ export default {
       this.$emit("input", newValue);
     },
     onDragChange(value) {
-      this.$emit("input", value);
+       const newValue = value.map((val, idx) => ({
+        ...val,
+        sortOrder: value.length - 1 - idx,
+      }));
+      this.$emit("input", newValue);
     },
     onLoadMultiple(value) {
       if (!value) value = [];

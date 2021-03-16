@@ -8,7 +8,7 @@ import { PaymentStrategy } from './strategies/payment.strategy';
 @Module({
   imports: [],
   controllers: [PaymentController],
-  providers: [PaymentService, PaymentStrategy, PaymentInvoiceStrategy, GenerateInvoiceService],
-  exports: [PaymentService, PaymentStrategy, PaymentInvoiceStrategy, GenerateInvoiceService]
+  providers: [PaymentService, PaymentStrategy, GenerateInvoiceService, PaymentInvoiceStrategy],
+  exports: [PaymentService, PaymentStrategy, ]
 })
 export class PaymentModule { }

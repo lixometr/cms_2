@@ -24,6 +24,7 @@
             class="mb-4"
             label="Slug"
             v-model="attributeValue.slug"
+            @input="noSlug = false"
           />
 
           <AttributeSelect
@@ -49,6 +50,7 @@
 import AttributeSelect from "@/components/AttributeSelect";
 import Modal from "@/components/Modals/Modal";
 import { required } from "vuelidate/lib/validators";
+import { makeSlug } from "@/helpers/slug";
 export default {
   props: {
     //   attrId
@@ -70,6 +72,7 @@ export default {
       thisId: this.id,
       isNew: this.new,
       isLoading: false,
+      noSlug: true,
     };
   },
   validations: {
@@ -98,12 +101,7 @@ export default {
     async fetch() {
       this.isLoading = true;
       try {
-        if (this.isNew) {
-          //   const { data: attrValue } = await this.$api.post("attributeValues", null, {
-          //       attributeId: this.attributeId
-          //   });
-          //   this.attributeValue = attrValue;
-        } else {
+        if (!this.isNew) {
           const { data: attrValue } = await this.$api.get(
             "attributeValueByIdAdmin",
             {
@@ -111,6 +109,7 @@ export default {
             }
           );
           this.attributeValue = attrValue;
+          if (attrValue.slug) this.noSlug = false;
         }
       } catch (err) {
         this.$error(err);
@@ -163,6 +162,17 @@ export default {
     },
     attributeId() {
       this.attributeValue.attributeId = this.attributeId;
+    },
+    attributeValue: {
+      deep: true,
+      handler() {
+        if (this.noSlug) {
+          const name =
+            this.$getLocaleValue(this.attributeValue.locale, "name") || "";
+          const sValue = makeSlug(name);
+          this.$set(this.attributeValue, "slug", sValue);
+        }
+      },
     },
   },
 };

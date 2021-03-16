@@ -128,7 +128,11 @@ export default {
   },
   methods: {
     onDragChange(value) {
-      this.$set(this.item, "values", value);
+      const newValue = value.map((val, idx) => ({
+        ...val,
+        sortOrder: value.length - 1 - idx,
+      }));
+      this.$set(this.item, "values", newValue);
     },
     onValueDelete(idx) {
       this.item.values = this.item.values.filter((val, index) => index !== idx);

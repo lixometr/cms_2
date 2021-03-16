@@ -17,9 +17,9 @@
 </template>
 
 <script>
-import cyrillicToTranslit from "cyrillic-to-translit-js";
 import { required } from "vuelidate/lib/validators";
 import _ from "lodash";
+import * as slugify from "slugify"
 export default {
   props: {
     value: {
@@ -48,8 +48,13 @@ export default {
     onChangeValue() {
       if (!this.hasVarName) {
         const name = this.item.value || "";
-        let sValue = cyrillicToTranslit().transform(name.toLowerCase(), "_");
-        sValue = sValue.replace(/\/-\./g, "_");
+
+        let sValue = slugify(name, {
+          replacement: "_",
+          remove: undefined,
+          lower: true,
+          strict: true,
+        });
         this.$set(this.item, "varName", sValue);
       }
 

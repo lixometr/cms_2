@@ -1,4 +1,6 @@
 import { Module } from '@nestjs/common';
+import "./internal"
+import "./blueprints"
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { DatabaseModule } from './modules/database/database.module';

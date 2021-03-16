@@ -6,7 +6,7 @@ import { Roles } from "../user.types";
 
 @Entity()
 export class User extends EntityDefaultBlueprint {
-  @Column()
+  @Column({nullable: true})
   firstName: string;
 
   @Column({ nullable: true })

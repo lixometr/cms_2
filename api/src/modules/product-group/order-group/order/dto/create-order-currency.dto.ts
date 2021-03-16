@@ -1,4 +1,4 @@
-import { IsInt, IsString } from "class-validator";
+import { IsInt, IsOptional, IsString } from "class-validator";
 import { ID, SLUG } from "src/types";
 
 export class CreateOrderCurrencyDto {

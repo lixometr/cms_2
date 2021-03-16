@@ -1,1 +1,1 @@
-export const OrderName = 'order_some'
+export const OrderName = 'order'

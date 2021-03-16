@@ -18,7 +18,7 @@
       <CCardHeader>Информация</CCardHeader>
       <CCardBody>
         <Label class="mb-3" label="Сумма"
-          >{{ order.region.currency }}{{ order.total_price }}</Label
+          >{{ order.totalPrice }}{{ order.currency.sign }}</Label
         >
         <Label class="mb-3" label="Статус">
           <v-select
@@ -35,7 +35,6 @@
         <Label class="mb-3" label="Способ оплаты">{{
           order.payment_method
         }}</Label>
-        <Label label="Регион">{{ order.region.name }}</Label>
       </CCardBody>
     </CCard>
     <CCard>

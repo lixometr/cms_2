@@ -52,7 +52,11 @@ export default {
       this.$emit("input", items);
     },
     onDragChange(value) {
-      this.$emit("input", value);
+      const newValue = value.map((val, idx) => ({
+        ...val,
+        sortOrder: value.length - 1 - idx,
+      }));
+      this.$emit("input", newValue);
     },
     add() {
       const newItem = {

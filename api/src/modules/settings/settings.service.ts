@@ -1,6 +1,6 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { EventEmitter2 } from '@nestjs/event-emitter';
-import { ServiceBlueprint } from 'src/blueprints/service';
+import { ServiceBlueprint } from 'src/blueprints/';
 import { ID, RequestPayload, SLUG } from 'src/internal';
 import { SerializeGroup } from 'src/internal';
 import { UpdateSettingDto } from './dto/update-setting.dto';
