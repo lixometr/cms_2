@@ -19,7 +19,10 @@ export default async ({ app, $axios, store }, inject) => {
     if (process.server) {
         if (process.env.NODE_ENV === 'development') {
             baseUrl = `http://localhost:${globalConfig.api.port}`
-        } 
+        } else {
+            baseUrl = `http://api:${globalConfig.api.port}`
+
+        }
         // baseUrl = 'https://api.st-cms.ru'
     }
     console.log(baseUrl)
