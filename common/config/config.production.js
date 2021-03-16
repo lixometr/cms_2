@@ -1,16 +1,16 @@
 module.exports = {
     "api": {
-        "baseUrl": "https://api.st-cms.com",
-        "baseName": "api.st-cms.com",
+        "baseUrl": "https://api.st-cms.ru",
+        "baseName": "api.st-cms.ru",
         port: 3001
     },
     "frontend": {
-        "baseUrl": "https://st-cms.com",
-        "baseName": "st-cms.com",
+        "baseUrl": "https://st-cms.ru",
+        "baseName": "st-cms.ru",
         port: 3002
     },
     "admin": {
-        "baseUrl": "https://admin.st-cms.com",
-        "baseName": "admin.st-cms.com"
+        "baseUrl": "https://admin.st-cms.ru",
+        "baseName": "admin.st-cms.ru"
     }
 }
