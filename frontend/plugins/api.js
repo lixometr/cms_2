@@ -22,5 +22,6 @@ export default async ({ app, $axios, store }, inject) => {
         } 
         // baseUrl = 'https://api.st-cms.ru'
     }
+    console.log(baseUrl)
     inject('api', new Api(ApiRoutes({ baseUrl }), $axios, {}))
 }
