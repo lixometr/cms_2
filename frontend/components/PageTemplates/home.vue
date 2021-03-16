@@ -537,16 +537,28 @@
             <!-- <input type="button" value="Выбрать" class="button"> -->
 
             <div class="offer__text-button">
-              <nuxt-link :to="getValue('blok_perebivki_na_glavnoi.ssilka_knopki_bloka_perebivki') || '#'" class="button">{{
-                getValue(
-                  "blok_perebivki_na_glavnoi.nazvanie_knopki_bloka_perebivki"
-                )
-              }}</nuxt-link>
+              <nuxt-link
+                :to="
+                  getValue(
+                    'blok_perebivki_na_glavnoi.ssilka_knopki_bloka_perebivki'
+                  ) || '#'
+                "
+                class="button"
+                >{{
+                  getValue(
+                    "blok_perebivki_na_glavnoi.nazvanie_knopki_bloka_perebivki"
+                  )
+                }}</nuxt-link
+              >
             </div>
 
             <img
               class="special-goods__image preview"
-              src="source/img/special_goods/special_1.png"
+              :src="
+                getValue(
+                  'blok_perebivki_na_glavnoi.izobrazhenie_bloka_perebivki.url'
+                )
+              "
               alt=""
             />
           </div>
@@ -555,7 +567,11 @@
         <div class="special-goods__column">
           <img
             class="special-goods__image special-goods__image"
-            src="source/img/special_goods/bg2.png"
+            :src="
+              getValue(
+                'blok_perebivki_na_glavnoi.izobrazhenie_na_fone_bloka_perebivki.url'
+              )
+            "
           />
         </div>
       </div>
@@ -565,45 +581,54 @@
     <!-- О нас -->
     <section class="about-us fadeUp t-default" data-t-show="3">
       <div class="container">
-        <div class="about-us__swiper-container swiper-container">
-          <div class="swiper-wrapper">
-            <div class="swiper-slide">
-              <img src="source/img/slider_abous_us/img1.png" alt="" />
-            </div>
-            <div class="swiper-slide">
-              <img src="source/img/slider_abous_us/img1.png" alt="" />
-            </div>
-            <div class="swiper-slide">
-              <img src="source/img/slider_abous_us/img1.png" alt="" />
-            </div>
-          </div>
+        <swiper class="about-us__swiper-container swiper-container" :options="slider2Options">
+          <swiper-slide
+          
+            v-for="(item, idx) in getValue(
+              'blok_o_kompanii_na_glavnoi.slaid-shou_bloka_o_kompanii_na_glavnoi'
+            )"
+            :key="idx"
+          >
+            <img
+              :src="
+                getValue(
+                  `blok_o_kompanii_na_glavnoi.slaid-shou_bloka_o_kompanii_na_glavnoi[${idx}].zagruzit_izobrazhenie_bloka_slaid-shou_o_kompanii.url`
+                )
+              "
+              alt="image"
+            />
+          </swiper-slide>
           <!-- Add Pagination -->
-          <div class="swiper-pagination"></div>
-        </div>
+          <div class="swiper-pagination" slot="pagination"></div>
+        </swiper>
 
         <div class="about-us__text">
           <!-- Заголовок и описание на сайте повторяются -->
           <div class="title">
             <div class="title-description">
-              <span>КОРОТКО О НАС</span>
+              <span>{{
+                getValue(
+                  "blok_o_kompanii_na_glavnoi.podzagolovok_bloka_o_kompanii_na_glavnoi"
+                )
+              }}</span>
             </div>
             <div class="title-name">
-              <h2>Компания PILOT</h2>
+              <h2>
+                {{
+                  getValue(
+                    "blok_o_kompanii_na_glavnoi.zagolovok_bloka_o_kompanii_na_glavnoi"
+                  )
+                }}
+              </h2>
             </div>
             <div class="title-text">
-              <p>
-                Компания PILOT-VRN официально представляет в Воронеже и области
-                Российскую швейную ассоциацию компаний «АВТОПИЛОТ».Мы впервые
-                вышли на рынок в 1999 году. Целью деятельности нашего
-                интернет-магазина является обеспечение уюта и комфорта для
-                автомобилиста и его пассажиров.
-              </p>
-
-              <p>
-                Разнообразие цветовой гаммы и материалов позволяет создавать
-                оригинальную продукцию, способную удовлетворить любого клиента.
-                Лозунг нашей компании: «Делаем с любовью – продаем с гордостью».
-              </p>
+              <AText
+                :text="
+                  getValue(
+                    'blok_o_kompanii_na_glavnoi.tekst_bloka_o_kompanii_na_glavnoi'
+                  )
+                "
+              />
             </div>
 
             <!-- <div class="title-button">
@@ -611,7 +636,19 @@
 					</div> -->
 
             <div class="offer__text-button">
-              <a href="page_about_us.html" class="button">Подробнее</a>
+              <nuxt-link
+                :to="
+                  getValue(
+                    'blok_o_kompanii_na_glavnoi.ssilka_knopki_bloka_o_kompanii_na_glavnoi'
+                  )
+                "
+                class="button"
+                >{{
+                  getValue(
+                    "blok_o_kompanii_na_glavnoi.nazvanie_knopki_bloka_o_kompanii_na_glavnoi"
+                  )
+                }}</nuxt-link
+              >
             </div>
           </div>
           <!-- Конец - Заголовок и описание на сайте повторяются -->
@@ -627,16 +664,16 @@
       <div class="container">
         <div class="questions-block__bg">
           <div class="questions-block__bg-columns">
-            <span class="questions-block__bg-title">Остались вопросы?</span>
+            <span class="questions-block__bg-title">{{getValue('tochka_zakhvata_na_glavnoi.zagolovok_bloka_t/z')}}</span>
           </div>
           <div class="questions-block__bg-columns">
             <p class="questions-block__bg-text">
-              Наши специалисты с удовольствием ответят на все Ваши вопросы.
+            {{getValue('tochka_zakhvata_na_glavnoi.podzagolovok_bloka_t/z')}}
             </p>
           </div>
           <div class="questions-block__bg-columns" id="myBtn2">
-            <a href="#0" class="questions-block__bg-button button"
-              >Задать вопрос</a
+            <nuxt-link :to="getValue('tochka_zakhvata_na_glavnoi.ssilka_knopki_bloka_t/z')" class="questions-block__bg-button button"
+              >{{getValue('tochka_zakhvata_na_glavnoi.nazvanie_knopki_bloka_t/z')}}</nuxt-link
             >
           </div>
         </div>
@@ -655,7 +692,34 @@ export default {
     this.initSlider1();
     this.initSlider2();
   },
-  computed: {},
+  computed: {
+    slider2Options() {
+      return {
+        direction: "vertical",
+        slidesPerView: 1,
+        mousewheel: true,
+
+        dynamicBullets: true,
+        pagination: {
+          el: ".swiper-pagination",
+          clickable: true,
+          renderBullet: function (index, className) {
+            return (
+              '<span class="' + className + '"> 0' + (index + 1) + "</span>"
+            );
+          },
+        },
+        autoplay: {
+          delay: 5500,
+          disableOnInteraction: false,
+        },
+        loop: true,
+        updateOnWindowResize: true,
+        observer: true,
+        observeParents: true,
+      };
+    },
+  },
   methods: {
     initSlider1() {
       var swiper = new Swiper(".offer-swiper-container ", {
@@ -683,30 +747,10 @@ export default {
       });
     },
     initSlider2() {
-      var swiper = new Swiper(".about-us__swiper-container", {
-        direction: "vertical",
-        slidesPerView: 1,
-        mousewheel: true,
-
-        dynamicBullets: true,
-        pagination: {
-          el: ".swiper-pagination",
-          clickable: true,
-          renderBullet: function (index, className) {
-            return (
-              '<span class="' + className + '"> 0' + (index + 1) + "</span>"
-            );
-          },
-        },
-        autoplay: {
-          delay: 5500,
-          disableOnInteraction: false,
-        },
-        loop: true,
-        updateOnWindowResize: true,
-        observer: true,
-        observeParents: true,
-      });
+      var swiper = new Swiper(
+        ".about-us__swiper-container",
+        this.slider2Options
+      );
     },
     initJs() {
       // анимация при загрузке стр

@@ -1,14 +1,14 @@
 export default ({ slug } = {}) => ({
   head() {
     return {
-      title: this.page.title,
+      title: this.page.seo.title,
       meta: [
         {
           hid: "description",
           name: "description",
-          content: this.page.description,
+          content: this.page.seo.description,
         },
-        { name: "keywords", content: this.page.keywords },
+        { name: "keywords", content: this.page.seo.keywords },
       ],
     }
   },
@@ -17,9 +17,7 @@ export default ({ slug } = {}) => ({
   },
   async asyncData({ $api, error, params }) {
     try {
-      console.log('fetching', slug)
       const page = await $api.$get("page", { slug: slug || params.slug });
-      console.log(page)
       if (!page) throw { statusCode: 404 }
       return {
         page,

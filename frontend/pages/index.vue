@@ -5,19 +5,19 @@
 <script>
 import PageMixin from "@/mixins/PageMixin.js";
 export default {
-  head() {
-    return {
-      title: this.page.title,
-      meta: [
-        {
-          hid: "description",
-          name: "description",
-          content: this.page.description,
-        },
-        { name: "keywords", content: this.page.keywords },
-      ],
-    };
-  },
+  // head() {
+  //   return {
+  //     title: this.page.seo.title,
+  //     meta: [
+  //       {
+  //         hid: "description",
+  //         name: "description",
+  //         content: this.page.seo.description,
+  //       },
+  //       { name: "keywords", content: this.page.seo.keywords },
+  //     ],
+  //   };
+  // },
   mixins: [PageMixin({ slug: "home" })],
   // async asyncData({ $api, error }) {
   //   try {
