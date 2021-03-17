@@ -5,24 +5,24 @@
     <label class="mobile-menu__items">
       <div class="logo">
         <a href="index.html">
-          <img src="source/img/logo.svg" />
+          <img src="/source/img/logo.svg" />
         </a>
       </div>
       <div class="phone">
         <a href="tel:8 (473) 232-37-98">
-          <img src="source/img/telephone.png" />
+          <img src="/source/img/telephone.png" />
         </a>
       </div>
       <div class="offer__buy">
         <a href="page_basket.html" class="offer__buy-button">
-          <img class="svg" src="source/img/m_buy.svg" alt="Купить" />
+          <img class="svg" src="/source/img/m_buy.svg" alt="Купить" />
           <div class="offer__buy-count">3</div>
         </a>
       </div>
 
       <div class="offer__like">
         <a href="page_like.html" class="offer__like-button">
-          <img class="svg" src="source/img/m_like.svg" alt="+1" />
+          <img class="svg" src="/source/img/m_like.svg" alt="+1" />
           <div class="offer__like-count">0</div>
         </a>
       </div>

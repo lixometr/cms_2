@@ -17,7 +17,7 @@ body {
 }
 
 .main-page .header,
-.main-page .offer__text,
+// .main-page .offer__text,
 .main-page .offer-swiper-pagination,
 .main-page .offer-swiper-container,
 .main-page .search-block,
@@ -365,6 +365,17 @@ aside {
 	// 	position: absolute;
 	// }
 
+	.qwe:before {
+		content: "";
+		display: block;
+		width: 100%;
+		height: 100%;
+		opacity: 0.7;
+		background-color: #1e180f;
+		z-index: 2;
+		position: absolute;
+	}
+
 	.offer-swiper-container {
 		position: absolute;
 		max-height: 99%;
@@ -378,7 +389,7 @@ aside {
 			opacity: 0.7;
 			background-color: #1e180f;
 			z-index: 999;
-			position: absolute;
+			// position: absolute;
 		}
 
 		.offer-swiper-pagination {

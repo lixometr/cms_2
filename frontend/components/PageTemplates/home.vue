@@ -1,55 +1,52 @@
 <template>
   <main class="main-page">
     <section class="offer">
-      <div class="offer-swiper-container swiper-container">
-        <div class="swiper-wrapper">
-          <div class="swiper-slide">
-            <div class="qwe">
-              <img src="source/img/sed1.png" />
-            </div>
+      <swiper
+        class="offer-swiper-container swiper-container"
+        :options="slider1Options"
+      >
+        <swiper-slide
+          class="swiper-slide"
+          v-for="(item, idx) in getValue('slaid-shou')"
+          :key="idx"
+        >
+          <div class="qwe">
+            <img
+              :src="getValue(`slaid-shou[${idx}].izobrazhenie_slaida.url`)"
+            />
           </div>
-        </div>
-        <div class="swiper-wrapper">
-          <div class="swiper-slide">
-            <div class="qwe">
-              <img src="source/img/sed2.png" />
-            </div>
-          </div>
-        </div>
-        <div class="swiper-wrapper">
-          <div class="swiper-slide">
-            <div class="qwe">
-              <img src="source/img/sed1.png" />
-            </div>
-          </div>
-        </div>
-        <div class="swiper-wrapper">
-          <div class="swiper-slide">
-            <div class="qwe">
-              <img src="source/img/sed2.png" />
-            </div>
-          </div>
-        </div>
-        <!-- Add Pagination -->
-        <div class="offer-swiper-pagination swiper-pagination"></div>
-      </div>
 
-      <div class="container">
-        <div class="offer__text">
-          <div class="offer__text-title">
-            <h1>ЭКОКОЖА "АРИГОН"</h1>
+          <div class="container">
+            <div class="offer__text">
+              <div class="offer__text-title">
+                <h1>{{ getValue(`slaid-shou[${idx}].zagolovok_slaida`) }}</h1>
+              </div>
+              <div class="offer__text-text">
+                <p>
+                  {{ getValue(`slaid-shou[${idx}].podzagolovok_slaida`) }}
+                </p>
+              </div>
+              <div class="offer__text-button">
+                <nuxt-link
+                  :to="getValue(`slaid-shou[${idx}].ssilka_knopki_slaida`)"
+                  class="button"
+                  >{{
+                    getValue(`slaid-shou[${idx}].nazvanie_knopki_slaida`)
+                  }}</nuxt-link
+                >
+              </div>
+            </div>
           </div>
-          <div class="offer__text-text">
-            <p>
-              Идеально подходит по техническим характеристикам для пошива чехлов
-              для сидений автомобиля
-            </p>
-          </div>
-          <div class="offer__text-button">
-            <a href="page_single_product.html" class="button">Подобрать</a>
-          </div>
-        </div>
-      </div>
+        </swiper-slide>
+
+        <!-- Add Pagination -->
+        <div
+          class="offer-swiper-pagination swiper-pagination"
+          slot="pagination"
+        ></div>
+      </swiper>
+
+      
     </section>
 
     <!-- Блок поиска -->
@@ -581,9 +578,11 @@
     <!-- О нас -->
     <section class="about-us fadeUp t-default" data-t-show="3">
       <div class="container">
-        <swiper class="about-us__swiper-container swiper-container" :options="slider2Options">
+        <swiper
+          class="about-us__swiper-container swiper-container"
+          :options="slider2Options"
+        >
           <swiper-slide
-          
             v-for="(item, idx) in getValue(
               'blok_o_kompanii_na_glavnoi.slaid-shou_bloka_o_kompanii_na_glavnoi'
             )"
@@ -664,16 +663,26 @@
       <div class="container">
         <div class="questions-block__bg">
           <div class="questions-block__bg-columns">
-            <span class="questions-block__bg-title">{{getValue('tochka_zakhvata_na_glavnoi.zagolovok_bloka_t/z')}}</span>
+            <span class="questions-block__bg-title">{{
+              getValue("tochka_zakhvata_na_glavnoi.zagolovok_bloka_t/z")
+            }}</span>
           </div>
           <div class="questions-block__bg-columns">
             <p class="questions-block__bg-text">
-            {{getValue('tochka_zakhvata_na_glavnoi.podzagolovok_bloka_t/z')}}
+              {{
+                getValue("tochka_zakhvata_na_glavnoi.podzagolovok_bloka_t/z")
+              }}
             </p>
           </div>
           <div class="questions-block__bg-columns" id="myBtn2">
-            <nuxt-link :to="getValue('tochka_zakhvata_na_glavnoi.ssilka_knopki_bloka_t/z')" class="questions-block__bg-button button"
-              >{{getValue('tochka_zakhvata_na_glavnoi.nazvanie_knopki_bloka_t/z')}}</nuxt-link
+            <nuxt-link
+              :to="
+                getValue('tochka_zakhvata_na_glavnoi.ssilka_knopki_bloka_t/z')
+              "
+              class="questions-block__bg-button button"
+              >{{
+                getValue("tochka_zakhvata_na_glavnoi.nazvanie_knopki_bloka_t/z")
+              }}</nuxt-link
             >
           </div>
         </div>
@@ -689,10 +698,35 @@ export default {
   mixins: [PageTemplateMixin],
   async mounted() {
     this.initJs();
-    this.initSlider1();
-    this.initSlider2();
+    // this.initSlider1();
+    // this.initSlider2();
   },
   computed: {
+    slider1Options() {
+      return {
+        direction: "vertical",
+        slidesPerView: 1,
+        spaceBetween: 0,
+        mousewheel: false,
+        pagination: {
+          el: ".offer-swiper-pagination",
+          clickable: true,
+
+          renderBullet: function (index, className) {
+            return (
+              '<span class="' + className + '"> 0' + (index + 1) + "</span>"
+            );
+          },
+        },
+        autoplay: {
+          delay: 8500,
+        },
+        loop: true,
+        updateOnWindowResize: true,
+        observer: true,
+        observeParents: true,
+      };
+    },
     slider2Options() {
       return {
         direction: "vertical",

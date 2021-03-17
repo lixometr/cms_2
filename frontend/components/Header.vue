@@ -2,13 +2,13 @@
     <header class="header header__scrollto" id="top">
       <div class="container">
         <div class="header__logo">
-          <a href="index.html">
+          <nuxt-link to="/">
             <img
               class="logo"
-              src="source/img/logo.svg"
+              src="/source/img/logo.svg"
               alt="Авточехлы и Аксессуары"
             />
-          </a>
+          </nuxt-link>
         </div>
         <div class="header__menu">
           <ul class="menu">

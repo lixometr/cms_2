@@ -3,7 +3,9 @@
 
 
 
-
+Tu.tScroll({
+	't-element': '.fadeUp'
+})
 
 // svg поддержка
 $(document).ready(function () {

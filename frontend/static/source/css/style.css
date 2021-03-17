@@ -101,7 +101,6 @@ body {
 }
 
 .main-page .header,
-.main-page .offer__text,
 .main-page .offer-swiper-pagination,
 .main-page .offer-swiper-container,
 .main-page .search-block,
@@ -456,6 +455,17 @@ aside {
   z-index: -1;
 }
 
+.offer .qwe:before {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 100%;
+  opacity: 0.7;
+  background-color: #1e180f;
+  z-index: 2;
+  position: absolute;
+}
+
 .offer .offer-swiper-container {
   position: absolute;
   max-height: 99%;
@@ -470,7 +480,6 @@ aside {
   opacity: 0.7;
   background-color: #1e180f;
   z-index: 999;
-  position: absolute;
 }
 
 .offer .offer-swiper-container .offer-swiper-pagination {
@@ -5779,6 +5788,9 @@ aside {
 }
 
 @media (min-width: 1350px) and (max-width: 1580px) {
+  .offer .container {
+    max-width: unset;
+  }
   .mobile-menu {
     display: none;
   }

@@ -42,24 +42,24 @@ services:
   #   depends_on:
   #     - api
 
-  frontend:
-    volumes:
-      - ./frontend:/frontend
-      - /frontend/node_modules
-      - ./common:/common
-    build:
-      context: .
-      dockerfile: ./frontend/Dockerfile
-      target: "${NODE_ENV}"
-    ports:
-      - ${FRONTEND_PORT}:${FRONTEND_PORT}
-    environment: 
-      - FRONTEND_PORT=${FRONTEND_PORT}
-      - NODE_ENV=${NODE_ENV}
-    networks:
-      - web
-    depends_on:
-      - api
+  # frontend:
+  #   volumes:
+  #     - ./frontend:/frontend
+  #     - /frontend/node_modules
+  #     - ./common:/common
+  #   build:
+  #     context: .
+  #     dockerfile: ./frontend/Dockerfile
+  #     target: "${NODE_ENV}"
+  #   ports:
+  #     - ${FRONTEND_PORT}:${FRONTEND_PORT}
+  #   environment: 
+  #     - FRONTEND_PORT=${FRONTEND_PORT}
+  #     - NODE_ENV=${NODE_ENV}
+  #   networks:
+  #     - web
+  #   depends_on:
+  #     - api
   api:
     volumes:
      - ./api:/api
