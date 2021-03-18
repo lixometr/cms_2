@@ -57,6 +57,7 @@ server: {
     { src: "@/plugins/swiper", mode: 'client' },
     { src: "@/plugins/load-script", mode: 'client' },
     { src: "@/plugins/v-mask", },
+    { src: "@/plugins/range-slider", mode: 'client' },
 
   ],
   router: {

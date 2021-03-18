@@ -48,7 +48,6 @@
 
       
     </section>
-
     <!-- Блок поиска -->
     <section class="search-block">
       <div class="container">
@@ -754,6 +753,7 @@ export default {
       };
     },
   },
+ 
   methods: {
     initSlider1() {
       var swiper = new Swiper(".offer-swiper-container ", {
