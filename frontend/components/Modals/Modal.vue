@@ -8,7 +8,6 @@
           v-on="cListeners"
           @close="_close"
         />
-      
       </div>
       <div class="overlay" @click="_close"></div>
     </div>
@@ -24,8 +23,7 @@ export default {
     return {
       modals: {
         review: ReviewModal,
-        contactModal: ContactModal,
-      
+        contact: ContactModal,
       },
       show: false,
       activeName: "",
@@ -56,7 +54,7 @@ export default {
   mounted() {},
   computed: {
     modalClass() {
-      return `modal-${this.activeName}`
+      return `modal-${this.activeName}`;
     },
     activeModal() {
       return this.modals[this.activeName];
@@ -78,7 +76,33 @@ export default {
 </script>
 
 <style lang="scss">
-
+.modal-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 9999999;
+}
+.modal-inner {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+}
 .modal-fade-enter,
 .modal-fade-leave-to {
   .modal-inner {

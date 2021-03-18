@@ -55,8 +55,8 @@
             <li class="number">
               <a href="tel:8 (473) 232-37-98">8 (473) 232-37-98</a>
             </li>
-            <li class="callback" id="myBtn">
-              <a href="#0">Заказать звонок</a>
+            <li class="callback" >
+              <a href="#0" @click.prevent="orderPhone">Заказать звонок</a>
             </li>
           </ul>
         </div>
@@ -65,7 +65,13 @@
 </template>
 
 <script>
-export default {};
+export default {
+  methods: {
+    orderPhone() {
+      this.$modal.open('contact')
+    }
+  }
+};
 </script>
 
 <style lang="scss" >

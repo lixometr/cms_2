@@ -47,11 +47,13 @@ export class PageService extends ServiceBlueprint<Page>{
   }
   async findBySlug({ slug }: { slug: string }, payload: RequestPayload) {
     let page = await super.findBySlug({ slug }, payload)
+    if(!page) return null
     page = await this.setupValues({ page }, payload)
     return page
   }
   async findById({ id }: { id: ID }, payload: RequestPayload) {
     let page = await super.findById({ id }, payload)
+    if(!page) return null
     page = await this.setupValues({ page }, payload)
     return page
   }

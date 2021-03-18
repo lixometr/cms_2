@@ -4,9 +4,9 @@
 
     <label class="mobile-menu__items">
       <div class="logo">
-        <a href="index.html">
+        <nuxt-link to="/">
           <img src="/source/img/logo.svg" />
-        </a>
+        </nuxt-link>
       </div>
       <div class="phone">
         <a href="tel:8 (473) 232-37-98">

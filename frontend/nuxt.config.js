@@ -21,12 +21,12 @@ export default {
 
     ],
     link: [
-      { type: "text/css", rel: "stylesheet", href: "source/js/swiper-bundle.min.css" },
+      { type: "text/css", rel: "stylesheet", href: "/source/js/swiper-bundle.min.css" },
 
       { type: "text/css", rel: "stylesheet", href: "/source/css/t-scroll.min.css" },
       { type: "text/css", rel: "stylesheet", href: "/source/css/style.css" },
 
-      { rel: "shortcut icon", href: "source/img/favicon.png", type: "image/png" },
+      { rel: "shortcut icon", href: "/source/img/favicon.png", type: "image/png" },
 
 
 

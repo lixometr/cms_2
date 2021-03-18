@@ -30,7 +30,7 @@
             </li>
           </ul>
         </div>
-       <FormContact />
+        <FormContact />
         <div class="contact__map">
           <iframe
             src="https://yandex.ru/map-widget/v1/?um=constructor%3A2aa2dcf03fe85bf2151d72f6d1a0d86002301689c4f70c8ebae268725eaeb116&amp;source=constructor"
@@ -56,8 +56,7 @@ export default {
           link: "/",
         },
         {
-                    title: this.value.name,
-
+          title: this.value.name,
         },
       ];
     },

@@ -47,7 +47,7 @@ const router = new Router({
 
 router.beforeEach(async (to, from, next) => {
   try {
-    if (to.name === 'Login' || to.name === 'SignUp') return next()
+    // if (to.name === 'Login' || to.name === 'SignUp') return next()
     if (to.name === 'Login') return next()
     const { data: result } = await api.get('adminCheck')
     if (result.ok) {
