@@ -25,6 +25,7 @@ export const actions = {
       await dispatch('settings/init')
       await dispatch('locale/init')
       await dispatch('currency/init')
+      await dispatch('cart/init')
       // await dispatch('user/init')
 
 

@@ -86,7 +86,7 @@ export class ProductRepository extends DefaultRepository<Product> {
         return await this.findMany(query, payload)
     }
     async findSimilarItems({ id }: { id: ID }, payload: RequestPayload) {
-        const item = await this.findById({ id })
+        const item = await this.findById({ id }, payload)
         if (!item) throw new BadRequestException('Item with such id not found')
         const catIds = item.category.map(cat => cat.id)
         if (!catIds || catIds.length < 1) catIds.push(-1)

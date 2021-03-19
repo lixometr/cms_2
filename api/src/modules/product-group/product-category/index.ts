@@ -1,4 +1,5 @@
 export * from "./entities/product-category.entity"
+export * from "./repositories/category.repository"
 export * from "./entities/product-category.tr.entity"
 
 export * from "./dto/create-product-category.dto"

@@ -42,7 +42,7 @@ export class ServiceBlueprint<T extends EntityBase>{
 
     async findById({ id }: { id: ID }, payload?: RequestPayload): Promise<T> {
         await this.event.emitAsync(`${this.name}.${EventName.beforeFindById}`, { id, payload })
-        const result: any = await this.repository.findById({ id })
+        const result: any = await this.repository.findById({ id }, payload)
         await this.event.emitAsync(`${this.name}.${EventName.afterFindById}`, { result, payload })
         return result
     }
@@ -52,7 +52,7 @@ export class ServiceBlueprint<T extends EntityBase>{
         await this.event.emitAsync(`${this.name}.${EventName.beforeUpdate}`, { data, id, payload })
         const item = await this.repository.findById({
             id
-        });
+        }, payload);
         if (!item) return
         await this.repository.save({
             ...item, // existing fields
@@ -60,7 +60,7 @@ export class ServiceBlueprint<T extends EntityBase>{
         });
         const result = await this.repository.findById({
             id
-        });
+        }, payload);
         await this.event.emitAsync(`${this.name}.${EventName.afterUpdate}`, { result, data, payload })
         return result
     }

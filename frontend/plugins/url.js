@@ -4,14 +4,20 @@ const routes = require('../../common/routes/routes')
 class UrlBuilder {
     constructor(app) {
         this.path = routes
-        this.makePath = (path, slug) => `/${path}/${slug}`
+        this.makePath = (path, slug) => {
+            let p = `/${path}`
+            if (slug) {
+                p += `/${slug}`
+            }
+            return p
+        }
         // this.app = app;
     }
     category(slug) {
         return this.makePath(this.path.category, slug)
     }
     product(slug) {
-        return this.makePath(this.path.product,  slug)
+        return this.makePath(this.path.product, slug)
     }
     page(slug) {
         return this.makePath(this.path.page, slug)

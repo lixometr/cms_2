@@ -2,10 +2,10 @@
   <!-- Плавающая корзина + подняться наверх + избранное -->
   <div class="offer__bookmarks">
     <div class="offer__buy">
-      <a href="page_basket.html" class="offer__buy-button">
+      <nuxt-link :to="$url.cart()" class="offer__buy-button">
         <img class="svg" src="/source/img/buy.svg" alt="Купить" />
-        <div class="offer__buy-count">3</div>
-      </a>
+        <div class="offer__buy-count">{{cartCnt}}</div>
+      </nuxt-link>
     </div>
 
     <div class="offer__like">
@@ -27,7 +27,16 @@
 </template>
 
 <script>
-export default {};
+export default {
+  computed: {
+    cartCnt() {
+      return this.$store.getters['cart/cnt']
+    },
+    favouriteCnt() {
+      // return this.$store.getters['favourite/cnt']
+    }
+  }
+};
 </script>
 
 <style lang="scss" >

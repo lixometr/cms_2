@@ -4,6 +4,7 @@
     <AppBreadcrumbs :items="breadcrumbs" />
     <section class="about-us">
       <div class="container">
+        <client-only>
         <swiper
           class="about-us__swiper-container swiper-container"
           :options="sliderOptions"
@@ -27,6 +28,8 @@
           <!-- Add Pagination -->
           <div class="swiper-pagination" slot="pagination"></div>
         </swiper>
+        </client-only>
+
 
         <div class="about-us__text">
           <!-- Заголовок и описание на сайте повторяются -->

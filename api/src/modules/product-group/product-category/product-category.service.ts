@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { EventEmitter2 } from '@nestjs/event-emitter';
 import { ServiceBlueprint } from 'src/blueprints/service';
-import { RequestPayload } from 'src/internal';
+import { RequestPayload, SLUG } from 'src/internal';
 import { ID, ProductCategory } from 'src/internal';
 import { ProductCategoryName } from './product-category.constants';
 import { ProductCategoryRepository } from './repositories/category.repository';
@@ -11,26 +11,29 @@ export class ProductCategoryService extends ServiceBlueprint<ProductCategory>{
   public name = ProductCategoryName
   constructor(private itemRepository: ProductCategoryRepository, private eventEmiter: EventEmitter2) { super(itemRepository, eventEmiter) }
 
-  findTrees({ }) {
-    return this.itemRepository.findTrees()
+  async findByFullSlug({ slug }: { slug: SLUG }, payload: RequestPayload) {
+    return this.itemRepository.findByFullSlug({ slug }, payload)
   }
-  async findBreadcrumbsById({ id }: { id: ID }) {
-    return await this.itemRepository.findBreadcrumbsById({ id })
+
+  findTrees({ }, payload: RequestPayload) {
+    return this.itemRepository.findTrees({}, payload)
   }
-  async findChildrenById({ id }: { id: ID }) {
-    return await this.itemRepository.findChildrenById({ id })
+  async findBreadcrumbsById({ id }: { id: ID }, payload: RequestPayload) {
+    return await this.itemRepository.findBreadcrumbsById({ id }, payload)
   }
-  async findChildrenTreeById({ id }: { id: ID }) {
-    return await this.itemRepository.findChildrenTreeById({ id })
+  async findChildrenById({ id }: { id: ID }, payload: RequestPayload) {
+    return await this.itemRepository.findChildrenById({ id }, payload)
+  }
+  async findChildrenTreeById({ id }: { id: ID }, payload: RequestPayload) {
+    return await this.itemRepository.findChildrenTreeById({ id }, payload)
   }
   async findParentsById({ id }: { id: ID }, payload: RequestPayload) {
-    const items = await   this.itemRepository.findParentsById({ id }, payload)
-    console.log(items)
+    const items = await this.itemRepository.findParentsById({ id }, payload)
     return items
   }
 
-  async findParentsTreeById({ id }: { id: ID }) {
-    return this.itemRepository.findParentsTreeById({ id })
+  async findParentsTreeById({ id }: { id: ID }, payload: RequestPayload) {
+    return this.itemRepository.findParentsTreeById({ id }, payload)
   }
 
 }

@@ -14,8 +14,9 @@ instance.interceptors.request.use(config => {
 }
 );
 let baseUrl = globalConfig.api.baseUrl
-if(process.env.NODE_ENV==='development') {
-    baseUrl = 'https://api.st-cms.ru'
+if (process.env.NODE_ENV === 'development') {
+    // baseUrl = 'https://api.st-cms.ru'
+    baseUrl = 'http://localhost:3001'
 }
 
 export default new Api(ApiRoutes({ baseUrl }), instance)

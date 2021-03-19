@@ -11,3 +11,7 @@ export enum ProductType {
     variation = 'variation',
     kit = 'kit'
 }
+
+export class ProductActiveOptions {
+    [key: number]: Array<ID>
+}

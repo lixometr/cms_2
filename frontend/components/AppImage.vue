@@ -5,7 +5,7 @@
 <script>
 export default {
   props: {
-    img: {
+    src: {
       type: [Object, String],
       default: () => ({}),
     },

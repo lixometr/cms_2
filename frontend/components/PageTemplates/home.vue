@@ -1,52 +1,52 @@
 <template>
   <main class="main-page">
     <section class="offer">
-      <swiper
-        class="offer-swiper-container swiper-container"
-        :options="slider1Options"
-      >
-        <swiper-slide
-          class="swiper-slide"
-          v-for="(item, idx) in getValue('slaid-shou')"
-          :key="idx"
+      <client-only>
+        <swiper
+          class="offer-swiper-container swiper-container"
+          :options="slider1Options"
         >
-          <div class="qwe">
-            <img
-              :src="getValue(`slaid-shou[${idx}].izobrazhenie_slaida.url`)"
-            />
-          </div>
+          <swiper-slide
+            class="swiper-slide"
+            v-for="(item, idx) in getValue('slaid-shou')"
+            :key="idx"
+          >
+            <div class="qwe">
+              <img
+                :src="getValue(`slaid-shou[${idx}].izobrazhenie_slaida.url`)"
+              />
+            </div>
 
-          <div class="container">
-            <div class="offer__text">
-              <div class="offer__text-title">
-                <h1>{{ getValue(`slaid-shou[${idx}].zagolovok_slaida`) }}</h1>
-              </div>
-              <div class="offer__text-text">
-                <p>
-                  {{ getValue(`slaid-shou[${idx}].podzagolovok_slaida`) }}
-                </p>
-              </div>
-              <div class="offer__text-button">
-                <nuxt-link
-                  :to="getValue(`slaid-shou[${idx}].ssilka_knopki_slaida`)"
-                  class="button"
-                  >{{
-                    getValue(`slaid-shou[${idx}].nazvanie_knopki_slaida`)
-                  }}</nuxt-link
-                >
+            <div class="container">
+              <div class="offer__text">
+                <div class="offer__text-title">
+                  <h1>{{ getValue(`slaid-shou[${idx}].zagolovok_slaida`) }}</h1>
+                </div>
+                <div class="offer__text-text">
+                  <p>
+                    {{ getValue(`slaid-shou[${idx}].podzagolovok_slaida`) }}
+                  </p>
+                </div>
+                <div class="offer__text-button">
+                  <nuxt-link
+                    :to="getValue(`slaid-shou[${idx}].ssilka_knopki_slaida`)"
+                    class="button"
+                    >{{
+                      getValue(`slaid-shou[${idx}].nazvanie_knopki_slaida`)
+                    }}</nuxt-link
+                  >
+                </div>
               </div>
             </div>
-          </div>
-        </swiper-slide>
+          </swiper-slide>
 
-        <!-- Add Pagination -->
-        <div
-          class="offer-swiper-pagination swiper-pagination"
-          slot="pagination"
-        ></div>
-      </swiper>
-
-      
+          <!-- Add Pagination -->
+          <div
+            class="offer-swiper-pagination swiper-pagination"
+            slot="pagination"
+          ></div>
+        </swiper>
+      </client-only>
     </section>
     <!-- Блок поиска -->
     <section class="search-block">
@@ -577,28 +577,30 @@
     <!-- О нас -->
     <section class="about-us fadeUp t-default" data-t-show="3">
       <div class="container">
-        <swiper
-          class="about-us__swiper-container swiper-container"
-          :options="slider2Options"
-        >
-          <swiper-slide
-            v-for="(item, idx) in getValue(
-              'blok_o_kompanii_na_glavnoi.slaid-shou_bloka_o_kompanii_na_glavnoi'
-            )"
-            :key="idx"
+        <client-only>
+          <swiper
+            class="about-us__swiper-container swiper-container"
+            :options="slider2Options"
           >
-            <img
-              :src="
-                getValue(
-                  `blok_o_kompanii_na_glavnoi.slaid-shou_bloka_o_kompanii_na_glavnoi[${idx}].zagruzit_izobrazhenie_bloka_slaid-shou_o_kompanii.url`
-                )
-              "
-              alt="image"
-            />
-          </swiper-slide>
-          <!-- Add Pagination -->
-          <div class="swiper-pagination" slot="pagination"></div>
-        </swiper>
+            <swiper-slide
+              v-for="(item, idx) in getValue(
+                'blok_o_kompanii_na_glavnoi.slaid-shou_bloka_o_kompanii_na_glavnoi'
+              )"
+              :key="idx"
+            >
+              <img
+                :src="
+                  getValue(
+                    `blok_o_kompanii_na_glavnoi.slaid-shou_bloka_o_kompanii_na_glavnoi[${idx}].zagruzit_izobrazhenie_bloka_slaid-shou_o_kompanii.url`
+                  )
+                "
+                alt="image"
+              />
+            </swiper-slide>
+            <!-- Add Pagination -->
+            <div class="swiper-pagination" slot="pagination"></div>
+          </swiper>
+        </client-only>
 
         <div class="about-us__text">
           <!-- Заголовок и описание на сайте повторяются -->
@@ -753,7 +755,7 @@ export default {
       };
     },
   },
- 
+
   methods: {
     initSlider1() {
       var swiper = new Swiper(".offer-swiper-container ", {

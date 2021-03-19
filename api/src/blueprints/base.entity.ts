@@ -11,17 +11,18 @@ export class EntityBase {
     const resolvers = Object.keys(this).map(async (key) => {
       const item = this[key];
       if (_.isArray(item)) {
-        item.map(async (itm) => {
+        const resolvers = item.map(async (itm) => {
           if (itm instanceof EntityBase) {
-            await itm.serialize( payload);
+            await itm.serialize(payload);
           }
         });
+        await Promise.all(resolvers)
         if (item[0] instanceof EntityDefaultBlueprint) {
           item.sort((a, b) => b.sortOrder - a.sortOrder)
         }
       }
       if (item instanceof EntityBase) {
-        await item.serialize( payload);
+        await item.serialize(payload);
       }
     });
     await Promise.all(resolvers);

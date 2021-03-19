@@ -2,14 +2,14 @@ import { ID, CartProductDto } from "src/internal"
 import { ProductOptionBo } from "src/internal";
 import { OrderProductItem } from "src/internal";
 import { Product } from "../entities/product.entity"
-import { ProductType } from "../product.types";
+import { ProductActiveOptions, ProductType } from "../product.types";
 import * as _ from "lodash"
 // type SerializedProduct = Product & { _isSerialized: true };
 
 
 export class ProductBo {
     private product: Product | OrderProductItem
-    private activeOptions: { [key: number]: Array<ID> }
+    private activeOptions: ProductActiveOptions
     private cnt: number
     private activeVariation: ID
     constructor({ product, activeOptions, cnt, activeVariation }: CartProductDto) {
@@ -45,18 +45,9 @@ export class ProductBo {
     getSale() {
         return this.product.sale / 100
     }
-    // getPromocodeSale() {
-    //     const promocodeBo = this.getPromocodeBo()
-    //     if (!promocodeBo) return 0
-    //     promocodeBo.getSale()
-    // }
     getOptionsBo() {
         return this.product.options.map(option => new ProductOptionBo({ option }))
     }
-    // getPromocodeBo() {
-    //     if(!this.promocode) return null
-    //     return new PromocodeBo({ product: this.product, promocode: this.promocode })
-    // }
     getOptionsPrice() {
         const options = this.getOptionsBo().filter(optionBo => {
             const option = optionBo.getItem()
@@ -91,9 +82,9 @@ export class ProductBo {
         // [ { cnt: 1, sale: 10 }, { cnt: 5, sale: 20 } ]
         const cntSale = cntSaleValue.find((current, idx) => {
             if (current.cnt > cnt) return false
-            const next = cntSaleValue[idx+1]
+            const next = cntSaleValue[idx + 1]
             if (next) {
-                if(next.cnt < cnt) return false
+                if (next.cnt < cnt) return false
             }
             return true
         })

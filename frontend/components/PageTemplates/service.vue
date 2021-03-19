@@ -19,24 +19,26 @@
 
     <section class="about-us">
       <div class="container">
-        <swiper class="about-us__swiper-container" :options="slider1Options">
-          <swiper-slide
-            class="swiper-slide"
-            v-for="(item, idx) in getValue('usluga.slaid-shou_bloka_uslugi')"
-            :key="idx"
-          >
-            <img
-              :src="
-                getValue(
-                  `usluga.slaid-shou_bloka_uslugi[${idx}].izobrazhenie.url`
-                )
-              "
-              alt="image"
-            />
-          </swiper-slide>
-          <!-- Add Pagination -->
-          <div class="swiper-pagination" slot="pagination"></div>
-        </swiper>
+        <client-only>
+          <swiper class="about-us__swiper-container" :options="slider1Options">
+            <swiper-slide
+              class="swiper-slide"
+              v-for="(item, idx) in getValue('usluga.slaid-shou_bloka_uslugi')"
+              :key="idx"
+            >
+              <img
+                :src="
+                  getValue(
+                    `usluga.slaid-shou_bloka_uslugi[${idx}].izobrazhenie.url`
+                  )
+                "
+                alt="image"
+              />
+            </swiper-slide>
+            <!-- Add Pagination -->
+            <div class="swiper-pagination" slot="pagination"></div>
+          </swiper>
+        </client-only>
 
         <div class="about-us__text">
           <!-- Заголовок и описание на сайте повторяются -->
@@ -76,24 +78,25 @@
         <h2>{{ getValue("nashi_raboti.zagolovok_bloka_nashi_raboti") }}</h2>
       </div>
       <div class="container">
-        <swiper
-          class="our-work__swiper-container2 swiper-container"
-          :options="slider2Options"
-        >
-          <swiper-slide
-            class="swiper-slide"
-            v-for="(item, idx) in getValue('nashi_raboti.izobrazhenie_rabot')"
-            :key="idx"
+        <client-only>
+          <swiper
+            class="our-work__swiper-container2 swiper-container"
+            :options="slider2Options"
           >
-            <a :href="'#img' + idx">
-              <img
-                :src="getValue(`nashi_raboti.izobrazhenie_rabot[${idx}].url`)"
-                alt=""
-              />
-            </a>
-          </swiper-slide>
+            <swiper-slide
+              class="swiper-slide"
+              v-for="(item, idx) in getValue('nashi_raboti.izobrazhenie_rabot')"
+              :key="idx"
+            >
+              <a :href="'#img' + idx">
+                <img
+                  :src="getValue(`nashi_raboti.izobrazhenie_rabot[${idx}].url`)"
+                  alt=""
+                />
+              </a>
+            </swiper-slide>
 
-          <!-- <a href="#close" class="lightbox" id="img1">
+            <!-- <a href="#close" class="lightbox" id="img1">
             <img src="source/img/our_work/our1.jpg" />
           </a>
 
@@ -113,8 +116,10 @@
             <img src="source/img/our_work/our8.jpg" />
           </a> -->
 
-          <div class="swiper-pagination" slot="pagination"></div>
-        </swiper>
+            <div class="swiper-pagination" slot="pagination"></div>
+          </swiper>
+        </client-only>
+
         <a
           href="#close"
           class="lightbox"
@@ -202,9 +207,13 @@ import PageTemplateMixin from "@/mixins/PageTemplateMixin";
 export default {
   mixins: [PageTemplateMixin],
   computed: {
-      services() {
-          return [ {name: 'Пошив на заказ', slug: 'poshiv-avto-chekhlov-na-zakaz'}, {name: 'Установка', slug: 'ustanovka-avtomobilnikh-chekhlov'}, {name: 'ПОДШИВ', slug: ''} ]
-      },
+    services() {
+      return [
+        { name: "Пошив на заказ", slug: "poshiv-avto-chekhlov-na-zakaz" },
+        { name: "Установка", slug: "ustanovka-avtomobilnikh-chekhlov" },
+        { name: "ПОДШИВ", slug: "" },
+      ];
+    },
     breadcrumbs() {
       return [
         {
@@ -271,12 +280,11 @@ export default {
       };
     },
   },
-  mounted() {
-  },
+  mounted() {},
   methods: {
     goToService(slug) {
-        this.$router.push(this.$url.page(slug))
-    }
+      this.$router.push(this.$url.page(slug));
+    },
   },
 };
 </script>

@@ -3,5 +3,6 @@ module.exports = {
     "product": "product",
     "blog": "blog",
     "section": "s",
-    "page": 'page'
+    "page": 'page',
+    cart: 'cart'
 }

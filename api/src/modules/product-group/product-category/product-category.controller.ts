@@ -3,7 +3,7 @@ import { ProductCategoryService } from './product-category.service';
 import { CreateProductCategoryDto } from './dto/create-product-category.dto';
 import { UpdateProductCategoryDto } from './dto/update-product-category.dto';
 import { ControllerBlueprint } from 'src/blueprints/controller';
-import { AuthAdmin, GetRequestPayload, ID, SerializeGroup } from 'src/internal';
+import { AuthAdmin, GetRequestPayload, ID, SerializeGroup, SLUG } from 'src/internal';
 import { ProductService } from '../product/product.service';
 import { AppRequest, NoAuthRequest } from 'src/internal';
 import { RequestPayload } from 'src/helpers';
@@ -30,26 +30,31 @@ export class ProductCategoryController extends ControllerBlueprint {
     return super.update(id, data, requestPayload)
   }
 
+  @SerializeOptions({ groups: [SerializeGroup.Translate, SerializeGroup.Full] })
+  @Get('/fullslug/*')
+  findByFullSlug(@Param() slug: SLUG, @GetRequestPayload() payload: RequestPayload) {
+    return this.itemService.findByFullSlug({ slug: slug['0'] }, payload)
+  }
+
   @SerializeOptions({ groups: [SerializeGroup.Translate, SerializeGroup.Info] })
   @Get('/tree')
-  findTrees() {
-    return this.itemService.findTrees({})
+  findTrees(@GetRequestPayload() payload: RequestPayload) {
+    return this.itemService.findTrees({}, payload)
   }
   @SerializeOptions({ groups: [SerializeGroup.Translate, SerializeGroup.Info] })
   @Get('id/:id/breadcrumbs')
   findBreadcrumbs(@Param('id', new ParseIntPipe()) id: ID, @GetRequestPayload() requestPayload: RequestPayload) {
-    return this.itemService.findBreadcrumbsById({ id })
+    return this.itemService.findBreadcrumbsById({ id }, requestPayload)
   }
   @SerializeOptions({ groups: [SerializeGroup.Translate, SerializeGroup.Info] })
-
   @Get('id/:id/children')
   findChildren(@Param('id', new ParseIntPipe()) id: ID, @GetRequestPayload() requestPayload: RequestPayload) {
-    return this.itemService.findChildrenById({ id })
+    return this.itemService.findChildrenById({ id }, requestPayload)
   }
   @SerializeOptions({ groups: [SerializeGroup.Translate, SerializeGroup.Info] })
   @Get('id/:id/children-tree')
   findChildrenTree(@Param('id', new ParseIntPipe()) id: ID, @GetRequestPayload() requestPayload: RequestPayload) {
-    return this.itemService.findChildrenTreeById({ id })
+    return this.itemService.findChildrenTreeById({ id }, requestPayload)
   }
 
   @SerializeOptions({ groups: [SerializeGroup.Translate, SerializeGroup.Info] })
@@ -58,11 +63,13 @@ export class ProductCategoryController extends ControllerBlueprint {
     return this.itemService.findParentsById({ id }, requestPayload)
   }
 
+  @SerializeOptions({ groups: [SerializeGroup.Translate, SerializeGroup.Info] })
   @Get('id/:id/parents-tree')
   findParentsTree(@Param('id', new ParseIntPipe()) id: ID, @GetRequestPayload() requestPayload: RequestPayload) {
-    return this.itemService.findParentsTreeById({ id })
+    return this.itemService.findParentsTreeById({ id }, requestPayload)
   }
 
+  @SerializeOptions({ groups: [SerializeGroup.Translate, SerializeGroup.Info] })
   @Get('id/:id/products')
   fiindProductsById(@Param('id', new ParseIntPipe()) id: ID, @GetRequestPayload() requestPayload: RequestPayload) {
     return this.productService.findByCategoryId({ id }, requestPayload)
