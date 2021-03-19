@@ -1,152 +1,133 @@
 <template>
-  <div id="product_card">
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-12">
-          <PageBreadcrumbs :items="breadcrumbItems" />
-        </div>
-      </div>
-    </div>
+  <main class="page__single-product">
+    <AppBreadcrumbs :items="breadcrumbs" />
+    <div class="container">
+      <section class="single-product">
+        <!-- 1ый блок -->
 
-    <section class="product_card">
-      <div class="container-fluid">
-        <div class="row">
-          <ProductImages :product="product" />
+        <div class="single-product__preview">
+          <!-- title -->
+          <h2 class="single-product__preview-title">
+            Чехлы из алькантары на Ауди А6 (С4) седан (1994-1997)
+          </h2>
+          <!-- end title -->
 
-          <!-- Описание товара -->
-          <ProductInfo :product="product" />
-          <!-- Описание товара -->
-        </div>
-      </div>
-    </section>
+          <!-- Big img -->
+          <div class="single-product__preview-image">
+            <span class="zoom" id="ex1">
+              <img
+                src="/source/img/single_product/big_img01.png"
+                width="70%"
+                height="70%"
+              />
+            </span>
 
-    <ProductTabs :product="product" />
-
-    <!-- section поч мы -->
-    <section class="med_why similar_products">
-      <div class="container-fluid">
-        <div class="row">
-          <!-- Навигация -->
-          <div class="col-1 d-sm-none d-md-block">
-            <i class="nav-fill">&nbsp;</i>
-            <div class="left_nav">
-              <img src="/assets/img/section.png" />
-              <span>{{ $t("recommend") }}</span>
+            <div class="single-product__preview-image-zoom">
+              <img src="/source/img/zoom.svg" alt="" />
             </div>
           </div>
-          <!-- //Навигация -->
-
-          <!-- Описание блока -->
-          <div class="col-sm-12 col-md-12 col-lg-2">
-            <h2>{{ $t("similarItems") }}</h2>
-            <p class="desc"></p>
-          </div>
-          <!-- //Описание блока -->
-          <ProductSimilarItems :product="product" />
+          <!-- end Big img -->
         </div>
-      </div>
-    </section>
-    <!--// section поч мы-->
-  </div>
+
+        <!-- 1ый блок -->
+
+        <!-- 2ой блок -->
+        <div class="single-product__description">
+          <ProductVariations />
+          <ProductOptions />
+          <ProductPrice />
+
+          <ProductCnt />
+          <div class="description__buttons">
+            <a href="#0" class="button">ДОБАВИТ В КОРЗИНУ</a>
+            <a href="#0" class="button silver">КУПИТЬ В ОДИН КЛИК</a>
+            <a href="#like" class="svg-silver"
+              ><img class="svg" src="/source/img/like_offer.svg" alt=""
+            /></a>
+          </div>
+
+          <div class="description fadeUp t-default" data-t-show="2">
+            <span class="description__title">Безопасная оплата:</span>
+            <p class="description__text">
+              Наличными при получении, банковской картой при получении,
+              бесконтактным платежом, безналичным способом.
+            </p>
+
+            <span class="description__title">ОПИСАНИЕ:</span>
+            <p class="description__text">
+              Чехлы изготовлены из матовой экокожи Аригон с полиуретановым
+              покрытием на хлопковой основе. Прочный, легкий, экологически
+              чистый материал не вызывающий аллергической реакции. Тыльные и
+              боковые части чехлов сделаны из гладкой экокожи, а центральная
+              часть из перфорированной экокожи, алькантары или велюра. Чехлы
+              изготовлены со всеми технологическими отверстиями и не нарушают
+              заводскую функциональность салона.
+            </p>
+
+            <span class="description__title">Страна производства:</span>
+            <p class="description__text">Россия</p>
+
+            <span class="description__title">Характеристики:</span>
+            <ul class="description__list">
+              <li class="description__list-item">
+                Толщина экокожи : 1.15 – 1.2 мм.
+              </li>
+              <li class="description__list-item">
+                Толщина алькантары : 1.00 – 1.05 мм.
+              </li>
+              <li class="description__list-item">
+                Удельный вес экокожи \ алькантары: 550 г / п.м. \ 350г /м2.
+              </li>
+              <li class="description__list-item">
+                Цикл истирания: свыше 40000 раз.
+              </li>
+            </ul>
+
+            <span class="description__title">Комплект чехлов состоит:</span>
+            <p class="description__text">
+              Спинки передние-2, сидения передние-2, спинка задняя-1, сидение
+              заднее-1, подлокотник-передний-1, подлокотник задний-1,
+              подголовники-4.
+            </p>
+          </div>
+        </div>
+        <!-- 2ой блок -->
+      </section>
+    </div>
+  </main>
 </template>
 
 <script>
 export default {
-  head() {
-    return {
-      title: this.langSeo.title || this.name,
-      meta: [
-        {
-          hid: "description",
-          name: "description",
-          content: this.langSeo.description,
-        },
-        { name: "keywords", content: this.langSeo.keywords },
-      ],
-      link: [
-        {
-          rel: "stylesheet",
-          href: "/assets/js/magnific/magnific-popup.css",
-        },
-      ],
-    };
-  },
-  data() {
-    return {
-      view: "list",
-      isReady: false,
-    };
-  },
-  async mounted() {
-    await this.$loadScript("/assets/js/magnific/jquery.magnific-popup.min.js");
-    this.isReady = true;
-  },
-  async asyncData({ $api, error, redirect, params }) {
+  async asyncData({ error, $api, params, $url }) {
     try {
       const product = await $api.$get("product", { slug: params.slug });
-
       if (!product) throw { statusCode: 404 };
-      const productCategory = product.category[0] || {};
-      let parentCategories = [];
-      try {
-        parentCategories = await $api.$get("categoryParents", {
-          slug: productCategory.full_slug,
+      const mainCategory = product.category[0];
+      let breadcrumbs = [];
+      if (mainCategory) {
+        const { items } = await $api.$get("categoryBreadcrumbs", {
+          id: mainCategory.id,
         });
-      } catch (err) {
-        console.log(err);
+        console.log(items);
+        breadcrumbs = items.map(item => ({name: item.name, link: $url.category(item.fullSlug)}));
       }
-
+      breadcrumbs.unshift({
+        title: "Главная",
+        link: "/",
+      });
+      breadcrumbs.push({
+        title: product.name,
+        link: "#",
+      });
       return {
         product,
-        breadcrumbs: parentCategories || [],
+        breadcrumbs,
       };
     } catch (err) {
+      console.log(err);
       error(err);
     }
-  },
-  computed: {
-    langSeo() {
-      return this.$langValue(this.product, "seo") || {};
-    },
-    name() {
-      return this.$langValue(this.product, "name");
-    },
-    breadcrumbItems() {
-      const breadcrumbs = this.breadcrumbs.map((item) => ({
-        name: this.$langValue(item, "name"),
-        link: this.$url.category(item.full_slug),
-      }));
-      breadcrumbs.push({ name: this.name, link: "" });
-      return breadcrumbs;
-    },
-  },
-  methods: {
-    initScripts() {
-      $(".popup-gallery").magnificPopup({
-        delegate: "a",
-        type: "image",
-        tLoading: "Loading image #%curr%...",
-        mainClass: "mfp-img-mobile",
-        gallery: {
-          enabled: true,
-          navigateByImgClick: true,
-          preload: [0, 1], // Will preload 0 - before current, and 1 after the current image
-        },
-        image: {
-          tError: '<a href="%url%">The image #%curr%</a> could not be loaded.',
-          titleSrc: function (item) {
-            return item.el.attr("title") + "<small>Некий текст</small>";
-          },
-        },
-      });
-    },
-  },
-  watch: {
-    isReady() {
-      if (this.isReady) {
-        this.initScripts();
-      }
-    },
   },
 };
 </script>

@@ -12,5 +12,6 @@ export default {
     categoryChildren: '/category/id/{{id}}/children',
     categoryChildrenTree: '/category/id/{{id}}/children-tree',
     categoryParents: '/category/id/{{id}}/parents',
+    categoryBreadcrumbs: '/category/id/{{id}}/breadcrumbs',
     categoriesPrimary: '/category/tree',
 }
