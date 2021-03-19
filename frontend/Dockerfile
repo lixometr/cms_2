@@ -1,4 +1,4 @@
-FROM node:12.13-alpine As development
+FROM node:12.13-alpine as development
 
 WORKDIR /frontend
 
