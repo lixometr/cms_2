@@ -8,6 +8,7 @@
     >
       <AppMultiplyerItem
         :itemClass="itemClass[idx]"
+        :itemName="itemName"
         v-for="(item, idx) in value"
         :key="idx"
         :idx="idx"
@@ -36,6 +37,7 @@ import AppMultiplyerItem from "./AppMultiplyerItem.vue";
 
 export default {
   props: {
+    itemName: String,
     addText: {
       type: String,
       default: "Добавить поле",
@@ -72,10 +74,12 @@ export default {
       this.$emit("input", newValue);
     },
     add() {
-      const newItem = {
-        sortOrder: this.value.length
-      };
-      const items = [...this.value, newItem];
+      const newItem = {};
+      let items = [...this.value, newItem];
+      items = items.map((val, idx) => ({
+        ...val,
+        sortOrder: items.length - 1 - idx,
+      }));
       this.$emit("input", items);
     },
   },

@@ -6,7 +6,7 @@
       @click="toggle"
     >
       <slot name="itemHeader" v-bind="{ idx }">
-        <span>Поле {{ idx + 1 }}</span>
+        <span>{{itemName || 'Поле'}} {{ idx + 1 }}</span>
       </slot>
       <CButton color="danger" @click="remove">
         <CIcon name="cil-trash"></CIcon>
@@ -27,6 +27,7 @@ export default {
   props: {
     idx: Number,
     itemClass: null,
+    itemName: String,
     value: {
       type: Object,
       default: () => ({}),

@@ -16,10 +16,10 @@ export default {
   },
   computed: {
     path() {
-      if (typeof this.img === "string") {
-        return this.img;
+      if (typeof this.src === "string") {
+        return this.src;
       }
-      let url = this.img && this.img.url
+      let url = this.src && this.src.url
       if(!url && this.holder) {
         url = this.$store.getters['defaultImage']
       }

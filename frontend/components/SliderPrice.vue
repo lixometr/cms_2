@@ -4,7 +4,9 @@
       <input type="text" placeholder="0" v-model="from" />
       <input type="text" placeholder="9999" v-model="to" />
     </div>
-    <vue-slider v-model="price" />
+    <client-only>
+      <vue-slider v-model="price" />
+    </client-only>
   </div>
 </template>
 

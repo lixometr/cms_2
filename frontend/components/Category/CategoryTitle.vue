@@ -6,7 +6,7 @@
         <span>Выберите марку автомобиля</span>
       </div>
       <div class="title-name">
-        <h2>Авточехлы</h2>
+        <h2>{{item.name}}</h2>
       </div>
     </div>
     <!--! Конец - Заголовок и описание на сайте повторяются -->
@@ -14,7 +14,14 @@
 </template>
 
 <script>
-export default {};
+export default {
+  props: {
+    item: {
+      type: Object,
+      default: () => ({})
+    }
+  },
+};
 </script>
 
 <style lang="scss" >

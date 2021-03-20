@@ -1,7 +1,7 @@
 import api from "@/plugins/api"
 
 export default async () => {
-  
+
   const result = await api.get('sections', null, {
     params: {
       perPage: -1
@@ -59,7 +59,7 @@ export default async () => {
             },
           ]
         },
-    
+
         {
           _name: 'CSidebarNavItem',
           name: 'Заказы',
@@ -73,6 +73,7 @@ export default async () => {
           to: '/pages',
           icon: 'cil-file',
         },
+
 
         // {
         //   _name: "CSidebarNavDropdown",
@@ -122,6 +123,11 @@ export default async () => {
               name: 'Виджеты',
               to: '/widgets',
               // icon: 'cil-spreadsheet',
+            },
+            {
+              _name: 'CSidebarNavItem',
+              name: 'Меню',
+              to: '/menus',
             },
             {
               _name: 'CSidebarNavItem',

@@ -269,10 +269,7 @@ export default {
     },
     breadcrumbs() {
       return [
-        {
-          title: "Главная",
-          link: "/",
-        },
+       
         {
           title: this.value.name,
         },

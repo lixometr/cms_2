@@ -1,5 +1,6 @@
 <template>
   <main class="page__single-product">
+    <AppBreadcrumbs :items="breadcrumbs"/>
     <section class="pay-delivery">
       <h2>{{ getValue("tekstovii_blok.zagolovok_bloka") }}</h2>
       <div class="container">
@@ -49,6 +50,16 @@ import PageTemplateMixin from "@/mixins/PageTemplateMixin";
 
 export default {
   mixins: [PageTemplateMixin],
+  computed:{
+    breadcrumbs() {
+      return [
+        {
+          title: this.value.name,
+          link: '#'
+        }
+      ]
+    }
+  }
 };
 </script>
 

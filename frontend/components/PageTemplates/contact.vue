@@ -51,10 +51,7 @@ export default {
   computed: {
     breadcrumbs() {
       return [
-        {
-          title: "Главная",
-          link: "/",
-        },
+       
         {
           title: this.value.name,
         },

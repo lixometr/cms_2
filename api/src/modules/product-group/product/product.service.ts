@@ -4,7 +4,8 @@ import { EventEmitter2, OnEvent } from '@nestjs/event-emitter';
 import { ServiceBlueprint } from 'src/blueprints/service';
 import { RequestPayload } from 'src/internal';
 import { ID } from 'src/internal';
-import { EventName } from 'src/types';
+import { EventName, SLUG } from 'src/internal';
+import { ProductCategoryService } from '../product-category/product-category.service';
 import { ProductBo } from './bo/product.bo';
 import { ProductPriceInfoDto } from './dto/product-price-info.dto';
 import { Product } from './entities/product.entity';
@@ -14,10 +15,17 @@ import { ProductRepository } from './repositories/product.repository';
 @Injectable()
 export class ProductService extends ServiceBlueprint<Product>{
     public name = ProductName
-    constructor(private productRepository: ProductRepository, private eventEmiter: EventEmitter2) { super(productRepository, eventEmiter) }
+    constructor(private productRepository: ProductRepository, private eventEmiter: EventEmitter2, private categoryService: ProductCategoryService) { super(productRepository, eventEmiter) }
 
     async findByCategoryId({ id }: { id: ID }, payload: RequestPayload) {
         return this.productRepository.findByCategoryIdWithFilters({ id }, payload)
+    }
+    async findByCategoryFullSlug({ slug }: { slug: SLUG }, payload: RequestPayload) {
+        console.log(slug)
+
+        const category = await this.categoryService.findByFullSlug({ slug }, payload)
+        if (!category) throw new BadRequestException('Category with such slug not found')
+        return this.findByCategoryId({ id: category.id }, payload)
     }
     async findAllWithFilters({ }, payload: RequestPayload) {
         await this.eventEmiter.emitAsync(`${this.name}.${EventName.beforeFindAll}`, { payload })

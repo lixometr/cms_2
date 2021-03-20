@@ -36,3 +36,5 @@ export * from "./product-group/product"
 export * from "./upload-group/upload"
 export * from "./upload-group/file"
 export * from "./upload-group/image"
+
+export * from "./menu"

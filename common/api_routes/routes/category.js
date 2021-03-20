@@ -1,6 +1,6 @@
 export default {
     categories: '/category',
-    category: '/category/slug/{{slug}}',
+    category: '/category/fullslug/{{slug}}',
     categoriesSearch: '/category/search/{{text}}',
 
 

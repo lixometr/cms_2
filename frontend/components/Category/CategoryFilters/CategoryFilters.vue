@@ -3,14 +3,8 @@
     <div class="container">
       <div class="search-block__select">
         <SliderPrice class="search-block__price" />
-        <AppSelect
-          placeholder="Категория"
-          :options="[
-            { name: 'Категория', value: 'cat' },
-            { name: 'Кат 2', value: 'cat-2' },
-          ]"
-          v-model="cat"
-        />
+        <CategoryFiltersSubCategories :item="item" v-model="categories"/>
+        <CategoryFiltersAttributes />
         <div class="select search-block__item">
           <a href="#0" class="button" @click="search">Найти</a>
           <a href="#0" class="reset__button" @click="reset">Сбросить</a>
@@ -23,11 +17,18 @@
 <script>
 export default {
   props: {
-
+    item: {
+      type: Object,
+      default: () => ({})
+    },
+    children: {
+      type: Array,
+      default: () => ([])
+    },
   },
   data() {
     return {
-      cat: "",
+      categories: []
     };
   },
   methods: {

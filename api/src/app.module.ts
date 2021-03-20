@@ -22,8 +22,9 @@ import { PageGroupModule } from './modules/page-group/page-group.module';
 import { NotificationModule } from './modules/notification/notification.module';
 import { WidgetModule } from './modules/widget/widget.module';
 import { MailModule } from './modules/mail/mail.modules';
+import { MenuModule } from './modules/menu/menu.module';
 @Module({
-  imports: [ServeStaticModule, EventEmiterModule, DatabaseModule, UserGroupModule, AuthGroupModule, LocaleModule, SettingsModule, UploadModuleGroup, ProductGroupModule, PageGroupModule, NotificationModule, WidgetModule, MailModule],
+  imports: [ServeStaticModule, EventEmiterModule, DatabaseModule, UserGroupModule, AuthGroupModule, LocaleModule, SettingsModule, UploadModuleGroup, ProductGroupModule, PageGroupModule, NotificationModule, WidgetModule, MailModule, MenuModule],
   controllers: [AppController],
   providers: [
     { provide: APP_FILTER, useClass: DatabaseFilter },

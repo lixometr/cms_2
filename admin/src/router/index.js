@@ -21,7 +21,6 @@ import widget from "./widget"
 import product from "./product"
 import category from './category'
 import page from './page'
-import postTag from './postTag'
 // import pages from './page'
 import label from "./label"
 import locales from "./locale"
@@ -36,6 +35,7 @@ import settings from './settings'
 import currency from './currency'
 import delivery from './delivery'
 import payment from './payment'
+import menu from './menu'
 
 Vue.use(Router)
 const router = new Router({
@@ -77,8 +77,6 @@ function configRoutes() {
         product,
         category,
         page,
-        postTag,
-        // pages,
         label,
         attribute,
         promocode,
@@ -92,6 +90,7 @@ function configRoutes() {
         currency,
         delivery,
         payment,
+        menu,
         {
           path: 'dashboard',
           name: 'Dashboard',

@@ -4,7 +4,7 @@
       <ul class="breadcrumb-list">
         <li
           class="breadcrumb-list__item"
-          v-for="(item, idx) in items"
+          v-for="(item, idx) in breadcrumbs"
           :key="idx"
         >
           <nuxt-link class="breadcrumb-list__link" :to="item.link || '#'">{{
@@ -22,6 +22,13 @@ export default {
     items: {
       type: Array,
       default: () => [],
+    },
+  },
+  computed: {
+    breadcrumbs() {
+      const items = [...this.items];
+      items.unshift({ link: "/", title: "Главная" });
+      return items;
     },
   },
 };

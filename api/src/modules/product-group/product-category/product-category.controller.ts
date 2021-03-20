@@ -31,7 +31,7 @@ export class ProductCategoryController extends ControllerBlueprint {
   }
 
   @SerializeOptions({ groups: [SerializeGroup.Translate, SerializeGroup.Full] })
-  @Get('/fullslug/*')
+  @Get('fullslug/*')
   findByFullSlug(@Param() slug: SLUG, @GetRequestPayload() payload: RequestPayload) {
     return this.itemService.findByFullSlug({ slug: slug['0'] }, payload)
   }
@@ -71,8 +71,13 @@ export class ProductCategoryController extends ControllerBlueprint {
 
   @SerializeOptions({ groups: [SerializeGroup.Translate, SerializeGroup.Info] })
   @Get('id/:id/products')
-  fiindProductsById(@Param('id', new ParseIntPipe()) id: ID, @GetRequestPayload() requestPayload: RequestPayload) {
+  findProductsById(@Param('id', new ParseIntPipe()) id: ID, @GetRequestPayload() requestPayload: RequestPayload) {
     return this.productService.findByCategoryId({ id }, requestPayload)
+  }
+  @SerializeOptions({ groups: [SerializeGroup.Translate, SerializeGroup.Info] })
+  @Get('fullslug/*/products')
+  findProductsBySlug(@Param() slug: SLUG, @GetRequestPayload() requestPayload: RequestPayload) {
+    return this.productService.findByCategoryFullSlug({ slug: slug['0']  }, requestPayload)
   }
 
 }
