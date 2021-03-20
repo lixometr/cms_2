@@ -59,7 +59,7 @@ export class ProductCategory extends EntityLocaleItemBlueprint {
         const make = async (item: ProductCategory) => {
             slugs.unshift(item.slug)
             if (typeof item.parentId === 'number') {
-                const parent = await categoryRepository.findById({ id: this.parentId }, payload)
+                const parent = await categoryRepository.findById({ id: item.parentId }, payload)
                 if (parent) {
                     await make(parent)
                 }

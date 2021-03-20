@@ -40,8 +40,8 @@ export class DefaultRepository<T extends EntityBase> extends Repository<T> {
         return query.getOne()
     }
 
-    async findById({ id, query }: { id: ID, query?: object }, payload: RequestPayload): Promise<T> {
-        return await this.findOne({ ...query, where: { id } })
+    async findById({ id }: { id: ID}, payload: RequestPayload): Promise<T> {
+        return await this.findOne({ where: { id } })
     }
     async findBySlug({ slug }: { slug: SLUG }, payload: RequestPayload): Promise<T> {
         const query = this.createQueryBuilder(this.name)

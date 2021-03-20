@@ -1,7 +1,7 @@
 <template>
-  <div class="select" :id="itemId" :class="{ open: isOpen }">
+  <div class="select" :id="itemId" :class="{ open: isOpen }" v-click-outside="close">
     <input class="select__input" type="hidden" name="" />
-    <div class="select__head" @click="toggle">{{ activeOption.name }}</div>
+    <div class="select__head" @click="toggle" >{{ activeOption.name }}</div>
     <ul class="select__list" v-show="isOpen">
       <li
         class="select__item"
@@ -39,7 +39,7 @@ export default {
       return this.options.find((opt) => opt.value === this.value) || {};
     },
     itemId() {
-      return `select-${this.uid}`;
+      return `select-${this._uid}`;
     },
   },
   methods: {

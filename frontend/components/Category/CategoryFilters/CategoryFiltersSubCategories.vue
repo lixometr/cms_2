@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <div class="category-filters__sub-categories">
     <AppSelect
-      :placeholder="item.name"
+      :placeholder="'Выберите категорию'"
       :options="child"
       :value="value[idx]"
       @input="onItemChange($event, idx)"
@@ -29,6 +29,11 @@ export default {
   async fetch() {
     await this.fetchItems();
   },
+  computed: {
+    toFetchChildren() {
+      return [this.item.id, ...this.value];
+    },
+  },
   methods: {
     async fetchItems() {
       try {
@@ -36,27 +41,46 @@ export default {
           const { items } = await this.$api.$get("categoryChildren", {
             id,
           });
-          return items;
+          return items.map((item) => ({
+            name: item.name,
+            value: item.id.toString(),
+          }));
         };
-        const toFetchChildren = [this.item.id, ...this.value];
-        const resolvers = toFetchChildren.map(async (id) => {
+
+        const resolvers = this.toFetchChildren.map(async (id) => {
           return await fetchChildren(id);
         });
-        const children = await Promise.all(resolvers);
-        
+        let children = await Promise.all(resolvers);
+        children = children.filter((child) => child.length > 0);
         this.children = children;
       } catch (err) {
         this.$error(err);
       }
     },
     onItemChange(newValue, idx) {
-      const values = [...this.value];
+      let values = [...this.value];
       values[idx] = newValue;
+      values = values.filter((_, index)  => index <= idx)
+      this.children = this.children.filter((_, index)  => index <= idx)
       this.$emit("input", values);
+    },
+  },
+  watch: {
+    value: {
+      deep: true,
+      handler(newVal, oldVal) {
+        if (this.value.length >= this.children.length) {
+          this.fetchItems();
+        }
+      },
     },
   },
 };
 </script>
 
 <style lang="scss" >
+.category-filters__sub-categories {
+  display: flex;
+  flex-wrap: wrap;
+}
 </style>

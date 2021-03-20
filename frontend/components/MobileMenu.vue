@@ -33,42 +33,7 @@
     </label>
 
     <div class="mobile-menu__container">
-      <ul class="menu">
-        <li class="menu__item have-sub">
-          <a class="menu__link">Каталог</a>
-
-          <ol class="sub-menu">
-            <li class="sub-menu__links"><a href="#0">Чехлы</a></li>
-            <li class="sub-menu__links"><a href="#0">Накидки</a></li>
-            <li class="sub-menu__links"><a href="#0">Коврики</a></li>
-            <li class="sub-menu__links"><a href="#0">Аксессуары</a></li>
-          </ol>
-        </li>
-        <li class="menu__item have-sub">
-          <a class="menu__link">Услуги</a>
-
-          <ol class="sub-menu">
-            <li class="sub-menu__links">
-              <a href="page_service_hemming.html">На заказ</a>
-            </li>
-            <li class="sub-menu__links">
-              <a href="page_services_instal.html">Установка</a>
-            </li>
-            <li class="sub-menu__links">
-              <a href="page_services.html">Пошив</a>
-            </li>
-          </ol>
-        </li>
-        <li class="menu__item">
-          <a class="menu__link" href="page_delivery.html">Доставка и оплата</a>
-        </li>
-        <li class="menu__item">
-          <a class="menu__link" href="page_about_us.html">О нас</a>
-        </li>
-        <li class="menu__item">
-          <a class="menu__link" href="page_contact.html">Контакты</a>
-        </li>
-      </ul>
+      <AppMenu />
     </div>
   </nav>
 </template>

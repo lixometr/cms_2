@@ -13,7 +13,7 @@ export class ProductCategoryRepository extends DefaultTreeRepository<ProductCate
     constructor(public manager: EntityManager) {
         super(manager, ProductCategory)
     }
-   
+
     async findByFullSlug({ slug }: { slug: string }, payload: RequestPayload) {
         const slugs = slug.split('/')
         let item: ProductCategory = null
@@ -28,10 +28,16 @@ export class ProductCategoryRepository extends DefaultTreeRepository<ProductCate
         }
         return item
     }
+    async findChildren(item: ProductCategory, payload: RequestPayload) {
+        const query = this.treeRepository.createDescendantsQueryBuilder(this.name, `${this.name}Closure`, item)
+            .where(`${this.name}.parentId = :parentId`, { parentId: item.parentId })
+        this.populate(query, payload)
+        this.restrictions(query, payload)
+        return query.getMany()
+    }
     async findBreadcrumbsById({ id }: { id: ID }, payload: RequestPayload) {
         const item = await this.findById({ id }, payload)
-        let items = await this.findParents(item, payload)
-        items = items.reverse()
+        const items = await this.findParents(item, payload)
         return new ArrayResponse(items)
     }
 

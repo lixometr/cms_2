@@ -2,12 +2,12 @@
   <section class="search-block">
     <div class="container">
       <div class="search-block__select">
+        <CategoryFiltersSubCategories :item="item" v-model="categories" />
         <SliderPrice class="search-block__price" />
-        <CategoryFiltersSubCategories :item="item" v-model="categories"/>
         <CategoryFiltersAttributes />
         <div class="select search-block__item">
-          <a href="#0" class="button" @click="search">Найти</a>
-          <a href="#0" class="reset__button" @click="reset">Сбросить</a>
+          <a href="#0" class="button" @click.prevent="search">Найти</a>
+          <a href="#0" class="reset__button" @click.prevent="reset">Сбросить</a>
         </div>
       </div>
     </div>
@@ -19,26 +19,32 @@ export default {
   props: {
     item: {
       type: Object,
-      default: () => ({})
+      default: () => ({}),
     },
     children: {
       type: Array,
-      default: () => ([])
+      default: () => [],
     },
   },
   data() {
     return {
-      categories: []
+      categories: [],
     };
   },
   methods: {
-    search() {
-
+    async search() {
+      const lastCategoryId = this.categories[this.categories.length - 1];
+      const category = await this.$api.$get("categoryById", {
+        id: lastCategoryId,
+      });
+      if (category) {
+        this.$router.push(this.$url.category(category.fullSlug));
+      }
     },
     reset() {
-
-    }
-  }
+      // this.$router.push()
+    },
+  },
 };
 </script>
 
