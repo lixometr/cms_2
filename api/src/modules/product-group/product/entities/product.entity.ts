@@ -61,9 +61,9 @@ export class Product extends EntityLocaleItemBlueprint {
   @OneToMany(() => ProductLocale, (productLocale) => productLocale.item, { cascade: true, eager: true })
   locale: ProductLocale[];
   name: string;
-  @Expose({groups: [SerializeGroup.Full, SerializeGroup.AdminFull]})
+  @Expose({ groups: [SerializeGroup.Full, SerializeGroup.AdminFull] })
   description: string;
-  @Expose({groups: [SerializeGroup.Full, SerializeGroup.AdminFull]})
+  @Expose({ groups: [SerializeGroup.Full, SerializeGroup.AdminFull] })
   seo: EntitySeo;
 
   @ManyToMany(() => ProductTag, (pTag) => pTag.products, { cascade: CASCADE_NOT_INSERT, eager: true, nullable: true })
@@ -84,13 +84,13 @@ export class Product extends EntityLocaleItemBlueprint {
   @Column({ default: 0 })
   sortOrder: number;
 
-  @Column({nullable: true})
+  @Column({ nullable: true })
   sku: string;
 
   @Column({ nullable: true })
   rating: number;
 
-  @Expose({groups: [SerializeGroup.Full, SerializeGroup.AdminFull]})
+  @Expose({ groups: [SerializeGroup.Full, SerializeGroup.AdminFull] })
   @OneToMany(() => ProductReview, productReview => productReview.product)
   reviews: ProductReview[]
 
@@ -122,6 +122,19 @@ export class Product extends EntityLocaleItemBlueprint {
       const currency = payload.getCurrency();
       this.transformCurrency(currency.id);
     }
-    return super.serialize(payload);
+
+    await super.serialize(payload);
+    if (this.type === ProductType.variation) {
+      let variationPrices = this.variations.map(variation => variation.price)
+      variationPrices = variationPrices.filter(price => typeof price === 'number')
+      const price = Math.min(...variationPrices)
+
+      let variationOldPrices = this.variations.map(variation => variation.oldPrice)
+      variationPrices = variationOldPrices.filter(price => typeof price === 'number')
+      const oldPrice = Math.min(...variationOldPrices)
+      this.price = price
+      this.oldPrice = oldPrice
+    }
+    return this
   }
 }

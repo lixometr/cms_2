@@ -54,7 +54,7 @@ export default class Api {
                 return result;
             } catch (err) {
                 if (process.env.NODE_ENV === 'development') {
-                    console.log(`Error from: ${theRoute}`, err)
+                    console.log(`Error from: ${theRoute}`, err.response.data)
                 }
                 throw err;
             }

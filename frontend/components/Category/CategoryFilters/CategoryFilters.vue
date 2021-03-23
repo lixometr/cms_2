@@ -2,8 +2,8 @@
   <section class="search-block">
     <div class="container">
       <div class="search-block__select">
+        <CategoryPriceFilter />
         <CategoryFiltersSubCategories :item="item" v-model="categories" />
-        <SliderPrice class="search-block__price" />
         <CategoryFiltersAttributes />
         <div class="select search-block__item">
           <a href="#0" class="button" @click.prevent="search">Найти</a>
@@ -15,7 +15,9 @@
 </template>
 
 <script>
+import FiltersMixin from "@/mixins/FiltersMixin";
 export default {
+  mixins: [FiltersMixin],
   props: {
     item: {
       type: Object,
@@ -31,18 +33,31 @@ export default {
       categories: [],
     };
   },
+  computed: {},
   methods: {
     async search() {
-      const lastCategoryId = this.categories[this.categories.length - 1];
-      const category = await this.$api.$get("categoryById", {
-        id: lastCategoryId,
-      });
+      let category = null;
+      if (this.categories.length) {
+        const lastCategoryId = this.categories[this.categories.length - 1];
+        category = await this.$api.$get("categoryById", {
+          id: lastCategoryId,
+        });
+      }
+      let query = { page: 1, ...this.getFiltersQuery() };
+
       if (category) {
-        this.$router.push(this.$url.category(category.fullSlug));
+        this.$router.push({
+          path: this.$url.category(category.fullSlug),
+          query,
+        });
+      } else {
+        this.$router.push({
+          query,
+        });
       }
     },
     reset() {
-      // this.$router.push()
+      this.clearFilters()
     },
   },
 };
@@ -50,6 +65,13 @@ export default {
 
 <style lang="scss" >
 .search-block {
+  &__select {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  &__price {
+    width: 100%;
+  }
   &__item {
     width: 250px;
     height: 50px;

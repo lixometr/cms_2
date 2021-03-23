@@ -27,7 +27,7 @@ export default {
       return this.item.image;
     },
     slug() {
-      return this.item.slug;
+      return this.item.fullSlug;
     },
   },
 };

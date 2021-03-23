@@ -5,7 +5,7 @@
       <input type="text" placeholder="9999" v-model="to" />
     </div>
     <client-only>
-      <vue-slider v-model="price" />
+      <vue-slider v-model="valueModel" :min="min" :max="max"/>
     </client-only>
   </div>
 </template>
@@ -20,26 +20,39 @@ export default {
   },
   data() {
     return {
-      price: [0, 10],
+      min: this.value[0],
+      max: this.value[1]
     };
   },
   computed: {
+    valueModel: {
+      get() {
+        return this.value;
+      },
+      set(newVal) {
+        this.$emit("input", newVal);
+      },
+    },
     from: {
       get() {
-        return this.price[0];
+        return this.value[0];
       },
       set(val) {
         if (val > this.to) return;
-        this.$set(this.price, 0, val);
+        const newPrice = [...this.value];
+        newPrice[0] = val;
+        this.$emit("input", newPrice);
       },
     },
     to: {
       get() {
-        return this.price[1];
+        return this.value[1];
       },
       set(val) {
         if (val < this.from) return;
-        this.$set(this.price, 1, val);
+        const newPrice = [...this.value];
+        newPrice[1] = val;
+        this.$emit("input", newPrice);
       },
     },
   },

@@ -30,13 +30,13 @@ export const getters = {
         const activeAttributes = getters.activeAttributes
         const attributes = getters.attributes
         // return activeAttributes
-        const allAttributes = Object.keys(activeAttributes).map(attrId => {
-            const attrValues = activeAttributes[attrId] || []
-            const allAttr = attributes.find(attr => attr.name._id === attrId)
-            const value = allAttr.value.filter(attrValue => attrValues.includes(attrValue._id))
+        const allAttributes = Object.keys(activeAttributes).map(attrSlug => {
+            const attrValues = activeAttributes[attrSlug] || []
+            const allAttr = attributes.find(attr => attr.attr.slug === attrSlug)
+            const value = allAttr.attrValues.filter(attrValue => attrValues.includes(attrValue.slug))
             return {
                 name: allAttr.name,
-                value
+                attrValues: value
             }
         })
 
@@ -57,9 +57,6 @@ export const mutations = {
     },
     setItems(state, items) {
         state.items = items
-    },
-    setAttributesFromSlug(state, items) {
-
     },
     init(state, query) {
         const active = { ...query }

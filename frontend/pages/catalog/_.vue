@@ -5,6 +5,7 @@
     <CategoryTitle :item="category" />
     <CategoryFilters :item="category" />
     <CategorySubCategories :items="children" :item="category" v-if="hasSubCategories" />
+    <CategoryProducts :items="products" v-else/>
   </main>
 </template>
 
@@ -25,7 +26,7 @@ export default {
       store.dispatch("filters/init", query);
 
       const filters = store.getters["filters/active"];
-      let products = await $api.$get(
+      let productsData = await $api.$get(
         "categoryProducts",
         {
           id: category.id,
@@ -40,7 +41,7 @@ export default {
       let { items: children } = await $api.$get("categoryChildren", {
         id: category.id,
       });
-      store.commit("filters/setItems", products.filters);
+      store.commit("filters/setItems", productsData.filters);
       const { items: breadcrumbsItems } = await $api.$get(
         "categoryBreadcrumbs",
         {
@@ -52,13 +53,17 @@ export default {
         children,
         breadcrumbsItems,
         category,
-        products,
+        productsData,
+
       };
     } catch (err) {
       error(err);
     }
   },
   computed: {
+    products() {
+      return this.productsData.items || []
+    },
     hasSubCategories() {
       return this.children.length > 0;
     },
