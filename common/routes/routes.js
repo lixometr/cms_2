@@ -4,5 +4,7 @@ module.exports = {
     "blog": "blog",
     "section": "s",
     "page": 'page',
-    cart: 'cart'
+    cart: 'cart',
+    checkout: 'checkout',
+    favourite: 'favourite'
 }

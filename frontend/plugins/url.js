@@ -28,6 +28,9 @@ class UrlBuilder {
     cart(slug) {
         return this.makePath(this.path.cart)
     }
+    favourite(slug) {
+        return this.makePath(this.path.favourite)
+    }
     search(slug) {
         return this.makePath(this.path.search, slug)
     }

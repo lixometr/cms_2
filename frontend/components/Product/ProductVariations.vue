@@ -1,17 +1,17 @@
 <template>
   <div>
-    {{groupedVariations}}
     <div class="description__choose" v-for="(group, idx) in groupedVariations" :key="idx">
       <div class="description__choose-title">
-        <span>Выберите {{ group.attr.name }}</span>
+        <span>{{ group.attr.name }} </span>
       </div>
       <div class="description__choose-image">
         <AppImage
-          class="active"
-          :src="value.variation.image"
+          :class="{active: groupValue.variation.id === value}"
+          :src="groupValue.variation.defaultImage"
           alt=""
-          v-for="(value, idx) in group.values"
+          v-for="(groupValue, idx) in group.values"
           :key="idx"
+          @click="chooseVariation(groupValue)"
         />
       </div>
     </div>
@@ -25,6 +25,7 @@ export default {
       type: Object,
       default: () => ({}),
     },
+    value: Number
   },
   computed: {
     variations() {
@@ -34,7 +35,6 @@ export default {
       const groups = [];
       this.variations.map((variation) => {
         variation.attributes.map((attribute) => {
-          console.log(attribute)
 
           const attrId = attribute.attr.id;
 
@@ -67,6 +67,12 @@ export default {
       return groups;
     },
   },
+  methods: {
+    chooseVariation(value) {
+
+      this.$emit('input', value.variation.id)
+    }
+  }
 };
 </script>
 

@@ -4,7 +4,15 @@
     <section class="tabs__head">
       <div class="container">
         <div class="tabs__button">
-          <div
+          <MenuLink
+            class="tablinks button"
+             :class="{ active: $route.params.slug === service.slug }"
+            v-for="(service, idx) in services"
+            :key="idx"
+            :link="service"
+          >
+          </MenuLink>
+          <!-- <div
             class="tablinks button"
             :class="{ active: $route.params.slug === service.slug }"
             v-for="(service, idx) in services"
@@ -12,7 +20,7 @@
             @click="goToService(service.slug)"
           >
             {{ service.name }}
-          </div>
+          </div> -->
         </div>
       </div>
     </section>
@@ -206,14 +214,13 @@ import PageTemplateMixin from "@/mixins/PageTemplateMixin";
 
 export default {
   mixins: [PageTemplateMixin],
+  data: () => ({
+    services: [],
+  }),
+  async fetch() {
+    await this.fetchServices();
+  },
   computed: {
-    services() {
-      return [
-        { name: "Пошив на заказ", slug: "poshiv-avto-chekhlov-na-zakaz" },
-        { name: "Установка", slug: "ustanovka-avtomobilnikh-chekhlov" },
-        { name: "ПОДШИВ", slug: "" },
-      ];
-    },
     breadcrumbs() {
       return [
         {
@@ -282,6 +289,14 @@ export default {
   },
   mounted() {},
   methods: {
+    async fetchServices() {
+      try {
+        const serviceMenu = await this.$api.$get("menu", { slug: "service_menu" });
+        this.services = serviceMenu.items || [];
+      } catch (err) {
+        this.$error(err);
+      }
+    },
     goToService(slug) {
       this.$router.push(this.$url.page(slug));
     },

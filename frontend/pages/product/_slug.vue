@@ -33,7 +33,7 @@
 
         <!-- 2ой блок -->
         <div class="single-product__description">
-          <ProductVariations :item="product" v-if="type === 'variation'"/>
+          <ProductVariations :item="product" v-if="type === 'variation'" v-model="activeVariation"/>
           <ProductOptions :item="product" v-if="options.length"/>
           <ProductPrice :item="product" />
 
@@ -65,7 +65,7 @@ export default {
   data() {
     return {
       cnt: 1,
-      variation: null,
+      activeVariation: null,
       activeOptions: {},
     };
   },
@@ -105,12 +105,15 @@ export default {
     },
   },
   methods: {
-    oneClickBuy() {},
+    oneClickBuy() {
+      this.addToCart()
+      this.$router.push(this.$url.checkout())
+    },
     addToCart() {
       this.$store.dispatch("cart/add", {
         id: this.product.id,
         cnt: this.cnt,
-        variation: this.variation,
+        variation: this.activeVariation,
         options: this.activeOptions,
       });
     },

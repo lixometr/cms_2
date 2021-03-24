@@ -20,6 +20,9 @@ export class ProductCategoryListenerService extends ListenerItemBlueprint {
     }
     @OnEvent(`${ProductCategoryName}.${EventName.beforeUpdate}`)
     async preUpdate({ data, id, payload }: { data: CreateProductCategoryDto, id: ID, payload: RequestPayload }) {
+        if(data.parent && data.parent.id) {
+            if(data.parent.id === id) throw new BadRequestException('Category cannot be parent of yourself')
+        }
         return super.preUpdate({ data, id, payload })
     }
     @OnEvent(`${ProductCategoryName}.${EventName.beforeRemove}`)
