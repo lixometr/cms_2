@@ -1,8 +1,10 @@
+
+
 import { Type } from "class-transformer";
 import { IsObject, IsString, ValidateNested } from "class-validator";
 import { Image } from "src/modules/upload-group/image";
 import { WidgetModelDto } from "../widget.model.dto";
-class WidgetHeaderValues {
+class WidgetFooterValues {
     @IsObject()
     @Type(() => Image)
     logo: Image
@@ -10,10 +12,13 @@ class WidgetHeaderValues {
     @IsString()
     phone: string
 
+    @IsString()
+    copyright: string
+
 }
-export class WidgetHeaderDto extends WidgetModelDto {
+export class WidgetFooterDto extends WidgetModelDto {
     @IsObject()
     @ValidateNested()
-    @Type(() => WidgetHeaderValues)
-    values: WidgetHeaderValues
+    @Type(() => WidgetFooterValues)
+    values: WidgetFooterValues
 }
