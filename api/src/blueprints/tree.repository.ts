@@ -65,7 +65,6 @@ export class DefaultTreeRepository<T extends EntityDefaultBlueprint> extends Def
             }
             return 0
         })
-        console.log('sorted', items)
         return items
     }
     async findParentsById({ id }: { id: ID }, payload: RequestPayload) {
