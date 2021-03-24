@@ -56,12 +56,6 @@ export class DefaultTreeRepository<T extends EntityDefaultBlueprint> extends Def
         const items = await query.getMany()
         items.push(items[0])
         items.shift()
-        return items
-    }
-    async findParentsById({ id }: { id: ID }, payload: RequestPayload) {
-        const item = await this.findById({ id }, payload)
-        let items = await this.findParents(item, payload)
-        // items = items.reverse()
         items.sort((a: any, b: any) => {
             if(a.id === b.parentId) {
                 return -1
@@ -71,6 +65,14 @@ export class DefaultTreeRepository<T extends EntityDefaultBlueprint> extends Def
             }
             return 0
         })
+        console.log('sorted', items)
+        return items
+    }
+    async findParentsById({ id }: { id: ID }, payload: RequestPayload) {
+        const item = await this.findById({ id }, payload)
+        let items = await this.findParents(item, payload)
+        // items = items.reverse()
+       
         const Response = new ArrayResponse(items)
         await Response.changeItems(items => items.filter(item => item.id !== id))
         return Response
