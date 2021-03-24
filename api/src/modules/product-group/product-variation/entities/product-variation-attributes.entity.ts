@@ -10,14 +10,14 @@ export class ProductVariationAttributes extends EntityDefaultBlueprint {
     @Column()
     attrId: ID
 
-    @ManyToOne(() => Attribute, DELETE_OPTIONS)
+    @ManyToOne(() => Attribute, {...DELETE_OPTIONS, eager: true})
     attr: Attribute
 
     @Column()
     attrValueId: ID
 
-    @ManyToOne(() => AttributeValue, DELETE_OPTIONS)
-    attrValue: AttributeValue
+    @ManyToOne(() => AttributeValue, {...DELETE_OPTIONS, eager: true})
+    attrValue: AttributeValue[]
 
     @ManyToOne(() => ProductVariation, productVariation => productVariation.attributes, DELETE_OPTIONS)
     productVariation: ProductVariation

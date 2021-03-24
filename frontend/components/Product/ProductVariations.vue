@@ -1,41 +1,73 @@
 <template>
   <div>
-    <div class="description__choose">
+    {{groupedVariations}}
+    <div class="description__choose" v-for="(group, idx) in groupedVariations" :key="idx">
       <div class="description__choose-title">
-        <span>Выберите цвет</span>
+        <span>Выберите {{ group.attr.name }}</span>
       </div>
       <div class="description__choose-image">
-        <img
+        <AppImage
           class="active"
-          src="/source/img/single_product/big_img01.png"
+          :src="value.variation.image"
           alt=""
+          v-for="(value, idx) in group.values"
+          :key="idx"
         />
-        <img src="/source/img/single_product/small_img02.png" alt="" />
-        <img src="/source/img/single_product/small_img03.png" alt="" />
-        <img src="/source/img/single_product/small_img04.png" alt="" />
-        <img src="/source/img/single_product/small_img05.png" alt="" />
-        <img src="/source/img/single_product/small_img01.png" alt="" />
-        <img src="/source/img/single_product/small_img02.png" alt="" />
-        <img src="/source/img/single_product/small_img03.png" alt="" />
-        <img src="/source/img/single_product/small_img04.png" alt="" />
-        <img src="/source/img/single_product/small_img05.png" alt="" />
-        <img src="/source/img/single_product/small_img01.png" alt="" />
-        <img src="/source/img/single_product/small_img02.png" alt="" />
-        <img src="/source/img/single_product/small_img03.png" alt="" />
-        <img src="/source/img/single_product/small_img04.png" alt="" />
-        <img src="/source/img/single_product/small_img05.png" alt="" />
-        <img src="/source/img/single_product/small_img01.png" alt="" />
-        <img src="/source/img/single_product/small_img02.png" alt="" />
-        <img src="/source/img/single_product/small_img03.png" alt="" />
-        <img src="/source/img/single_product/small_img04.png" alt="" />
-        <img src="/source/img/single_product/small_img05.png" alt="" />
       </div>
     </div>
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+  props: {
+    item: {
+      type: Object,
+      default: () => ({}),
+    },
+  },
+  computed: {
+    variations() {
+      return this.item.variations;
+    },
+    groupedVariations() {
+      const groups = [];
+      this.variations.map((variation) => {
+        variation.attributes.map((attribute) => {
+          console.log(attribute)
+
+          const attrId = attribute.attr.id;
+
+          const groupIdx = groups.findIndex(
+            (group) => group.attr.id === attrId
+          );
+          if (groupIdx < 0) {
+            groups.push({
+              attr: attribute.attr,
+              values: [
+                {
+                  variation,
+                  attrValue: attribute.attrValue
+                },
+              ],
+            });
+          } else {
+            
+            const currentGroup = groups[groupIdx];
+            const attrValueInGroup =  currentGroup.values.findIndex(value => value.attrValue.id === attribute.attrValue.id)
+            if(attrValueInGroup < 0) {
+              currentGroup.values.push({
+                variation,
+                attrValue: attribute.attrValue
+              })
+            } 
+          }
+        });
+      });
+      return groups;
+    },
+  },
+};
 </script>
 
 <style lang="scss" >

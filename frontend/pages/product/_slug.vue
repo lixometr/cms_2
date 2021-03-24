@@ -16,7 +16,7 @@
           <div class="single-product__preview-image">
             <span class="zoom" id="ex1">
               <AppImage
-                :src="mainImage"
+                :src="defaultImage"
                 width="70%"
                 height="70%"
               />
@@ -33,9 +33,9 @@
 
         <!-- 2ой блок -->
         <div class="single-product__description">
-          <ProductVariations :item="product" />
-          <ProductOptions :items="product" />
-          <ProductPrice :items="product" />
+          <ProductVariations :item="product" v-if="type === 'variation'"/>
+          <ProductOptions :item="product" v-if="options.length"/>
+          <ProductPrice :item="product" />
 
           <ProductCnt v-model="cnt" />
           <div class="description__buttons">
@@ -59,7 +59,9 @@
 </template>
 
 <script>
+import ProductMixin from "@/mixins/ProductMixin"
 export default {
+  mixins: [ProductMixin],
   data() {
     return {
       cnt: 1,
@@ -77,9 +79,8 @@ export default {
         const { items } = await $api.$get("categoryBreadcrumbs", {
           id: mainCategory.id,
         });
-        console.log(items);
         breadcrumbs = items.map((item) => ({
-          name: item.name,
+          title: item.name,
           link: $url.category(item.fullSlug),
         }));
       }
@@ -98,9 +99,7 @@ export default {
     }
   },
   computed: {
-    mainImage() {
-      return this.product.defaultImage
-    },
+  
     name() {
       return this.product.name;
     },

@@ -1,10 +1,5 @@
 export default {
-    props: {
-        product: {
-            type: Object,
-            default: () => ({})
-        }
-    },
+ 
     computed: {
         name() {
             return this.product.name
@@ -29,6 +24,15 @@ export default {
         },
         defaultImage() {
             return this.product.defaultImage
+        },
+        type() {
+            return this.product.type
+        },
+        variations() {
+            return this.product.variations || ''
+        },
+        options() {
+            return this.product.options || []
         }
     }
 }

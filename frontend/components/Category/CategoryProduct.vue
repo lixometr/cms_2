@@ -46,7 +46,12 @@
 import ProductMixin from "@/mixins/ProductMixin";
 export default {
   mixins: [ProductMixin],
-
+  props: {
+    product: {
+      type: Object,
+      default: () => ({}),
+    },
+  },
   methods: {
     addToFavourite() {
       this.$store.dispatch("favourite/add", { cnt: 1, id: this.product.id });
