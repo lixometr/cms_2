@@ -25,7 +25,7 @@ export default {
             return this.product.tags
         },
         attributes() {
-            return this.product.attributes
+            return this.product.attributes.filter(attr => !!attr.showInProduct)
         },
         defaultImage() {
             return this.product.defaultImage

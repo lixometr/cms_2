@@ -1,6 +1,6 @@
 <template>
   <div>
-    <SliderPrice class="search-block__price" v-model="sliderModel"/>
+    <SliderPrice  v-model="sliderModel"/>
   </div>
 </template>
 

@@ -1,6 +1,7 @@
 <template>
   <div class="category-filters__sub-categories">
     <AppSelect
+      class="select-filter"
       :placeholder="'Выберите категорию'"
       :options="child"
       :value="value[idx]"

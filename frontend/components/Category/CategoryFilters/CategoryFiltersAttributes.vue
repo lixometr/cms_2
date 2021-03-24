@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="category-filters-attributes">
     <CategoryFiltersAttribute
       :attribute="attribute"
       :value="activeAttributes[attribute.attr.slug]"
@@ -33,4 +33,8 @@ export default {
 </script>
 
 <style lang="scss" >
+.category-filters-attributes {
+  display: flex;
+  flex-wrap: wrap;
+}
 </style>

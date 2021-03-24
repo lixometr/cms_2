@@ -1,7 +1,10 @@
 <template>
-  <div>
-    <AppSelect :placeholder="name" :options="options" v-model="selectModel" />
-  </div>
+  <AppSelect
+    class="select-filter"
+    :placeholder="name"
+    :options="options"
+    v-model="selectModel"
+  />
 </template>
 
 <script>

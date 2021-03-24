@@ -77,7 +77,7 @@ export class ProductRepository extends DefaultRepository<Product> {
     async findByCategoryIdWithFilters({ id }, payload: RequestPayload) {
         const categoryRepository = getCustomRepository(ProductCategoryRepository)
 
-        const {items: categoryBreadcrumbs} = await categoryRepository.findParentsById({ id }, payload)
+        const {items: categoryBreadcrumbs} = await categoryRepository.findChildrenById({ id }, payload)
         const ids = categoryBreadcrumbs.map(cat => cat.id)
         ids.push(id)
         const query = this.QFindByCategoryIds({ ids }, payload)

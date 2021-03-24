@@ -114,7 +114,18 @@ export class Product extends EntityLocaleItemBlueprint {
   cntSale: ProductCntSale[]
 
   transformCurrency(currencyId: ID) {
-    return transformCurrency(this, currencyId, 'prices');
+
+    transformCurrency(this, currencyId, 'prices');
+    if (this.type === ProductType.variation) {
+      let variationPrices = this.variations.map(variation => variation.price)
+      variationPrices = variationPrices.filter(price => typeof price === 'number')
+      const price = Math.min(...variationPrices)
+      let variationOldPrices = this.variations.map(variation => variation.oldPrice)
+      variationPrices = variationOldPrices.filter(price => typeof price === 'number')
+      const oldPrice = Math.min(...variationOldPrices)
+      this.price = price
+      this.oldPrice = oldPrice
+    }
   }
 
   async serialize(payload: RequestPayload) {
@@ -124,17 +135,7 @@ export class Product extends EntityLocaleItemBlueprint {
     }
 
     await super.serialize(payload);
-    if (this.type === ProductType.variation) {
-      let variationPrices = this.variations.map(variation => variation.price)
-      variationPrices = variationPrices.filter(price => typeof price === 'number')
-      const price = Math.min(...variationPrices)
 
-      let variationOldPrices = this.variations.map(variation => variation.oldPrice)
-      variationPrices = variationOldPrices.filter(price => typeof price === 'number')
-      const oldPrice = Math.min(...variationOldPrices)
-      this.price = price
-      this.oldPrice = oldPrice
-    }
     return this
   }
 }

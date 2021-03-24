@@ -2,7 +2,7 @@
   <section class="search-block">
     <div class="container">
       <div class="search-block__select">
-        <CategoryPriceFilter />
+        <CategoryPriceFilter class="search-block__price"/>
         <CategoryFiltersSubCategories :item="item" v-model="categories" />
         <CategoryFiltersAttributes />
         <div class="select search-block__item">
@@ -75,6 +75,10 @@ export default {
   &__item {
     width: 250px;
     height: 50px;
+    margin-left: auto;
+  }
+  .select-filter {
+    margin-right: 20px;
   }
 }
 </style>
