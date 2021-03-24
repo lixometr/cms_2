@@ -53,7 +53,10 @@ export class DefaultTreeRepository<T extends EntityDefaultBlueprint> extends Def
         const query = this.treeRepository.createAncestorsQueryBuilder(this.name, `${this.name}Closure`, item)
         this.populate(query, payload)
         this.restrictions(query, payload)
-        return query.getMany()
+        const items = await query.getMany()
+        items.push(items[0])
+        items.shift()
+        return items
     }
     async findParentsById({ id }: { id: ID }, payload: RequestPayload) {
         const item = await this.findById({ id }, payload)
