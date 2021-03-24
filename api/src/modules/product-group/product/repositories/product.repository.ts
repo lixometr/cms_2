@@ -60,11 +60,12 @@ export class ProductRepository extends DefaultRepository<Product> {
         this.restrictions(query, payload)
 
         let items = await query.getMany()
-        const currency = payload.getCurrency()
-        items = items.map(item => {
-            item.transformCurrency(currency.id)
+        // const currency = payload.getCurrency()
+        const resolvers = items.map(async item => {
+            await item.serialize(payload)
             return item
         })
+        items = await Promise.all(resolvers)
         const filters = payload.getFilters()
         const filteredItems = filterItems(items, filters)
         const withPagination = this.paginate(filteredItems, payload)

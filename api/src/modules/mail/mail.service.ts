@@ -62,7 +62,7 @@ export class MailService {
         }
     }
     async send(mail: SendOne, payload: RequestPayload) {
-        await this.init({}, payload)
+        // await this.init({}, payload)
         const toSend = { ...mail, to: [{ email: mail.to }] }
         if (!toSend.from) {
             toSend.from = {
