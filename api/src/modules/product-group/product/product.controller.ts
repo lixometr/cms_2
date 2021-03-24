@@ -8,7 +8,7 @@ import { ProductFiltersResponse } from 'src/internal';
 import { SerializeGroup } from 'src/types';
 import { AuthAdmin } from 'src/internal';
 import { ProductName } from './product.constants';
-import { ProductPriceInfoDto } from './dto/product-price-info.dto';
+import { ProductInfoDto } from './dto/product-info.dto';
 
 @Controller('product')
 export class ProductController extends ControllerBlueprint {
@@ -34,10 +34,10 @@ export class ProductController extends ControllerBlueprint {
     return this.productService.findSimilarItems({ id }, payload)
   }
 
-  @SerializeOptions({ groups: [SerializeGroup.Translate, SerializeGroup.Info] })
-  @Post('id/:id/price')
-  getPrice(@Param('id') id: ID, @Body() info: ProductPriceInfoDto, @GetRequestPayload() payload: RequestPayload) {
-    return this.productService.calculateItemPrice({ id, info }, payload)
+  @SerializeOptions({ groups: [SerializeGroup.Translate, SerializeGroup.Full] })
+  @Post('id/:id/info')
+  getPrice(@Param('id') id: ID, @Body() info: ProductInfoDto, @GetRequestPayload() payload: RequestPayload) {
+    return this.productService.getItemInfo({ id, info }, payload)
   }
   @AuthAdmin()
   @SerializeOptions({ groups: [SerializeGroup.Full, SerializeGroup.Admin] })

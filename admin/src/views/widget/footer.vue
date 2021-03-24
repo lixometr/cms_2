@@ -3,27 +3,9 @@
     <CCard>
       <!-- <CCardHeader></CCardHeader> -->
       <CCardBody>
-        <EditComponent
-          c="EditImage"
-          v="logo"
-          label="Логотип"
-          :changeValue.sync="values"
-          :schema="schema"
-        />
-       
-      </CCardBody>
-    </CCard>
-   
-    <CCard>
-      <CCardHeader>Копирайт</CCardHeader>
-      <CCardBody>
-         <EditComponent
-          c="AInput"
-          v="copyright1"
-          label="Копирайт"
-          :changeValue.sync="values"
-        />
-       
+      
+        <AInput class="mb-3" label="Телефон" v-model="values.phone" />
+        <AInput label="Копирайт" v-model="values.copyright" />
       </CCardBody>
     </CCard>
   </div>
@@ -51,32 +33,15 @@ export default {
     await this.fetchItem();
     this.$loading.stop();
   },
-  computed: {
-    menuItems() {
-      return [
-        {
-          c: "AInput",
-          v: "title",
-          label: "Заголовок",
-        },
-        {
-          c: "AInput",
-          v: "url",
-          label: "Ссылка",
-        },
-       
-        {
-          c: "EditImage",
-          v: "icon",
-          label: "Иконка",
-        },
-      ];
-    },
-   
-  },
+  computed: {},
   methods: {
     async save() {
-      return this.$api.put("widget", { slug: "footer" }, {values: this.values});
+     return await this.$api.put(
+        "widget",
+        { slug: "footer" },
+        { values: this.values }
+      );
+      
     },
     async fetchItem() {
       try {

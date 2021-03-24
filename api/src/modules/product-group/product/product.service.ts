@@ -7,9 +7,11 @@ import { ID } from 'src/internal';
 import { EventName, SLUG } from 'src/internal';
 import { ProductCategoryService } from '../product-category/product-category.service';
 import { ProductBo } from './bo/product.bo';
-import { ProductPriceInfoDto } from './dto/product-price-info.dto';
+import { ProductInfoDto } from './dto/product-info.dto';
+import { ProductInfo } from './entities/product-info.entity';
 import { Product } from './entities/product.entity';
 import { ProductName } from './product.constants';
+import { ProductType } from './product.types';
 import { ProductRepository } from './repositories/product.repository';
 
 @Injectable()
@@ -38,12 +40,36 @@ export class ProductService extends ServiceBlueprint<Product>{
         return this.productRepository.findSimilarItems({ id }, payload)
     }
 
-    async calculateItemPrice({ id, info }: { id: ID, info: ProductPriceInfoDto }, payload: RequestPayload) {
+    async getItemInfo({ id, info }: { id: ID, info: ProductInfoDto }, payload: RequestPayload) {
         const product = await this.findById({ id }, payload)
         if (!product) throw new BadRequestException('Product not found')
+        await product.serialize(payload)
         const productBo = new ProductBo({ product, activeOptions: info.activeOptions, activeVariation: info.activeVariation, cnt: info.cnt || 1 })
-        const price = productBo.getTotalPrice()
-        return price
+        const totalPrice = productBo.getTotalPrice()
+        const optionsPrice = productBo.getOptionsPrice()
+
+        let productInfo = {
+            ...product,
+            totalPrice,
+            optionsPrice
+        }
+        if(product.type === ProductType.variation) {
+            const activeVariation = productBo.getActiveVariation()
+            if(activeVariation) {
+                const variationProps = {
+                    price: activeVariation.price,
+                    oldPrice: activeVariation.oldPrice,
+                    sale: activeVariation.sale,
+                    description: activeVariation.description,
+                    images: activeVariation.images,
+                    defaultImage: activeVariation.defaultImage,
+                    name: activeVariation.name,
+                    sku: activeVariation.sku,
+                }
+                productInfo = {...productInfo, ...variationProps}
+            }
+        }
+       return new ProductInfo(productInfo)
     }
 
 }

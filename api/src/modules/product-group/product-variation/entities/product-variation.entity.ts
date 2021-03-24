@@ -30,7 +30,7 @@ export class ProductVariation extends EntityLocaleDefaultBlueprint {
   name: string;
 
   @Expose({groups: [SerializeGroup.Admin, SerializeGroup.Full]})
-  description: string;
+  description: any;
 
   @Expose({groups: [SerializeGroup.Admin, SerializeGroup.Full]})
   seo: EntitySeo;

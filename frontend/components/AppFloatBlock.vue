@@ -9,10 +9,10 @@
     </div>
 
     <div class="offer__like">
-      <a href="page_like.html" class="offer__like-button">
+      <nuxt-link :to="$url.favourite()" class="offer__like-button">
         <img class="svg" src="/source/img/like_offer.svg" alt="+1" />
-        <div class="offer__like-count">0</div>
-      </a>
+        <div class="offer__like-count">{{favouriteCnt}}</div>
+      </nuxt-link>
     </div>
 
     <!-- to the top -->
@@ -33,7 +33,7 @@ export default {
       return this.$store.getters['cart/cnt']
     },
     favouriteCnt() {
-      // return this.$store.getters['favourite/cnt']
+      return this.$store.getters['favourite/cnt']
     }
   }
 };

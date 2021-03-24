@@ -2,7 +2,7 @@
   <footer class="footer">
     <div class="container">
       <div class="footer__rights-reserved">
-        © 2020 PILOT - VRN. Все права защищены.
+        {{copyright}}
       </div>
       <div class="footer__social-links">
         <div class="social__links-instagram">
@@ -17,7 +17,7 @@
         </div>
 
         <div class="telephone">
-          <a href="tel:8 (473) 232-37-98">8 (473) 232-37-98</a>
+          <a :href="'tel:'+phone">{{phone}}</a>
         </div>
       </div>
       <div class="footer__made-by">
@@ -36,7 +36,41 @@
 </template>
 
 <script>
-export default {};
+export default {
+  data: () => ({
+    item: {},
+  }),
+  async fetch() {
+    await this.fetchFooter();
+  },
+  computed: {
+    copyright() {
+      return this.values.copyright
+    },
+    values() {
+      return this.item.values || {};
+    },
+    logo() {
+      return this.values.logo;
+    },
+    phone() {
+      return this.values.phone;
+    },
+  },
+  methods: {
+    async fetchFooter() {
+      try {
+        const footer = await this.$api.$get("widget", { slug: "footer" });
+        this.item = footer;
+      } catch (err) {
+        this.$error(err);
+      }
+    },
+    orderPhone() {
+      this.$modal.open("contact");
+    },
+  },
+};
 </script>
 
 <style lang="scss" >

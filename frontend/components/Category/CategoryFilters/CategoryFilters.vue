@@ -2,7 +2,7 @@
   <section class="search-block">
     <div class="container">
       <div class="search-block__select">
-        <CategoryPriceFilter class="search-block__price"/>
+        <CategoryPriceFilter class="search-block__price" v-if="showPriceFilters"/>
         <CategoryFiltersSubCategories :item="item" v-model="categories" />
         <CategoryFiltersAttributes />
         <div class="select search-block__item">
@@ -33,7 +33,11 @@ export default {
       categories: [],
     };
   },
-  computed: {},
+  computed: {
+    showPriceFilters() {
+      return this.item.showFilterPrice
+    }
+  },
   methods: {
     async search() {
       let category = null;

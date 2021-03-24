@@ -5,9 +5,7 @@ import { IsObject, IsString, ValidateNested } from "class-validator";
 import { Image } from "src/modules/upload-group/image";
 import { WidgetModelDto } from "../widget.model.dto";
 class WidgetFooterValues {
-    @IsObject()
-    @Type(() => Image)
-    logo: Image
+   
 
     @IsString()
     phone: string

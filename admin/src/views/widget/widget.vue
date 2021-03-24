@@ -28,19 +28,16 @@ export default {
       return this.$store.getters.horizontal;
     },
   },
- 
 
   methods: {
     async save() {
       try {
-        const { data } = await this.$refs.widget.save();
-        if (data.ok) {
-          this.$notify({
-            group: "main",
-            title: "Сохранено!",
-            type: "success",
-          });
-        }
+         await this.$refs.widget.save();
+        this.$notify({
+          group: "main",
+          title: "Сохранено!",
+          type: "success",
+        });
       } catch (err) {
         this.$error(err);
       }

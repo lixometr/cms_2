@@ -9,16 +9,9 @@
           label="Логотип"
           :changeValue.sync="values"
           :schema="schema"
+          class="mb-3"
         />
-
-        <EditComponent
-          c="EditMultiplyer"
-          v="menu"
-          label="Меню"
-          :items="menuItems"
-          :changeValue.sync="values"
-          :schema="schema"
-        />
+        <AInput label="Телефон" v-model="values.phone" />
       </CCardBody>
     </CCard>
   </div>
@@ -28,19 +21,11 @@
 import AInput from "@/components/AInput";
 import EditImage from "@/components/EditImage";
 
-import merge from "lodash.merge";
 export default {
   data() {
     return {
-      values: {
-        menu: [],
-      },
-      schema: {
-        menu: {
-          name: "",
-          url: "",
-        },
-      },
+      values: {},
+      schema: {},
     };
   },
 
@@ -53,29 +38,15 @@ export default {
     await this.fetchItem();
     this.$loading.stop();
   },
-  computed: {
-    menuItems() {
-      return [
-        {
-          c: "AInput",
-          v: "name",
-          label: "Название",
-        },
-        {
-          c: "AInput",
-          v: "url",
-          label: "Url",
-        },
-      ];
-    },
-  },
+  computed: {},
   methods: {
     async save() {
-      return this.$api.put(
+      return await this.$api.put(
         "widget",
         { slug: "header" },
         { values: this.values }
       );
+   
     },
     async fetchItem() {
       try {
