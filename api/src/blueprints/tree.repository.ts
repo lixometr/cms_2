@@ -58,7 +58,7 @@ export class DefaultTreeRepository<T extends EntityDefaultBlueprint> extends Def
     async findParentsById({ id }: { id: ID }, payload: RequestPayload) {
         const item = await this.findById({ id }, payload)
         let items = await this.findParents(item, payload)
-        items = items.reverse()
+        // items = items.reverse()
         const Response = new ArrayResponse(items)
         await Response.changeItems(items => items.filter(item => item.id !== id))
         return Response
