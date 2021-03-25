@@ -15,11 +15,7 @@
           <!-- Big img -->
           <div class="single-product__preview-image">
             <span class="zoom" id="ex1">
-              <AppImage
-                :src="defaultImage"
-                width="70%"
-                height="70%"
-              />
+              <AppImage :src="defaultImage" width="70%" height="70%" />
             </span>
 
             <div class="single-product__preview-image-zoom">
@@ -33,8 +29,12 @@
 
         <!-- 2ой блок -->
         <div class="single-product__description">
-          <ProductVariations :item="product" v-if="type === 'variation'" v-model="activeVariation"/>
-          <ProductOptions :item="product" v-if="options.length"/>
+          <ProductVariations
+            :item="product"
+            v-if="type === 'variation'"
+            v-model="activeVariation"
+          />
+          <ProductOptions :item="product" v-if="options.length" />
           <ProductPrice :item="product" />
 
           <ProductCnt v-model="cnt" />
@@ -45,7 +45,7 @@
             <a href="#0" class="button silver" @click="oneClickBuy"
               >КУПИТЬ В ОДИН КЛИК</a
             >
-            <a href="#like" class="svg-silver"
+            <a href="#like" class="svg-silver" @click="addToFavourite"
               ><img class="svg" src="/source/img/like_offer.svg" alt=""
             /></a>
           </div>
@@ -59,55 +59,71 @@
 </template>
 
 <script>
-import ProductMixin from "@/mixins/ProductMixin"
+import ProductMixin from "@/mixins/ProductMixin";
 export default {
   mixins: [ProductMixin],
   data() {
     return {
       cnt: 1,
-      activeVariation: null,
       activeOptions: {},
     };
   },
   async asyncData({ error, $api, params, $url }) {
     try {
-      const product = await $api.$get("product", { slug: params.slug });
-      if (!product) throw { statusCode: 404 };
-      const mainCategory = product.category[0];
-      let breadcrumbs = [];
+      const item = await $api.$get("product", { slug: params.slug });
+      if (!item) throw { statusCode: 404 };
+      const mainCategory = item.category[0];
+      let breadcrumbsItems = [];
       if (mainCategory) {
         const { items } = await $api.$get("categoryBreadcrumbs", {
           id: mainCategory.id,
         });
-        breadcrumbs = items.map((item) => ({
+        breadcrumbsItems = items.map((item) => ({
           title: item.name,
           link: $url.category(item.fullSlug),
         }));
       }
-     
-      breadcrumbs.push({
-        title: product.name,
-        link: "#",
-      });
+      let activeVariation = null;
+      if (item.type === "variation") {
+        activeVariation = item.variations[0] && item.variations[0].id;
+      }
+      const product = await $api.$post(
+        "productInfo",
+        { id: item.id },
+        {
+          activeVariation,
+          activeOptions: {},
+          cnt: 1,
+        }
+      );
+
       return {
+        activeVariation,
         product,
-        breadcrumbs,
+        item,
+        breadcrumbsItems,
       };
     } catch (err) {
-      console.log(err);
       error(err);
     }
   },
   computed: {
-  
     name() {
       return this.product.name;
+    },
+    breadcrumbs() {
+      const breadcrumbs = [...this.breadcrumbsItems];
+      breadcrumbs.push({
+        title: this.product.name,
+        link: "#",
+      });
+      return breadcrumbs;
     },
   },
   methods: {
     oneClickBuy() {
-      this.addToCart()
-      this.$router.push(this.$url.checkout())
+      this.addToCart();
+      this.$router.push(this.$url.checkout());
     },
     addToCart() {
       this.$store.dispatch("cart/add", {
@@ -116,6 +132,34 @@ export default {
         activeVariation: this.activeVariation,
         activeOptions: this.activeOptions,
       });
+    },
+    addToFavourite() {
+      this.$store.dispatch("favourite/add", {
+        id: this.product.id,
+        cnt: this.cnt,
+        activeVariation: this.activeVariation,
+        activeOptions: this.activeOptions,
+      });
+    },
+    async fetchProductInfo() {
+      try {
+        this.product = await this.$api.$post(
+          "productInfo",
+          { id: this.item.id },
+          {
+            activeVariation: this.activeVariation,
+            activeOptions: this.activeOptions,
+            cnt: this.cnt,
+          }
+        );
+      } catch (err) {
+        this.$error(err);
+      }
+    },
+  },
+  watch: {
+    activeVariation() {
+      this.fetchProductInfo();
     },
   },
 };

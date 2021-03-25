@@ -18,8 +18,8 @@ export const getters = {
         }
     },
     getItem(state) {
-        return (id) => {
-            return state.items.find(item => item.id === id)
+        return (idx) => {
+            return state.cookieItems[idx]
         }
     },
     hasItems(state) {

@@ -6,7 +6,7 @@ export const state = () => ({
 })
 
 export const getters = {
- 
+
     hasItem(state) {
         return (id) => {
             return state.items.findIndex(item => item.id === id) > -1
@@ -38,13 +38,13 @@ export const getters = {
 }
 
 export const mutations = {
-    add(state, { cnt, id, variation, options }) {
+    add(state, { cnt, id, activeVariation, activeOptions }) {
         if (!id) return
         cnt = parseInt(cnt)
         if (isNaN(cnt)) cnt = 1
         let cookieFavourite = this.$cookies.get(cookieKey)
         if (!_.isArray(cookieFavourite)) cookieFavourite = []
-        cookieFavourite.push({ id, cnt, variation, options })
+        cookieFavourite.push({ id, cnt, activeVariation, activeOptions })
         this.$cookies.set(cookieKey, cookieFavourite, this.getters['favourite/cookieOptions'])
         state.cookieItems = cookieFavourite
     },
@@ -129,17 +129,15 @@ export const actions = {
         try {
             const resolvers = getters.cookieItems.map(async (favouriteItem, idx) => {
                 try {
-                    const item = await this.$api.$get("productById", {
+                    const item = await this.$api.$post("productInfo", {
                         id: favouriteItem.id,
+                    }, {
+                        activeVariation: favouriteItem.activeVariation || null,
+                        activeOptions: favouriteItem.activeOptions || {},
+                        cnt: favouriteItem.cnt,
                     });
-                    if (!item) {
-                        commit('removeByIdx', idx)
-                        return false
-                    }
-                    return {
-                        ...favouriteItem,
-                        item,
-                    };
+
+                    return item
                 } catch (err) {
                     commit('removeByIdx', idx)
                     return false

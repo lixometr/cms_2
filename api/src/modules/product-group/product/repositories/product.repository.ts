@@ -69,7 +69,7 @@ export class ProductRepository extends DefaultRepository<Product> {
         const filters = payload.getFilters()
         const filteredItems = filterItems(items, filters)
         const withPagination = this.paginate(filteredItems, payload)
-        const filtersToSend = getFilters(filteredItems, availableFilters)
+        const filtersToSend = getFilters(items, availableFilters)
         return new ProductFiltersResponse({
             ...withPagination,
             filters: filtersToSend
