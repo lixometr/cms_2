@@ -5,6 +5,7 @@ import { UpdatePromocodeDto } from './dto/update-promocode.dto';
 import { ControllerBlueprint } from 'src/blueprints/controller';
 import { AuthAdmin, GetRequestPayload, ID, RequestPayload, SerializeGroup } from 'src/internal';
 import { PromocodeName } from './promocode.constants';
+import { CheckPromocodeDto } from './dto/check-promocode.dto';
 
 @Controller('promocode')
 export class PromocodeController extends ControllerBlueprint {
@@ -30,5 +31,10 @@ export class PromocodeController extends ControllerBlueprint {
   @Put('/id/:id')
   async update(@Param('id') id: ID, @Body() data: UpdatePromocodeDto, @GetRequestPayload() payload: RequestPayload) {
     return this.promocodeService.updateById({ data, id }, payload)
+  }
+
+  @Post()
+  async check(@Body() data: CheckPromocodeDto, payload: RequestPayload) {
+return this.promocodeService.check(data, payload)
   }
 }

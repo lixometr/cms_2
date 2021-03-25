@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Put, Param, Delete, ParseIntPipe, Req, SerializeOptions } from '@nestjs/common';
+import { Controller, Get, Post, Body, Put, Param, Delete, ParseIntPipe, Req, SerializeOptions, HttpStatus, HttpCode } from '@nestjs/common';
 import { ControllerBlueprint } from 'src/blueprints/controller';
 import { AuthAdmin, GetRequestPayload, ID, SerializeGroup, SLUG } from 'src/internal';
 import { ProductService } from '../product/product.service';
@@ -14,6 +14,7 @@ export class CartController {
     constructor(private readonly itemService: CartService) { }
 
 
+    @HttpCode(200)
     @SerializeOptions({ groups: [SerializeGroup.Translate, SerializeGroup.Full] })
     @Post('info')
     getInfo(@Body() infoDto: CartInfoDto, @GetRequestPayload() requestPayload: RequestPayload) {

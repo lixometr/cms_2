@@ -2,10 +2,13 @@ import _ from "lodash"
 export const state = () => ({
     cookieItems: [],
     items: [],
-    promocode: ''
+    info: {}
 })
 
 export const getters = {
+    info(state) {
+        return state.info
+    },
     promocode(state) {
         return state.promocode
     },
@@ -40,6 +43,7 @@ export const getters = {
 }
 
 export const mutations = {
+   
     add(state, { cnt, id, activeVariation, activeOptions }) {
         if (!id) return
         cnt = parseInt(cnt)
@@ -97,6 +101,9 @@ export const mutations = {
         }
         state.cookieItems = cookieCart
 
+    },
+    setInfo(state, info) {
+        state.info = info
     }
 }
 
@@ -137,11 +144,20 @@ export const actions = {
                 product: { id: cartItem.id }
             }))
             const cartInfo = await this.$api.$post("cartInfo", {}, {
-                promocode: getters.promocode,
+                promocode: this.getters['promocode/promocode'],
                 products: cartProducts
             })
 
             commit('setItems', cartInfo.products)
+
+            commit('setInfo', {
+                totalPrice: cartInfo.totalPrice,
+                promocodeSale: cartInfo.promocodeSale,
+            })
+            let cookieCart = this.$cookies.get('cart')
+            cookieCart = cookieCart.filter(cookieItem => cartInfo.products.findIndex(productItem => productItem.id === cookieItem.id) >= 0)
+            this.$cookies.set('cart', cookieCart, this.getters['cart/cookieOptions'])
+            state.cookieItems = cookieCart
             return cartInfo
         } catch (err) {
             this.$error(err);

@@ -5,7 +5,7 @@
 
 			<!-- блок с продуктами -->
 			<div class="basket__products">
-				<CartProduct />
+				<ProductCard cardType="cart" v-for="(item, idx) in items" :product="item" :key="idx" :idx="idx"/>
 			</div>
 			<!-- конец блок с продуктами -->
 
@@ -21,10 +21,14 @@
     export default {
         async asyncData({$api, error, store}) {
 			try {	
-				store.getters['cart/items']
-				$api.$get('')
+				
 			} catch(err) {
 				error(err)
+			}
+		},
+		computed:{
+			items() {
+				return this.$store.getters['cart/items']
 			}
 		}
     }

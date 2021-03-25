@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Put, Param, Delete, ValidationPipe, Req, SerializeOptions } from '@nestjs/common';
+import { Controller, Get, Post, Body, Put, Param, Delete, ValidationPipe, Req, SerializeOptions, HttpCode } from '@nestjs/common';
 import { ProductService } from './product.service';
 import { CreateProductDto } from './dto/create-product.dto';
 import { ControllerBlueprint } from 'src/blueprints/controller';
@@ -34,6 +34,7 @@ export class ProductController extends ControllerBlueprint {
     return this.productService.findSimilarItems({ id }, payload)
   }
 
+  @HttpCode(200)
   @SerializeOptions({ groups: [SerializeGroup.Translate, SerializeGroup.Full] })
   @Post('id/:id/info')
   getPrice(@Param('id') id: ID, @Body() info: ProductInfoDto, @GetRequestPayload() payload: RequestPayload) {

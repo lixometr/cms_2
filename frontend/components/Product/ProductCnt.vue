@@ -29,7 +29,7 @@ export default {
       },
       set(val) {
         let newVal = parseInt(val);
-        if (isNaN(newVal)) newVal = 1;
+        if (isNaN(newVal) || newVal < 0) newVal = 1;
         this.$emit("input", newVal);
       },
     },

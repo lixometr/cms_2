@@ -4,6 +4,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { ServiceBlueprint } from 'src/blueprints/service';
 import { RequestPayload } from 'src/internal';
 import { Repository } from 'typeorm';
+import { CheckPromocodeDto } from './dto/check-promocode.dto';
 import { CreatePromocodeDto } from './dto/create-promocode.dto';
 import { UpdatePromocodeDto } from './dto/update-promocode.dto';
 import { Promocode } from './entities/promocode.entity';
@@ -70,5 +71,10 @@ export class PromocodeService extends ServiceBlueprint<Promocode> {
     await this.updateById({ id, data: newValue }, payload)
     await this.useUser({ promocode }, payload)
     return true
+  }
+  async check({ promocode }: CheckPromocodeDto, payload) {
+    const promo = await this.findByName({ name: promocode }, payload)
+    if (!promo) return false
+    return this.canUse({ promocode: promo }, payload)
   }
 }

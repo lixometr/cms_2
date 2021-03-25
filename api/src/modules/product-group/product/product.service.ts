@@ -1,5 +1,6 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { EventEmitter2, OnEvent } from '@nestjs/event-emitter';
+import { classToPlain } from 'class-transformer';
 
 import { ServiceBlueprint } from 'src/blueprints/service';
 import { RequestPayload } from 'src/internal';
@@ -44,10 +45,10 @@ export class ProductService extends ServiceBlueprint<Product>{
         const product = await this.findById({ id }, payload)
         if (!product) throw new BadRequestException('Product not found')
         await product.serialize(payload)
+
         const productBo = new ProductBo({ product, activeOptions: info.activeOptions, activeVariation: info.activeVariation, cnt: info.cnt || 1 })
         const totalPrice = productBo.getTotalPrice()
         const optionsPrice = productBo.getOptionsPrice()
-
         let productInfo = {
             ...product,
             totalPrice,
