@@ -51,7 +51,9 @@ export class ProductService extends ServiceBlueprint<Product>{
         let productInfo = {
             ...product,
             totalPrice,
-            optionsPrice
+            optionsPrice,
+            cnt: info.cnt,
+            activeOptions: productBo.getFilteredOptions()
         }
         if(product.type === ProductType.variation) {
             const activeVariation = productBo.getActiveVariation()

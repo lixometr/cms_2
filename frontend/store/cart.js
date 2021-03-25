@@ -1,7 +1,8 @@
 import _ from "lodash"
 export const state = () => ({
     cookieItems: [],
-    items: []
+    items: [],
+    promocode: ''
 })
 
 export const getters = {
@@ -39,13 +40,13 @@ export const getters = {
 }
 
 export const mutations = {
-    add(state, { cnt, id, variation, options }) {
+    add(state, { cnt, id, activeVariation, activeOptions }) {
         if (!id) return
         cnt = parseInt(cnt)
         if (isNaN(cnt)) cnt = 1
         let cookieCart = this.$cookies.get('cart')
         if (!_.isArray(cookieCart)) cookieCart = []
-        cookieCart.push({ id, cnt, variation, options })
+        cookieCart.push({ id, cnt, activeVariation, activeOptions })
         this.$cookies.set('cart', cookieCart, this.getters['cart/cookieOptions'])
         state.cookieItems = cookieCart
     },
@@ -128,28 +129,20 @@ export const actions = {
 
     async fetchItems({ commit, getters }) {
         try {
-            const resolvers = getters.cookieItems.map(async (cartItem, idx) => {
-                try {
-                    const item = await this.$api.$get("productById", {
-                        id: cartItem.id,
-                    });
-                    if (!item) {
-                        commit('removeByIdx', idx)
-                        return false
-                    }
-                    return {
-                        ...cartItem,
-                        item,
-                    };
-                } catch (err) {
-                    commit('removeByIdx', idx)
-                    return false
-                }
-            });
-            let items = await Promise.all(resolvers);
-            items = items.filter(item => !!item)
-            commit('setItems', items)
-            return items
+
+            const cartProducts = getters.cookieItems.map(cartItem => ({
+                activeVariation: cartItem.activeVariation || null,
+                activeOptions: cartItem.activeOptions || {},
+                cnt: cartItem.cnt,
+                product: { id: cartItem.id }
+            }))
+            const cartInfo = await this.$api.$post("cartInfo", {}, {
+                promocode: getters.promocode,
+                products: cartProducts
+            })
+
+            commit('setItems', cartInfo.products)
+            return cartInfo
         } catch (err) {
             this.$error(err);
             return []

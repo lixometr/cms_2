@@ -6,4 +6,6 @@ export default {
     productById: '/product/id/{{id}}',
     productByIdAdmin: '/product/admin/id/{{id}}',
     similarProductItems: "/product/id/{{id}}/similar-products",
+    productInfo: '/product/{{id}}/info',
+    cartInfo: '/cart/info'
 }

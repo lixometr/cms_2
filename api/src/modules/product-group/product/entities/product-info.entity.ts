@@ -21,6 +21,10 @@ export type ProductInfoProps = {
     totalPrice: number
     optionsPrice: number
 
+    cnt: number
+
+    activeOptions: ProductOption[]
+
 
 }
 export class ProductInfo extends EntityBase{
@@ -40,6 +44,8 @@ export class ProductInfo extends EntityBase{
 
     images: Image
 
+    cnt: number
+    activeOptions: ProductOption[]
 
     constructor(item: ProductInfoProps) {
         super()

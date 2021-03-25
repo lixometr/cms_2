@@ -46,11 +46,10 @@ export class ProductBo {
         return this.product.sale / 100
     }
     getOptionsBo() {
-        return this.product.options.map(option => new ProductOptionBo({ option }))
+        return this.getFilteredOptions().map(option => new ProductOptionBo({ option }))
     }
-    getOptionsPrice() {
-        const options = this.getOptionsBo().filter(optionBo => {
-            const option = optionBo.getItem()
+    getFilteredOptions() {
+        const options = this.product.options.filter(option => {
             if (!(option.id in this.activeOptions)) return false
             const optId = option.id
             option.values = option.values.filter(optionValue => {
@@ -58,6 +57,10 @@ export class ProductBo {
             })
             return true
         })
+        return options
+    }
+    getOptionsPrice() {
+        const options = this.getOptionsBo()
         const optionsPrice = options.reduce((sum, option) => {
             return sum + option.getPrice()
         }, 0)

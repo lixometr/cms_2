@@ -113,8 +113,8 @@ export default {
       this.$store.dispatch("cart/add", {
         id: this.product.id,
         cnt: this.cnt,
-        variation: this.activeVariation,
-        options: this.activeOptions,
+        activeVariation: this.activeVariation,
+        activeOptions: this.activeOptions,
       });
     },
   },

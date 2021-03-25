@@ -19,7 +19,14 @@
 
 <script>
     export default {
-        
+        async asyncData({$api, error, store}) {
+			try {	
+				store.getters['cart/items']
+				$api.$get('')
+			} catch(err) {
+				error(err)
+			}
+		}
     }
 </script>
 
