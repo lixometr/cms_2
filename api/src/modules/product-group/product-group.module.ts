@@ -1,6 +1,7 @@
 import { Module } from "@nestjs/common";
 import { AttributeValueModule } from "./attribute-value/attribute-value.module";
 import { AttributeModule } from "./attribute/attribute.module";
+import { CartModule } from "./cart/cart.module";
 import { CurrencyModule } from "./currency/currency.module";
 import { OrderGroupModule } from "./order-group/order-group.module";
 import { ProductAttributeModule } from "./product-attribute/product-attribute.module";
@@ -11,7 +12,7 @@ import { ProductModule } from "./product/product.module";
 import { PromocodeModule } from "./promocode/promocode.module";
 
 @Module({
-    imports: [CurrencyModule, ProductModule, AttributeModule, AttributeValueModule, ProductAttributeModule, ProductCategoryModule, ProductTagModule, ProductReviewModule, PromocodeModule, OrderGroupModule]
+    imports: [CurrencyModule, ProductModule, AttributeModule, AttributeValueModule, ProductAttributeModule, ProductCategoryModule, ProductTagModule, ProductReviewModule, PromocodeModule, OrderGroupModule, CartModule]
 })
 
 export class ProductGroupModule {}
