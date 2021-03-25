@@ -55,11 +55,13 @@
         <!-- 2ой блок -->
       </section>
     </div>
+    <ProductFooter :item="product" />
   </main>
 </template>
 
 <script>
 import ProductMixin from "@/mixins/ProductMixin";
+import Vue from "vue"
 export default {
   mixins: [ProductMixin],
   data() {
@@ -106,6 +108,16 @@ export default {
     } catch (err) {
       error(err);
     }
+  },
+  async mounted() {
+    await Vue.loadScript('/source/js/jquery.zoom.min.js')
+    // $(".single-product__preview-image-zoom").click(function (event) {
+      $("#ex1").zoom();
+    // });
+
+    $("#ex2").zoom({ on: "grab" });
+    $("#ex3").zoom({ on: "click" });
+    $("#ex4").zoom({ on: "toggle" });
   },
   computed: {
     name() {

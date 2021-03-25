@@ -3,7 +3,7 @@
     <AppBreadcrumbs class="breadcrumb__silver" :items="breadcrumbs" />
 
     <CategoryTitle :item="category" />
-    <CategoryFilters :item="category" />
+    <CategoryFilters :item="category" v-if="showFilters"/>
     <CategorySubCategories :items="children" :item="category" v-if="hasSubCategories" />
     <CategoryProducts :items="products" v-else/>
   </main>
@@ -61,6 +61,10 @@ export default {
     }
   },
   computed: {
+    showFilters() {
+
+      return this.hasSubCategories ||  this.category.showFilterPrice || this.category.availableFilterAttributes.length > 0
+    },
     products() {
       return this.productsData.items || []
     },

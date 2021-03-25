@@ -5,7 +5,7 @@ export default {
     productAdmin: '/product/admin/slug/{{slug}}',
     productById: '/product/id/{{id}}',
     productByIdAdmin: '/product/admin/id/{{id}}',
-    similarProductItems: "/product/id/{{id}}/similar-products",
+    productSimilarItems: "/product/id/{{id}}/similar-products",
     productInfo: '/product/id/{{id}}/info',
     cartInfo: '/cart/info'
 }

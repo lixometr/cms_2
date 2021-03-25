@@ -17,11 +17,12 @@ export default {
       type: Array,
       default: () => [],
     },
+    min: Number,
+    max: Number
   },
   data() {
     return {
-      min: this.value[0],
-      max: this.value[1]
+     
     };
   },
   computed: {

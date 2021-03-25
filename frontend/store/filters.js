@@ -19,7 +19,9 @@ export const getters = {
         return getters.active.attributes || {}
     },
     activePrice(state, getters) {
-        return getters.active.price || []
+        let price =  getters.active.price || []
+        price = price.map(p => parseInt(p)).map(p => isNaN(p) ? 0 : p)
+        return price
     },
     price(state, getters) {
         return getters.items.price || []

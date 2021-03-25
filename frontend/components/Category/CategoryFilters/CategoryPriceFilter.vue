@@ -1,6 +1,6 @@
 <template>
   <div>
-    <SliderPrice  v-model="sliderModel"/>
+    <SliderPrice v-model="sliderModel" :min="min" :max="max" />
   </div>
 </template>
 
@@ -9,11 +9,21 @@ export default {
   computed: {
     sliderModel: {
       get() {
-        return this.$store.getters["filters/price"];
+        const activePrice = this.$store.getters["filters/activePrice"];
+        if (activePrice.length < 1) {
+          return this.$store.getters["filters/price"];
+        }
+        return activePrice;
       },
       set(newVal) {
-          this.$store.commit('filters/setPrice', newVal)
-      }
+        this.$store.commit("filters/setPrice", newVal);
+      },
+    },
+    min() {
+      return this.$store.getters["filters/price"][0];
+    },
+    max() {
+      return this.$store.getters["filters/price"][1];
     },
   },
 };

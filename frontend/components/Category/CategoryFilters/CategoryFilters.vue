@@ -23,10 +23,7 @@ export default {
       type: Object,
       default: () => ({}),
     },
-    children: {
-      type: Array,
-      default: () => [],
-    },
+  
   },
   data() {
     return {

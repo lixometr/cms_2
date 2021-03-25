@@ -73,17 +73,7 @@ $(document).ready(function () {
 		});
 	});
 
-	// показать и скрыть отзывы
-	$('.reviews-title').click(function (event) {
-		if ($('.reviews-title').hasClass('reviews-title__open')) {
-			$(this).removeClass('reviews-title__open').addClass('reviews-title__close');
-			$('.reviews-body').slideUp();
-		}
-		else {
-			$(this).removeClass('reviews-title__close').addClass('reviews-title__open');
-			$('.reviews-body').slideDown();
-		}
-	});
+	
 
 
 });
