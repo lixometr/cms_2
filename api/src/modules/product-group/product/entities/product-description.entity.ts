@@ -11,9 +11,9 @@ export class ProductDescription {
     @ManyToOne(() => ProductLocale, pLocale => pLocale.description, DELETE_OPTIONS)
     locale: ProductLocale
 
-    @Column({nullable: true})
+    @Column('mediumtext', {nullable: true})
     tab: string
 
-    @Column({nullable: true})
+    @Column('mediumtext',{nullable: true})
     content: string
 }

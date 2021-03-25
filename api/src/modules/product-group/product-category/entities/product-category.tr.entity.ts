@@ -17,11 +17,11 @@ export class ProductCategoryLocale extends EntityTranslationBlueprint {
     title: string
 
     @Expose({ groups: [SerializeGroup.Admin, SerializeGroup.Full] })
-    @Column({ nullable: true })
+    @Column('mediumtext', { nullable: true })
     textTop: string
 
     @Expose({ groups: [SerializeGroup.Admin, SerializeGroup.Full] })
-    @Column({ nullable: true })
+    @Column('mediumtext', { nullable: true })
     textBottom: string
 
     @Expose({ groups: [SerializeGroup.Admin, SerializeGroup.Full] })
