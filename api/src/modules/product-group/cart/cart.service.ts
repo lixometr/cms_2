@@ -4,6 +4,7 @@ import { ServiceBlueprint } from 'src/blueprints/service';
 import { CartBo, RequestPayload } from 'src/internal';
 import { ProductInfo } from '../product/entities/product-info.entity';
 import { ProductService } from '../product/product.service';
+import { PromocodeService } from '../promocode/promocode.service';
 import { CartName } from './cart.constants';
 import { CartInfoDto } from './dto/cart-info.dto';
 import { CartInfo } from './entities/cart-info.entity';
@@ -11,7 +12,7 @@ import { CartInfo } from './entities/cart-info.entity';
 @Injectable()
 export class CartService {
   public name = CartName
-  constructor(private productService: ProductService) { }
+  constructor(private productService: ProductService, private promocodeService: PromocodeService) { }
   async getInfo({ info }: { info: CartInfoDto }, payload: RequestPayload) {
     const resolvers = info.products.map(async cartProduct => {
       const product = await this.productService.findById(cartProduct.product, payload)
@@ -24,7 +25,8 @@ export class CartService {
     })
     let cartProducts = await Promise.all(resolvers)
     cartProducts = cartProducts.filter(item => !!item)
-    const cartBo = new CartBo({ products: cartProducts })
+    const promocode = await this.promocodeService.findByName({name: info.promocode}, payload)
+    const cartBo = new CartBo({ products: cartProducts, promocode })
     const cartInfo = {
       totalPrice: cartBo.getTotalPrice(),
       promocodeSale: cartBo.getPromocodeSale(),
