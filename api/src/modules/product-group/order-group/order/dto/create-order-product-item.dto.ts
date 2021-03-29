@@ -54,6 +54,7 @@ export class CreateOrderProductItemDto {
     @Type(() => CreateProductVariationDto)
     variations: CreateProductVariationDto[]
 
+    @IsOptional()
     @IsString()
     sku: string;
 

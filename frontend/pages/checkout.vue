@@ -115,10 +115,12 @@ export default {
       try {
         this.isSending = true
         const result = await this.$api.$post("orderCreate", {}, toSend);
-        this.isSending = false
         console.log(result);
       } catch (err) {
         this.$error(err);
+      }finally {
+        this.isSending = false
+
       }
     },
   },
