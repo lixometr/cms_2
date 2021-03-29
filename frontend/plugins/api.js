@@ -23,7 +23,7 @@ export default async ({ app, $axios, store }, inject) => {
             baseUrl = `https://api.st-cms.ru`
             // baseUrl = `http://localhost:3001`
         } else {
-            baseUrl = `http://api:${globalConfig.api.port}`
+            baseUrl = `http://localhost:${globalConfig.api.port}`
         }
         // baseUrl = 'https://api.st-cms.ru'
     }
