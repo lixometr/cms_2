@@ -161,6 +161,7 @@ export class OrderService extends ServiceBlueprint<Order>{
       const product = await this.productService.findById({ id: productId }, payload)
       if (!product) return
       await product.serialize(payload)
+      console.log('t',product)
       let orderProduct: CreateOrderProductDto = { ...toCreateOrderProduct, product, }
       return orderProduct
     })
