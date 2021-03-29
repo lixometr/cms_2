@@ -110,8 +110,12 @@ export default {
       if (!isValid) return;
       const toSend = this.serialize();
       console.log(toSend);
-      const result = await this.$api.$post("orderCreate", {}, toSend);
-      console.log(result);
+      try {
+        const result = await this.$api.$post("orderCreate", {}, toSend);
+        console.log(result);
+      } catch (err) {
+        this.$error(err);
+      }
     },
   },
 };

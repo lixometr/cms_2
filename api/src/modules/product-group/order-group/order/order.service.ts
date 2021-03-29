@@ -99,7 +99,7 @@ export class OrderService extends ServiceBlueprint<Order>{
   }
   async makeUser({ }, payload: RequestPayload) {
     const user = payload.getUser()
-    if (!user || _.isEmpty(user)) return null
+    if (!user || _.isEmpty(user)) return undefined
     return await user.serialize(payload)
   }
   async makeLocale({ }, payload: RequestPayload) {
