@@ -57,6 +57,12 @@ export class DefaultTreeRepository<T extends EntityDefaultBlueprint> extends Def
         items.push(items[0])
         items.shift()
         items.sort((a: any, b: any) => {
+            if(a.id === null) {
+                return -1
+            }
+            if(b.id === null) {
+                return 1
+            }
             if(a.id === b.parentId) {
                 return -1
             }
