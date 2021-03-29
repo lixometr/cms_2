@@ -18,14 +18,14 @@ export class Order extends EntityDefaultBlueprint {
     @Column('json', { nullable: true })
     promocode: Promocode
 
-    @Column('json')
+    @Column('json', {nullable: true})
     user: OrderUser
 
     @OneToMany(() => OrderProduct, orderProduct => orderProduct.order, { cascade: true, eager: true })
     products: OrderProduct[]
 
     @Column('json',)
-    paymentType: any
+    payment: any
 
     @Column('json',)
     delivery: any
