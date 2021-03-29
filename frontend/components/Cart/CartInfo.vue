@@ -5,7 +5,7 @@
         <p class="basket-title">
           Товары <span>({{ cnt }})</span>
         </p>
-        <p class="basket-price">{{totalPrice}} ₽</p>
+        <p class="basket-price">{{totalNoSale}} ₽</p>
       </div>
       <!-- <div class="basket__line">
         <p class="basket-title">Установка</p>
@@ -43,11 +43,19 @@ export default {
       const totalSale = this.items.reduce((sum, item) => {
         const d = item.oldPrice - item.price;
         if (d > 0) {
-          return sum + d;
+          return sum + (d * item.cnt);
         }
         return sum
       }, 0);
       return totalSale;
+    },
+      totalNoSale() {
+      const items = this.$store.getters["cart/items"];
+      return items.reduce((sum, item) => {
+        const price =  (item.oldPrice || item.price)
+        const currentPrice = price * item.cnt
+        return sum + currentPrice;
+      }, 0);
     },
     totalPrice() {
       return this.$store.getters['cart/info'].totalPrice || 0

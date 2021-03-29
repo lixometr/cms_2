@@ -11,16 +11,16 @@
           <div class="wrapperbg">
             <div class="checkout__summa">
               <span class="checkout__title">Сумма:</span>
-              <span class="checkout__number">5,980.00 руб.</span>
+              <span class="checkout__number">{{ totalNoSale }} руб.</span>
             </div>
-            <div class="checkout__sale">
+            <div class="checkout__sale" v-if="totalSale">
               <span class="checkout__title">Скидка:</span>
-              <span class="checkout__number">-299.00 руб.</span>
+              <span class="checkout__number">-{{ totalSale }} руб.</span>
             </div>
             <CheckoutDelivery v-model="delivery" />
             <div class="checkout__total">
               <span class="checkout__title">ИТОГО:</span>
-              <span class="checkout__number">7 570 ₽</span>
+              <span class="checkout__number">{{ totalPrice }} ₽</span>
             </div>
             <CheckoutPayments v-model="payment" />
             <div class="checkout__info">
@@ -57,6 +57,30 @@
 <script>
 export default {
   computed: {
+    totalPrice() {
+      const info = this.$store.getters["cart/info"];
+      console.log(info);
+      return info.totalPrice;
+    },
+    totalSale() {
+      const items = this.$store.getters["cart/items"];
+      return items.reduce((sum, item) => {
+        let d = 0;
+        if (item.oldPrice) {
+          d = Math.abs(item.oldPrice - item.price);
+        }
+        d *= item.cnt;
+        return sum + d;
+      }, 0);
+    },
+    totalNoSale() {
+      const items = this.$store.getters["cart/items"];
+      return items.reduce((sum, item) => {
+        const price = item.oldPrice || item.price;
+        const currentPrice = price * item.cnt;
+        return sum + currentPrice;
+      }, 0);
+    },
     breadcrumbs() {
       return [
         {
@@ -71,7 +95,7 @@ export default {
     delivery: {},
     payment: {},
     info: {},
-    isSending: false
+    isSending: false,
   }),
   methods: {
     validate() {
@@ -106,21 +130,25 @@ export default {
       };
       return toSend;
     },
+    onSuccess() {
+      this.$toast.success("Заказ успешно создан!");
+      this.$store.dispatch("cart/clear");
+      this.$router.push("/");
+    },
     async submit() {
-      if(this.isSending) return
+      if (this.isSending) return;
       const isValid = this.validate();
       if (!isValid) return;
       const toSend = this.serialize();
       console.log(toSend);
       try {
-        this.isSending = true
+        this.isSending = true;
         const result = await this.$api.$post("orderCreate", {}, toSend);
-        console.log(result);
+        this.onSuccess();
       } catch (err) {
         this.$error(err);
-      }finally {
-        this.isSending = false
-
+      } finally {
+        this.isSending = false;
       }
     },
   },

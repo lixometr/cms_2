@@ -11,7 +11,7 @@
     </CCard>
     <CCard>
       <CCardBody>
-        <Label class="mb-3" label="Id">{{ order.order_id }}</Label>
+        <Label class="mb-3" label="Id">{{ order.orderId }}</Label>
       </CCardBody>
     </CCard>
     <CCard>
@@ -32,9 +32,8 @@
         <Label class="mb-3" label="Промокод">{{
           order.promocode && order.promocode.name
         }}</Label>
-        <Label class="mb-3" label="Способ оплаты">{{
-          order.payment_method
-        }}</Label>
+        <Label class="mb-3" label="Способ оплаты">{{ paymentType }}</Label>
+        <Label class="mb-3" label="Способ доставки">{{ deliveryType }}</Label>
       </CCardBody>
     </CCard>
     <CCard>
@@ -58,7 +57,7 @@
         <Label class="mb-3" label="Телефон">{{ order.info.phone }}</Label>
       </CCardBody>
     </CCard>
-    
+
     <CCard>
       <CCardBody>
         <Label label=""></Label>
@@ -95,6 +94,22 @@ export default {
     };
   },
   computed: {
+    deliveryType() {
+      const type = this.order.delivery.type
+      const types = {
+        pickup: "Самовывоз",
+        courier: "Курьером"
+      }
+      return types[type] || type
+    },  
+    paymentType() {
+      const type = this.order.payment.type;
+      const types = {
+        cash: "Наличными",
+        invoice: "По счету",
+      };
+      return types[type] || type
+    },
     statuses() {
       return [
         {

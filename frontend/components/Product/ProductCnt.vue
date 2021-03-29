@@ -17,34 +17,55 @@ export default {
   props: {
     value: Number,
   },
+  data() {
+    return {
+      cnt: this.value || 1,
+    };
+  },
   computed: {
-    cnt() {
-      const value = parseInt(this.value);
-      if (isNaN(value)) return 1;
-      return value;
+    numCnt() {
+      const cnt = parseInt(this.cnt);
+      if (isNaN(cnt)) return 1;
+      return cnt;
     },
     inputModel: {
       get() {
-        return this.value;
+        return this.cnt;
       },
       set(val) {
+        console.log("w");
         let newVal = parseInt(val);
         if (isNaN(newVal) || newVal < 0) newVal = 1;
-        this.$emit("input", newVal);
+        this.cnt = newVal;
       },
     },
   },
   methods: {
     plus() {
-      this.$emit("input", this.cnt + 1);
+      this.cnt++
     },
     minus() {
-      if(this.cnt - 1 < 1) return
-      this.$emit("input", this.cnt - 1);
+      if (this.cnt - 1 < 1) return;
+      this.cnt--
+    },
+  },
+  watch: {
+    cnt() {
+      this.$emit("input", this.cnt);
     },
   },
 };
 </script>
 
 <style lang="scss" >
+.description__counter {
+  input[type="number"] {
+    -moz-appearance: textfield;
+  }
+
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+  }
+}
 </style>

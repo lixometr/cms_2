@@ -44,6 +44,7 @@ export class ProductInfo extends EntityBase{
 
     images: Image
 
+
     cnt: number
     activeOptions: ProductOption[]
 

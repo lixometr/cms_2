@@ -14,17 +14,17 @@
         </a>
       </div>
       <div class="offer__buy">
-        <a href="page_basket.html" class="offer__buy-button">
+        <nuxt-link :to="$url.cart()" class="offer__buy-button">
           <img class="svg" src="/source/img/m_buy.svg" alt="Купить" />
-          <div class="offer__buy-count">3</div>
-        </a>
+          <div class="offer__buy-count">{{ cartCnt }}</div>
+        </nuxt-link>
       </div>
 
       <div class="offer__like">
-        <a href="page_like.html" class="offer__like-button">
+        <nuxt-link :to="$url.favourite()" class="offer__like-button">
           <img class="svg" src="/source/img/m_like.svg" alt="+1" />
-          <div class="offer__like-count">0</div>
-        </a>
+          <div class="offer__like-count">{{ favouriteCnt }}</div>
+        </nuxt-link>
       </div>
     </label>
 
@@ -40,6 +40,14 @@
 
 <script>
 export default {
+  computed: {
+    cartCnt() {
+      return this.$store.getters["cart/cnt"];
+    },
+    favouriteCnt() {
+      return this.$store.getters["favourite/cnt"];
+    },
+  },
   mounted() {
     // Для моб меню
     $(".have-sub").click(function (event) {

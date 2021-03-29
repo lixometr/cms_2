@@ -88,6 +88,7 @@ export const mutations = {
     },
     clear(state) {
         state.cookieItems = []
+        state.items = []
         this.$cookies.set('cart', [], this.getters['cart/cookieOptions'])
     },
     setItems(state, items) {

@@ -171,7 +171,7 @@ export class OrderService extends ServiceBlueprint<Order>{
   async makeProducts({ products }: { products: ToCreateOrderProductDto[] }, payload: RequestPayload): Promise<CreateOrderProductDto[]> {
     const resolvers = products.map(async toCreateOrderProduct => {
       const productId = toCreateOrderProduct.product.id
-      const product = await this.productService.findById({ id: productId }, payload)
+      const product = await this.productService.getItemInfo({ id: productId, info: {...toCreateOrderProduct} }, payload)
       if (!product) return
       await product.serialize(payload)
       let orderProduct: CreateOrderProductDto = { ...toCreateOrderProduct, product, }
