@@ -1,6 +1,6 @@
 export default {
     orders: '/order',
-    orderCreate: '/order/create',
+    orderCreate: '/order/make',
     ordersSearch: '/order/search/{{text}}',
     orderById: '/order/id/{{id}}',
     orderByOrderId: '/order/orderid/{{id}}',

@@ -3,13 +3,14 @@ import { ArrayNotEmpty, IsArray, IsNotEmpty, IsNotEmptyObject, IsNumber, IsObjec
 import { CreateOrderProductDto, IdDto } from "src/internal";
 import { CreateOrderInfoDto } from "./create-order-info.dto";
 import { ToCreateOrderDeliveryDto } from "./to-create-order-delivery.dto";
+import { ToCreateOrderPaymentTypeDto } from "./to-create-order-payment-type.dto";
 import { ToCreateOrderProductDto } from "./to-create-order-product.dto";
 
 export class ToCreateOrderDto {
 
     @IsArray()
     @ArrayNotEmpty()
-    @ValidateNested({each: true})
+    @ValidateNested({ each: true })
     @Type(() => ToCreateOrderProductDto)
     products: ToCreateOrderProductDto[]
 
@@ -21,9 +22,11 @@ export class ToCreateOrderDto {
     @ValidateNested()
     @Type(() => ToCreateOrderDeliveryDto)
     delivery: ToCreateOrderDeliveryDto
-    
-    @IsString()
-    paymentType: string    
+
+    @IsObject()
+    @ValidateNested()
+    @Type(() => ToCreateOrderPaymentTypeDto)
+    payment: ToCreateOrderPaymentTypeDto
 
     @IsObject()
     @IsNotEmptyObject()

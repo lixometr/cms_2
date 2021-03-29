@@ -79,8 +79,11 @@ export default {
     "@nuxtjs/style-resources",
     "nuxt-svg-loader",
     'cookie-universal-nuxt',
-
+    '@nuxtjs/toast',
   ],
+  toast: {
+    position: 'bottom-right',
+  },
   styleResources: {
     // scss: ["~assets/scss/_const.scss", "~assets/scss/_mixin.scss"]
   },

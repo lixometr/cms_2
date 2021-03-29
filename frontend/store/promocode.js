@@ -23,7 +23,7 @@ export const getters = {
 export const mutations = {
     init(state) {
         const promocode = this.$cookies.get('promocode')
-        state.promocode = promocode.toString()
+        state.promocode = promocode
     },
     set(state, promocode) {
         state.promocode = promocode

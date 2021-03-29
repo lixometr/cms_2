@@ -18,6 +18,7 @@ import SettingsRoutes from "./routes/settings"
 import SectionPageRoutes from "./routes/section-page"
 import CurrencyRoutes from "./routes/currency"
 import DeliveryRoutes from "./routes/delivery"
+import PaymentRoutes from "./routes/payment"
 import WidgetRoutes from "./routes/widget"
 import AuthRoutes from "./routes/auth"
 import AuthAdminRoutes from "./routes/auth-admin"
@@ -42,6 +43,7 @@ const routes = {
     ...SectionPageRoutes,
     ...CurrencyRoutes,
     ...DeliveryRoutes,
+    ...PaymentRoutes,
     ...WidgetRoutes,
     ...AuthRoutes,
     ...AuthAdminRoutes,

@@ -32,7 +32,7 @@ export class CreateOrderDto {
     @IsNotEmptyObject()
     @ValidateNested()
     @Type(() => CreateOrderPaymentTypeDto)
-    paymentType: CreateOrderPaymentTypeDto
+    payment: CreateOrderPaymentTypeDto
 
     @IsObject()
     @ValidateNested()

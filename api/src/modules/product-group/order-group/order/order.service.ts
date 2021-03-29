@@ -46,7 +46,7 @@ export class OrderService extends ServiceBlueprint<Order>{
 
     const promocodeName = data.promocode
     const deliveryToCreate = data.delivery
-    const payment = data.paymentType
+    const paymentType = data.payment.type
     const dataInfo = data.info
     const locale = await this.makeLocale({}, payload)
     const currency = await this.makeCurrency({}, payload)
@@ -54,8 +54,8 @@ export class OrderService extends ServiceBlueprint<Order>{
     const products = await this.makeProducts({ products: productsToCreate }, payload)
     const delivery = await this.makeDelivery({ delivery: deliveryToCreate }, payload)
     const deliveryStrategy = this.getDeliveryStrategy({ delivery }, payload)
-    const paymentStrategy = this.getPaymentStrategy({ payment }, payload)
-    const paymentType = await this.makePaymentType({ payment }, payload)
+    const paymentStrategy = this.getPaymentStrategy({ payment: paymentType }, payload)
+    const payment = await this.makePaymentType({ payment: paymentType }, payload)
     const orderId = await this.makeOrderId()
     const info = await this.makeInfo({ info: dataInfo }, payload)
     let toCreate: CreateOrderDto = {
@@ -67,7 +67,7 @@ export class OrderService extends ServiceBlueprint<Order>{
       info,
       totalPrice: 0,
       delivery,
-      paymentType,
+      payment,
       orderId
     }
     const totalPrice = await this.makeTotalPrice({ order: toCreate }, payload)

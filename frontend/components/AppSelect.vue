@@ -23,7 +23,7 @@ export default {
       type: Array,
       default: () => [],
     },
-    value: String,
+    value: [String, Number],
     placeholder: String,
   },
   data() {
