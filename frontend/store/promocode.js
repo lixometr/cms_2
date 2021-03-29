@@ -73,6 +73,7 @@ export const actions = {
     async set({ commit }, promocode) {
         const isValid = await this.dispatch('promocode/check', promocode)
         if (!isValid) {
+            this.$toast.error('Промокод не найден')
             commit('reset')
             return false
         }

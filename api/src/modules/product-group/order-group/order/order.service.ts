@@ -20,7 +20,7 @@ import { validate, validateOrReject, ValidationError } from 'class-validator';
 import { plainToClass } from 'class-transformer';
 import { uid } from 'uid/secure';
 import { AppConfig } from 'src/config';
-import { isNumber } from 'lodash';
+import { conforms, isNumber } from 'lodash';
 import * as _ from 'lodash';
 
 import { OrderResponse } from './order.response';
@@ -133,8 +133,20 @@ export class OrderService extends ServiceBlueprint<Order>{
     try {
       await validateOrReject(order, { whitelist: true })
       return true
-    } catch (err: any) {
-      console.log('Error while validating order', err)
+    } catch (error: any) {
+      console.log('Error while createing order')
+      const logError = (err: any) => {
+        if (_.isArray(err)) {
+          err.map(err => {
+            if (err instanceof ValidationError) {
+              logError(err)
+            }
+          })
+        } else {
+          console.log(err)
+        }
+      }
+      logError(error)
       return false
     }
   }
@@ -146,7 +158,7 @@ export class OrderService extends ServiceBlueprint<Order>{
     return deliveryStrategy.getInfo()
   }
   getDeliveryStrategy({ delivery }: { delivery: Delivery }, payload: RequestPayload) {
-    return this.deliveryService.getContext({  delivery }, payload)
+    return this.deliveryService.getContext({ delivery }, payload)
   }
   getPaymentStrategy({ payment }: { payment: string }, payload: RequestPayload) {
     return this.paymentService.getContext({ strategy: payment }, payload)
@@ -161,7 +173,6 @@ export class OrderService extends ServiceBlueprint<Order>{
       const product = await this.productService.findById({ id: productId }, payload)
       if (!product) return
       await product.serialize(payload)
-      console.log('t',product)
       let orderProduct: CreateOrderProductDto = { ...toCreateOrderProduct, product, }
       return orderProduct
     })
