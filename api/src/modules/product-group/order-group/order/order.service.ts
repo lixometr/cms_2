@@ -144,6 +144,7 @@ export class OrderService extends ServiceBlueprint<Order>{
           })
         } else {
           console.log(err)
+          logError(err.children)
         }
       }
       logError(error)

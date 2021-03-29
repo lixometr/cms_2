@@ -71,6 +71,7 @@ export default {
     delivery: {},
     payment: {},
     info: {},
+    isSending: false
   }),
   methods: {
     validate() {
@@ -106,12 +107,15 @@ export default {
       return toSend;
     },
     async submit() {
+      if(this.isSending) return
       const isValid = this.validate();
       if (!isValid) return;
       const toSend = this.serialize();
       console.log(toSend);
       try {
+        this.isSending = true
         const result = await this.$api.$post("orderCreate", {}, toSend);
+        this.isSending = false
         console.log(result);
       } catch (err) {
         this.$error(err);
