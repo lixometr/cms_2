@@ -33,8 +33,8 @@ export class PromocodeController extends ControllerBlueprint {
     return this.promocodeService.updateById({ data, id }, payload)
   }
 
-  @Post()
+  @Post('/check')
   async check(@Body() data: CheckPromocodeDto, payload: RequestPayload) {
-return this.promocodeService.check(data, payload)
+    return this.promocodeService.check(data, payload)
   }
 }

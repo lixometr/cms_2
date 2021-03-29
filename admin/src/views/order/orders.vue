@@ -23,7 +23,7 @@
       </td>
     </template>
     <template #totalPrice="{ item }">
-      <td> {{ item.totalPrice }}{{ item.currency.sign }}</td>
+      <td>{{ item.totalPrice }}{{ item.currency.sign }}</td>
     </template>
     <template #status="{ item }">
       <td>
@@ -65,10 +65,10 @@ export default {
   computed: {
     itemStatus() {
       const statuses = {
-        1: "Завершен",
-        2: "В процессе",
-        0: "Отменен",
-        3: "Новый заказ",
+        payed: "Оплачен",
+        complete: "Завершен",
+        waiting: "В ожидании",
+        error: "Ошибка",
       };
       return (status) => {
         return statuses[status];

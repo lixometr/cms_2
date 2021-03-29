@@ -53,8 +53,18 @@
       <CCardBody>
         <Label class="mb-3" label="Email">{{ order.info.email }}</Label>
         <Label class="mb-3" label="Имя">{{ order.info.name }}</Label>
-        <Label class="mb-3" label="Фамилия">{{ order.info.surName }}</Label>
+        <Label class="mb-3" label="Фамилия">{{ order.info.surname }}</Label>
         <Label class="mb-3" label="Телефон">{{ order.info.phone }}</Label>
+        <Label class="mb-3" label="Комментарий" v-if="order.info.comment">{{ order.info.comment }}</Label>
+
+      </CCardBody>
+    </CCard>
+    <CCard>
+      <CCardHeader>Информация о доставке</CCardHeader>
+      <CCardBody>
+        <Label class="mb-3" label="Индекс">{{ order.info.index }}</Label>
+        <Label class="mb-3" label="Адрес">{{ order.info.address }}</Label>
+        <Label class="mb-3" label="Номер дома">{{ order.info.house }}</Label>
       </CCardBody>
     </CCard>
 

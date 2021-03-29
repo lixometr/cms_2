@@ -83,6 +83,8 @@ export default {
   ],
   toast: {
     position: 'bottom-right',
+    duration: 3000
+
   },
   styleResources: {
     // scss: ["~assets/scss/_const.scss", "~assets/scss/_mixin.scss"]
