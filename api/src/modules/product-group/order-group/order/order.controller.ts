@@ -24,7 +24,7 @@ export class OrderController extends ControllerBlueprint {
   }
 
   @SerializeOptions({ groups: [SerializeGroup.Translate, SerializeGroup.Full] })
-  @Auth()
+  // @Auth()
   @Post('make')
   make(@Body() data: ToCreateOrderDto, @GetRequestPayload() payload: RequestPayload) {
     return this.orderService.make({ data }, payload)

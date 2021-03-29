@@ -50,6 +50,7 @@ export class CreateOrderDto {
     @Type(() => CreateOrderInfoDto)
     info: CreateOrderInfoDto
 
+    @IsOptional()
     @IsObject()
     @IsNotEmptyObject()
     @ValidateNested()
