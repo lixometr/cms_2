@@ -109,6 +109,7 @@ export default {
       return toSend;
     },
     onSuccess() {
+      return
       this.$toast.success("Заказ успешно создан!");
       this.$store.dispatch("cart/clear");
       this.$router.push("/");

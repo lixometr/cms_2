@@ -1,11 +1,12 @@
 <template>
   <main class="page__single-product">
-    <AppBreadcrumbs :items="breadcrumbs"/>
+    <AppBreadcrumbs :items="breadcrumbs" />
     <section class="pay-delivery">
       <h2>{{ getValue("tekstovii_blok.zagolovok_bloka") }}</h2>
       <div class="container">
         <div class="paymant">
           <AText :text="getValue('tekstovii_blok.tekst_ob_oplate')" />
+          <AppImage :src="getValue('tekstovii_blok.sposobi_oplati')" />
 
           <div class="paymant__card">
             <img :src="getValue('tekstovii_blok.sposobi_oplati')" alt="" />
@@ -38,7 +39,6 @@
               }}</a>
             </div>
           </div>
-
         </div>
       </div>
     </aside>
@@ -50,16 +50,16 @@ import PageTemplateMixin from "@/mixins/PageTemplateMixin";
 
 export default {
   mixins: [PageTemplateMixin],
-  computed:{
+  computed: {
     breadcrumbs() {
       return [
         {
           title: this.value.name,
-          link: '#'
-        }
-      ]
-    }
-  }
+          link: "#",
+        },
+      ];
+    },
+  },
 };
 </script>
 

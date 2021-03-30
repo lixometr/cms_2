@@ -1,4 +1,4 @@
-import { IsString } from "class-validator"
+import { IsOptional, IsString } from "class-validator"
 
 export class CreateOrderInfoDto {
     
@@ -6,9 +6,11 @@ export class CreateOrderInfoDto {
     name: string
     @IsString()
     surname: string
+    @IsOptional()
     @IsString()
     city: string
     @IsString()
+    @IsOptional()
     index: string
     @IsString()
     address: string
@@ -18,6 +20,7 @@ export class CreateOrderInfoDto {
     phone: string
     @IsString()
     email: string
+    @IsOptional()
     @IsString()
     comment: string
 

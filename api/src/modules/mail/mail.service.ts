@@ -1,24 +1,20 @@
 import { Injectable, InternalServerErrorException } from "@nestjs/common";
-import { join } from "path";
-import * as sendpulse from "sendpulse-api"
+import { join, resolve } from "path";
 import { RequestPayload, SettingsNames } from "src/internal";
 import { SettingsService } from "../settings/settings.service";
+import * as nodemailer from "nodemailer"
+import * as fs from "fs"
+import * as path from "path"
+import * as _ from "lodash";
+import { AppConfig } from "src/config";
 interface SendProps {
     html: string
     subject?: string
-    from?: {
-        name?: string
-        email: string
-    },
-    bcc?: [
-        {
-            name?: string
-            email: string
-        },
-    ]
+    from?: string
+
 }
 interface SendOne extends SendProps {
-    to: string
+    to?: string
 }
 interface SendMany extends SendProps {
     to: [
@@ -30,52 +26,58 @@ interface SendMany extends SendProps {
 }
 @Injectable()
 export class MailService {
-    public sender: typeof sendpulse
+    public sender: any
     private fromEmail: string
     constructor(private settingsService: SettingsService) { }
     async init({ }, payload: RequestPayload) {
-        const SUserId = await this.settingsService.findBySlug({ slug: SettingsNames.sendPulseUserId, internal: true }, payload)
-        const SSecret = await this.settingsService.findBySlug({ slug: SettingsNames.sendPulseSecret, internal: true }, payload)
-        const SFromEmail = await this.settingsService.findBySlug({ slug: SettingsNames.sendPulseFromEmail, internal: true }, payload)
-        const userId = SUserId?.value
-        const secret = SSecret?.value
-        this.fromEmail = SFromEmail?.value
-        if (!userId) throw new InternalServerErrorException('SendPulse userId is not provided')
-        if (!secret) throw new InternalServerErrorException('SendPulse secret is not provided')
-        if (!this.fromEmail) throw new InternalServerErrorException('SendPulse from email is not provided')
-
-        this.sender = sendpulse
-        return new Promise((resolve, reject) => {
-            sendpulse.init(userId, secret, join(__dirname, '..', '..', '..', 'tmp'), () => {
-                resolve(undefined)
-            })
-        })
-    }
-    private sendCallback(res: Function, rej: Function) {
-        return (data: any) => {
-            console.log('On SendPulse result', data)
-            if (data.error) {
-                console.log('Sendpulse error', data)
-                return rej(data)
+        this.fromEmail = 'noreply@st-cms.ru'
+        this.sender = nodemailer.createTransport({
+            port: 465,
+            host: 'smtp.yandex.ru',
+            secure: true,
+            auth: {
+                user: "noreply@st-cms.ru",
+                pass: "H*Uagscd67aAUygsc23"
             }
-            res(data)
-        }
+        })
     }
     async send(mail: SendOne, payload: RequestPayload) {
-        // await this.init({}, payload)
-        const toSend = { ...mail, to: [{ email: mail.to }] }
+        await this.init({}, payload)
+        const toSend = { ...mail, subject: 'Новая заявка с сайта', to: mail.to, }
         if (!toSend.from) {
-            toSend.from = {
-                email: this.fromEmail,
-                name: "Test"
-            }
+            toSend.from = this.fromEmail
+        }
+        if (!toSend.to) {
+            toSend.to = AppConfig.get<string>('adminEmail')
         }
         return new Promise((resolve, reject) => {
-            return this.sender.smtpSendMail(this.sendCallback(resolve, reject), toSend)
+            this.sender.sendMail(toSend, (error, info) => {
+                if (error) {
+                    console.log(error.message);
+                    reject(error)
+                }
+                console.log('Message sent: %s', info.messageId);
+                resolve(info)
+            });
         })
     }
-    async sendTemplate(templateName: string) {
-
+    async sendTemplate({ name, data, mail }: { name: string, mail?: SendOne, data: any }, payload: RequestPayload) {
+        const filename = `${name}.html`
+        const temlatePath = path.join(__dirname, '..', '..', '..', 'assets', 'templates', filename)
+        const templateData = await new Promise<string>((resolve, reject) => {
+            fs.readFile(temlatePath, 'utf-8', (error, data) => {
+                if (error) return reject(error)
+                data = Buffer.from(data).toString()
+                resolve(data)
+            })
+        })
+        const compile = _.template(templateData)
+        const html = compile(data)
+        const toSend = {
+            html,
+            ...mail
+        }
+        this.send(toSend, payload)
     }
     call(method: string, ...args: any) {
         return this.sender[method](...args)

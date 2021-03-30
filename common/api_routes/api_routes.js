@@ -23,6 +23,7 @@ import WidgetRoutes from "./routes/widget"
 import AuthRoutes from "./routes/auth"
 import AuthAdminRoutes from "./routes/auth-admin"
 import MenuRoutes from "./routes/menu"
+import SendFormRoutes from "./routes/send-form"
 
 const routes = {
     ...ProductRoutes,
@@ -48,6 +49,7 @@ const routes = {
     ...AuthRoutes,
     ...AuthAdminRoutes,
     ...MenuRoutes,
+    ...SendFormRoutes,
 
     uploadImage: '/upload/image',
     uploadFile: '/upload/file',

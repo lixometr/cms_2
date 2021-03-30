@@ -6,5 +6,5 @@ export default {
     orderByOrderId: '/order/orderid/{{id}}',
     orderAdmin: '/order/admin/{{slug}}',
     orderByIdAdmin: '/order/admin/id/{{id}}',
-    orderChangeStatus: '/order/id/{{id}}/change-status'
+    orderChangeStatus: '/order/id/{{id}}/status'
 }

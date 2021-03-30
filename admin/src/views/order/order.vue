@@ -5,7 +5,7 @@
       <CCardBody>
         <div>
           Создан:
-          <b>{{ order.created_at | moment("DD.MM.YYYY hh:mm") }}</b>
+          <b>{{ order.createdAt | moment("DD.MM.YYYY hh:mm") }}</b>
         </div>
       </CCardBody>
     </CCard>
@@ -25,8 +25,8 @@
             :multiple="false"
             v-model="order.status"
             :options="statuses"
-            label="label"
-            :reduce="(item) => item.key"
+            label="name"
+            :reduce="(item) => item.value"
             :searchable="false"
         /></Label>
         <Label class="mb-3" label="Промокод">{{
@@ -55,8 +55,9 @@
         <Label class="mb-3" label="Имя">{{ order.info.name }}</Label>
         <Label class="mb-3" label="Фамилия">{{ order.info.surname }}</Label>
         <Label class="mb-3" label="Телефон">{{ order.info.phone }}</Label>
-        <Label class="mb-3" label="Комментарий" v-if="order.info.comment">{{ order.info.comment }}</Label>
-
+        <Label class="mb-3" label="Комментарий" v-if="order.info.comment">{{
+          order.info.comment
+        }}</Label>
       </CCardBody>
     </CCard>
     <CCard>
@@ -105,38 +106,39 @@ export default {
   },
   computed: {
     deliveryType() {
-      const type = this.order.delivery.type
+      const type = this.order.delivery.type;
       const types = {
         pickup: "Самовывоз",
-        courier: "Курьером"
-      }
-      return types[type] || type
-    },  
+        courier: "Курьером",
+      };
+      return types[type] || type;
+    },
     paymentType() {
       const type = this.order.payment.type;
       const types = {
         cash: "Наличными",
         invoice: "По счету",
       };
-      return types[type] || type
+      return types[type] || type;
     },
     statuses() {
       return [
         {
-          label: "CANCELLED",
-          key: 0,
+          name: "Завершен",
+          value: "complete",
         },
         {
-          label: "COMPLETED",
-          key: 1,
+          name: "Оплачен",
+          value: "payed",
+        },
+
+        {
+          name: "В ожидании",
+          value: "waiting",
         },
         {
-          label: "IN PROGRESS",
-          key: 2,
-        },
-        {
-          label: "NEW ORDER",
-          key: 3,
+          name: "Ошибка",
+          value: "error",
         },
       ];
     },

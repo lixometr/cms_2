@@ -17,5 +17,6 @@ export default {
     db,
     domain,
     upload,
-    order
+    order,
+    adminEmail: 'lixometr@gmail.com'
 }

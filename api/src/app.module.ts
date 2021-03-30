@@ -23,8 +23,9 @@ import { NotificationModule } from './modules/notification/notification.module';
 import { WidgetModule } from './modules/widget/widget.module';
 import { MailModule } from './modules/mail/mail.modules';
 import { MenuModule } from './modules/menu/menu.module';
+import { FormModule } from './modules/form/form.module';
 @Module({
-  imports: [ServeStaticModule, EventEmiterModule, DatabaseModule, UserGroupModule, AuthGroupModule, LocaleModule, SettingsModule, UploadModuleGroup, ProductGroupModule, PageGroupModule, NotificationModule, WidgetModule, MailModule, MenuModule],
+  imports: [ServeStaticModule, EventEmiterModule, DatabaseModule, UserGroupModule, AuthGroupModule, LocaleModule, SettingsModule, UploadModuleGroup, ProductGroupModule, PageGroupModule, NotificationModule, WidgetModule, MailModule, MenuModule, FormModule],
   controllers: [AppController],
   providers: [
     { provide: APP_FILTER, useClass: DatabaseFilter },

@@ -9,6 +9,7 @@ import { RequestPayload } from 'src/internal';
 import { AuthAdmin } from 'src/internal';
 import { SerializeGroup } from 'src/types';
 import { ToCreateOrderDto } from './dto/to-create-order.dto';
+import { UpdateOrderStatusDto } from './dto/update-status.dto';
 
 @Controller('order')
 export class OrderController extends ControllerBlueprint {
@@ -43,5 +44,10 @@ export class OrderController extends ControllerBlueprint {
   async findById(@Param('id') id: ID, @GetRequestPayload() payload: RequestPayload) {
     const result = await this.orderService.findById({ id }, payload)
     return result
+  }
+
+  @Put('id/:id/status')
+  async updateStatus(@Param('id') id: ID, @Body() updateStatus: UpdateOrderStatusDto, @GetRequestPayload() payload: RequestPayload) {
+    return await this.orderService.changeStatus({id, status: updateStatus.status}, payload)
   }
 }

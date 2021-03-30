@@ -1,7 +1,7 @@
 import { BadRequestException, forwardRef, Inject, Injectable, ValidationPipe } from '@nestjs/common';
 import { EventEmitter2 } from '@nestjs/event-emitter';
 import { ServiceBlueprint } from 'src/blueprints/service';
-import { Delivery, RequestPayload } from 'src/internal';
+import { Delivery, ID, RequestPayload } from 'src/internal';
 import { EventName } from 'src/internal';
 import { Promocode } from 'src/internal';
 import { ProductService } from '../../product/product.service';
@@ -93,7 +93,9 @@ export class OrderService extends ServiceBlueprint<Order>{
     order.status = OrderStatus.error;
     await this.itemRepository.save(order)
   }
-
+  async changeStatus({ id, status }: { id: ID, status: OrderStatus }, payload: RequestPayload) {
+    return await this.updateById({id, data: {status}}, payload)
+  }
   async findByOrderId({ orderId }) {
     return this.itemRepository.findByOrderId({ orderId })
   }
@@ -171,7 +173,7 @@ export class OrderService extends ServiceBlueprint<Order>{
   async makeProducts({ products }: { products: ToCreateOrderProductDto[] }, payload: RequestPayload): Promise<CreateOrderProductDto[]> {
     const resolvers = products.map(async toCreateOrderProduct => {
       const productId = toCreateOrderProduct.product.id
-      const product = await this.productService.findById({ id: productId,  }, payload)
+      const product = await this.productService.findById({ id: productId, }, payload)
       if (!product) return
       await product.serialize(payload)
       let orderProduct: CreateOrderProductDto = { ...toCreateOrderProduct, product, }
