@@ -21,7 +21,18 @@ export class ProductListenersService extends ListenerItemBlueprint {
     }
     @OnEvent(`${ProductName}.${EventName.beforeUpdate}`)
     async preUpdate({ data, id, payload }: { data: UpdateProductDto, id: ID, payload: RequestPayload }) {
+        this.checkAttend({ data, payload, id })
         return super.preUpdate({ data, payload, id })
+    }
+    checkAttend({ data, payload, id }: { id: ID, data: UpdateProductDto, payload: RequestPayload }) {
+        if(!data.attendProducts) return true
+        const sameProductIdx = data.attendProducts.findIndex(item => {
+            return item.productId.toString() === id.toString()
+        })
+        if (sameProductIdx > -1) {
+            throw new BadRequestException('Product shouldn\'t contains itself in attend products')
+        }
+        return false
     }
     @OnEvent(`${ProductName}.${EventName.beforeRemove}`)
     async beforeRemove({ id, payload }) {

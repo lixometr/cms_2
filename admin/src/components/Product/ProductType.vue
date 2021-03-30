@@ -35,7 +35,7 @@ export default {
         },
         {
           key: "variation",
-          label: "Вариационный",
+          label: "Вариативный",
         },
         {
           key: "kit",

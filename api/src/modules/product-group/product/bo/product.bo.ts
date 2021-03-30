@@ -49,7 +49,9 @@ export class ProductBo {
         return this.getFilteredOptions().map(option => new ProductOptionBo({ option }))
     }
     getFilteredOptions() {
-        const options = this.product.options.filter(option => {
+        let options = this.product.options
+        options = _.cloneDeep(options)
+        options = options.filter(option => {
             if (!(option.id in this.activeOptions)) return false
             const optId = option.id
             option.values = option.values.filter(optionValue => {

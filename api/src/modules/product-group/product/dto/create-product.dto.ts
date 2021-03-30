@@ -1,6 +1,6 @@
 import { Type } from 'class-transformer';
-import { IsString, IsInt, IsOptional, IsArray, ValidateNested, IsEnum, ArrayNotEmpty, IsBoolean, ValidateIf, ValidationError } from 'class-validator';
-import { IdDto } from 'src/internal';
+import { IsString, IsInt, IsOptional, IsArray, ValidateNested, IsEnum, ArrayNotEmpty, IsBoolean, ValidateIf, ValidationError, IsObject } from 'class-validator';
+import { ID, IdDto } from 'src/internal';
 import { CreateProductAttributeDto } from 'src/internal';
 import { CreateProductOptionDto } from '../../product-option/dto/create-product-option.dto';
 import { CreateProductVariationDto } from '../../product-variation/dto/create-product-variation.dto';
@@ -9,6 +9,14 @@ import { CreateCntSale } from './create-cnt-sale.dto';
 import { CreateKitProductDto } from './create-kit-product.dto';
 import { CreateProductPriceDto } from './create-product-price.dto';
 import { LocaleProductDto } from './locale-product.dto';
+export class AttendProductDto {
+    @IsOptional()
+    @IsInt()
+    id: ID
+
+    @IsInt()
+    productId: ID
+}
 export class CreateProductDto {
 
     @IsArray()
@@ -87,8 +95,8 @@ export class CreateProductDto {
     @IsOptional()
     @IsArray()
     @ValidateNested({ each: true })
-    @Type(() => IdDto)
-    attendProducts: IdDto[]
+    @Type(() => AttendProductDto)
+    attendProducts: AttendProductDto[]
 
     @IsOptional()
     @IsArray()

@@ -5,7 +5,7 @@
         <p class="basket-title">
           Товары <span>({{ cnt }})</span>
         </p>
-        <p class="basket-price">{{totalNoSale}} ₽</p>
+        <p class="basket-price">{{ totalNoSale }} ₽</p>
       </div>
       <!-- <div class="basket__line">
         <p class="basket-title">Установка</p>
@@ -13,16 +13,15 @@
       </div> -->
       <div class="basket__line" v-if="sale > 0">
         <p class="basket-title">Скидка на товары</p>
-        <p class="basket-price">{{sale}} ₽</p>
+        <p class="basket-price">{{ sale }} ₽</p>
       </div>
       <div class="basket__line">
         <p class="basket-title">Итого</p>
-        <p class="basket-price">{{totalPrice}} ₽</p>
+        <p class="basket-price">{{ totalPrice }} ₽</p>
       </div>
     </div>
     <div class="">
-      <a href="#" class="button button__button-link"
-      @click.prevent="makeOrder"
+      <a href="#" class="button button__button-link" @click.prevent="makeOrder"
         >ОФОРМИТЬ ЗАКАЗ</a
       >
     </div>
@@ -31,7 +30,9 @@
 </template>
 
 <script>
+import CartInfoMixin from "@/mixins/CartInfoMixin"
 export default {
+  mixins: [CartInfoMixin],
   computed: {
     cnt() {
       return this.$store.getters["cart/cnt"];
@@ -39,33 +40,13 @@ export default {
     items() {
       return this.$store.getters["cart/items"];
     },
-    sale() {
-      const totalSale = this.items.reduce((sum, item) => {
-        const d = item.oldPrice - item.price;
-        if (d > 0) {
-          return sum + (d * item.cnt);
-        }
-        return sum
-      }, 0);
-      return totalSale;
-    },
-      totalNoSale() {
-      const items = this.$store.getters["cart/items"];
-      return items.reduce((sum, item) => {
-        const price =  (item.oldPrice || item.price)
-        const currentPrice = price * item.cnt
-        return sum + currentPrice;
-      }, 0);
-    },
-    totalPrice() {
-      return this.$store.getters['cart/info'].totalPrice || 0
-    }
+    
   },
   methods: {
     makeOrder() {
-      this.$router.push(this.$url.checkout())
-    }
-  }
+      this.$router.push(this.$url.checkout());
+    },
+  },
 };
 </script>
 

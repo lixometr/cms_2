@@ -1,6 +1,7 @@
 import { EntityBase } from "src/blueprints"
-import { EntitySeo } from "src/internal"
+import { EntitySeo, ID } from "src/internal"
 import { Image } from "src/modules/upload-group/image"
+import { CartProductActiveOptions } from "../../cart"
 import { ProductOption } from "../../product-option"
 export type ProductInfoProps = {
     name: string
@@ -23,11 +24,12 @@ export type ProductInfoProps = {
 
     cnt: number
 
-    activeOptions: ProductOption[]
+    activeOptions: CartProductActiveOptions
+    activeVariation: ID
 
 
 }
-export class ProductInfo extends EntityBase{
+export class ProductInfo extends EntityBase {
     name: string
     slug: string
 
@@ -45,8 +47,8 @@ export class ProductInfo extends EntityBase{
     images: Image
 
 
-    cnt: number
-    activeOptions: ProductOption[]
+    activeOptions: CartProductActiveOptions
+    activeVariation: ID
 
     constructor(item: ProductInfoProps) {
         super()

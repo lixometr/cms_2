@@ -90,6 +90,12 @@
         <ProductAttributes v-model="item.attributes" />
       </div>
     </CollapseCard>
+    <CollapseCard :open="false">
+      <div slot="header">Сопутствующие товары</div>
+      <div>
+        <ProductAttend v-model="item.attendProducts" :id="item.id" />
+      </div>
+    </CollapseCard>
 
     <LocaleSeo v-model="item.locale" :prop="'seo'" />
   </PageItem>
@@ -112,10 +118,12 @@ import ProductStatus from "@/components/Product/ProductStatus";
 import { required } from "vuelidate/lib/validators";
 import ProductDescription from "@/components/Product/ProductDescription";
 import ProductKit from "@/components/Product/ProductKit";
+import ProductAttend from "@/components/Product/ProductAttend";
 export default {
   name: "Product",
   mixins: [PageItemMixin],
   components: {
+    ProductAttend,
     LabelSelect,
     ProductVariations,
     CategorySelect,

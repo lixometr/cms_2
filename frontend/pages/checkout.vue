@@ -55,32 +55,10 @@
 </template>
 
 <script>
+import CartInfoMixin from "@/mixins/CartInfoMixin";
 export default {
+  mixins: [CartInfoMixin],
   computed: {
-    totalPrice() {
-      const info = this.$store.getters["cart/info"];
-      console.log(info);
-      return info.totalPrice;
-    },
-    totalSale() {
-      const items = this.$store.getters["cart/items"];
-      return items.reduce((sum, item) => {
-        let d = 0;
-        if (item.oldPrice) {
-          d = Math.abs(item.oldPrice - item.price);
-        }
-        d *= item.cnt;
-        return sum + d;
-      }, 0);
-    },
-    totalNoSale() {
-      const items = this.$store.getters["cart/items"];
-      return items.reduce((sum, item) => {
-        const price = item.oldPrice || item.price;
-        const currentPrice = price * item.cnt;
-        return sum + currentPrice;
-      }, 0);
-    },
     breadcrumbs() {
       return [
         {

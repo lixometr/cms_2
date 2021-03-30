@@ -34,7 +34,7 @@
             v-if="type === 'variation'"
             v-model="activeVariation"
           />
-          <ProductOptions :item="product" v-if="options.length" />
+          <ProductOptions :item="product" v-model="activeOptions" />
           <ProductPrice :item="product" />
 
           <ProductCnt v-model="cnt" />
@@ -51,6 +51,7 @@
           </div>
 
           <ProductDescription :item="product" />
+          <ProductAttributes :item="product" />
         </div>
         <!-- 2ой блок -->
       </section>
@@ -61,7 +62,7 @@
 
 <script>
 import ProductMixin from "@/mixins/ProductMixin";
-import Vue from "vue"
+import Vue from "vue";
 export default {
   mixins: [ProductMixin],
   data() {
@@ -110,9 +111,9 @@ export default {
     }
   },
   async mounted() {
-    await Vue.loadScript('/source/js/jquery.zoom.min.js')
+    await Vue.loadScript("/source/js/jquery.zoom.min.js");
     // $(".single-product__preview-image-zoom").click(function (event) {
-      $("#ex1").zoom();
+    $("#ex1").zoom();
     // });
 
     $("#ex2").zoom({ on: "grab" });
@@ -172,6 +173,12 @@ export default {
   watch: {
     activeVariation() {
       this.fetchProductInfo();
+    },
+    activeOptions: {
+      deep: true,
+      handler() {
+        this.fetchProductInfo();
+      },
     },
   },
 };

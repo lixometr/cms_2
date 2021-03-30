@@ -2,7 +2,7 @@
   <div class="basket__promocode">
     <input
       type="text"
-      placeholder="Пропокод на скидку"
+      placeholder="Промокод на скидку"
       v-model="promocode"
       @keypress.enter="apply"
     />
