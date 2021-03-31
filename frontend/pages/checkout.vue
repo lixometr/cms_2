@@ -109,7 +109,6 @@ export default {
       return toSend;
     },
     onSuccess() {
-      return
       this.$toast.success("Заказ успешно создан!");
       this.$store.dispatch("cart/clear");
       this.$router.push("/");
@@ -119,7 +118,6 @@ export default {
       const isValid = this.validate();
       if (!isValid) return;
       const toSend = this.serialize();
-      console.log(toSend);
       try {
         this.isSending = true;
         const result = await this.$api.$post("orderCreate", {}, toSend);
