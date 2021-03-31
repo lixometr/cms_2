@@ -8,6 +8,8 @@ import { PublishStatus } from 'src/internal';
 import { Entity, Column, OneToMany, ManyToOne, getCustomRepository } from 'typeorm';
 import { PageTemplateRepository } from '../../page-template/repository/page-template.repository';
 import * as _ from "lodash"
+import { ProductCategoryRepository } from 'src/internal';
+import { ProductRepository } from 'src/internal';
 @Entity()
 export class Page extends EntityLocaleItemBlueprint {
 
@@ -28,8 +30,10 @@ export class Page extends EntityLocaleItemBlueprint {
 
     @Column({ default: PublishStatus.Published })
     status: PublishStatus
-    async setupValues({ templateId, values }: { templateId: ID , values: any}, payload: RequestPayload): Promise<Page> {
+    async setupValues({ templateId, values }: { templateId: ID, values: any }, payload: RequestPayload): Promise<Page> {
         const pageTemplateRepository = getCustomRepository(PageTemplateRepository)
+        const categoryRepository = getCustomRepository(ProductCategoryRepository)
+        const productRepository = getCustomRepository(ProductRepository)
         const groups = payload.getGroups()
         if (groups.includes(SerializeGroup.Admin)) return values
         const template = await pageTemplateRepository.findById({ id: templateId }, payload)
@@ -40,7 +44,31 @@ export class Page extends EntityLocaleItemBlueprint {
                 path = `${field.varName}`
             }
             const currentValue = _.get(values, path)
-            if (field.type === 'text') {
+            if (field.type === 'products') {
+                if (_.isArray(currentValue)) {
+                    const resolvers = currentValue.map(async idDto => {
+                        const item = await productRepository.findById({ id: idDto.id }, payload)
+                        await item.serialize(payload)
+                        return item
+                    })
+                    const products = await Promise.all(resolvers)
+                    _.set(values, path, products)
+                } else {
+                    _.set(values, path, [])
+                }
+            }
+            if (field.type === 'categories') {
+                if (_.isArray(currentValue)) {
+                    const resolvers = currentValue.map(async idDto => {
+                        const item =await categoryRepository.findById({ id: idDto.id }, payload)
+                        await item.serialize(payload)
+                        return item
+                    })
+                    const categories = await Promise.all(resolvers)
+                    _.set(values, path, categories)
+                } else {
+                    _.set(values, path, [])
+                }
             }
             if (field.type === 'block') {
                 const resolvers = field.settings.fields.map(async (f: PageTemplateField) => {

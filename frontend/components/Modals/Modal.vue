@@ -84,7 +84,7 @@ export default {
   bottom: 0;
   width: 100%;
   height: 100%;
-  z-index: 9999999;
+  z-index: 99999999900;
 }
 .modal-inner {
   height: 100%;

@@ -49,45 +49,7 @@
       </client-only>
     </section>
     <!-- Блок поиска -->
-    <section class="search-block">
-      <div class="container">
-        <div class="search-block__select">
-          <div class="select">
-            <input class="select__input" type="hidden" name="" />
-            <div class="select__head">Марка</div>
-            <ul class="select__list" style="display: none">
-              <li class="select__item">shevrolet</li>
-              <li class="select__item">nissan</li>
-              <li class="select__item">hyundai</li>
-            </ul>
-          </div>
-
-          <div class="select">
-            <input class="select__input" type="hidden" name="" />
-            <div class="select__head">Модель</div>
-            <ul class="select__list" style="display: none">
-              <li class="select__item">shevrolet</li>
-              <li class="select__item">nissan</li>
-              <li class="select__item">hyundai</li>
-            </ul>
-          </div>
-
-          <div class="select">
-            <input class="select__input" type="hidden" name="" />
-            <div class="select__head">Поколение</div>
-            <ul class="select__list" style="display: none">
-              <li class="select__item">1 поколения</li>
-              <li class="select__item">2 поколения</li>
-              <li class="select__item">3 поколения</li>
-            </ul>
-          </div>
-          <div class="offer__text-button">
-            <a href="#0" class="button">найти</a>
-          </div>
-          <!-- <input type="button" value="найти"> -->
-        </div>
-      </div>
-    </section>
+    <HomeSearch />
     <!-- Конец Блок поиска -->
 
     <!-- Переход по каталогу -->
@@ -105,23 +67,23 @@
           >
             <nuxt-link
               :to="
-                getValue(
-                  `kategorii_tovarov_na_glavnoi_stranitse[${idx}].ssilka_na_kategoriyu_tovarov`
-                ) || '#'
+                $url.category(getValue(
+                  `kategorii_tovarov_na_glavnoi_stranitse[${idx}].fullSlug`
+                )) || '#'
               "
             >
               <h4 class="catalog__block-name">
                 {{
                   getValue(
-                    `kategorii_tovarov_na_glavnoi_stranitse[${idx}].nazvanie_kategorii_tovarov`
+                    `kategorii_tovarov_na_glavnoi_stranitse[${idx}].name`
                   )
                 }}
               </h4>
-              <img
+              <AppImage
                 class="catalog__block-image"
                 :src="
                   getValue(
-                    `kategorii_tovarov_na_glavnoi_stranitse[${idx}].izobrazhenie_kategorii_tovarov.url`
+                    `kategorii_tovarov_na_glavnoi_stranitse[${idx}].image`
                   )
                 "
               />
@@ -200,7 +162,8 @@
         <!-- Обертка товаров -->
         <div class="goods-block__container">
           <!--  Товар -->
-          <div class="card">
+          <CategoryProduct v-for="(product, idx) in getValue('vivod_tovarov_na_glavnoi')" :key="idx" :product="product"/>
+          <!-- <div class="card">
             <div class="card__image">
               <img
                 src="source/img/goods/sed1.png"
@@ -234,274 +197,11 @@
               </div>
             </div>
             <a class="card__link" href="page_single_product.html"></a>
-          </div>
+          </div> -->
           <!-- Конец - Товар -->
 
-          <!--  Товар -->
-          <div class="card">
-            <div class="card__image">
-              <img
-                src="source/img/goods/sed2.png"
-                alt="АВТОЧЕХОЛ ДЛЯ AUDI 100 45 СЕДАН (1990-1994)"
-              />
-            </div>
-            <div class="card__title">
-              <p class="name">АВТОЧЕХОЛ ДЛЯ AUDI 100 45 СЕДАН (1990-1994)</p>
-            </div>
-            <div class="card__material">
-              <span class="material">Материал: Экокожа</span>
-            </div>
-            <div class="card__price">
-              <ul class="card__price">
-                <li class="old-price"><span>2 800 ₽</span></li>
-                <li class="new-price"><span>2 300 ₽</span></li>
-              </ul>
-            </div>
-            <div class="card__like-button">
-              <img class="svg" src="source/img/like.svg" alt="+1" />
-            </div>
-            <div class="card__buy-button">
-              <img class="svg" src="source/img/buy.svg" alt="Купить" />
-            </div>
-            <div class="card__attributes">
-              <div class="attribute">
-                <p>Хит</p>
-              </div>
-              <div class="attribute">
-                <p>-53%</p>
-              </div>
-            </div>
-            <a class="card__link" href="#0"></a>
-          </div>
-          <!-- Конец - Товар -->
-
-          <!--  Товар -->
-          <div class="card">
-            <div class="card__image">
-              <img
-                src="source/img/goods/sed3.png"
-                alt="АВТОЧЕХОЛ ДЛЯ AUDI 100 45 СЕДАН (1990-1994)"
-              />
-            </div>
-            <div class="card__title">
-              <p class="name">АВТОЧЕХОЛ ДЛЯ AUDI 100 45 СЕДАН (1990-1994)</p>
-            </div>
-            <div class="card__material">
-              <span class="material">Материал: Экокожа</span>
-            </div>
-            <div class="card__price">
-              <ul class="card__price">
-                <li class="old-price"><span>2 800 ₽</span></li>
-                <li class="new-price"><span>2 300 ₽</span></li>
-              </ul>
-            </div>
-            <div class="card__like-button">
-              <img class="svg" src="source/img/like.svg" alt="+1" />
-            </div>
-            <div class="card__buy-button">
-              <img class="svg" src="source/img/buy.svg" alt="Купить" />
-            </div>
-            <div class="card__attributes">
-              <div class="attribute">
-                <p>Хит</p>
-              </div>
-              <div class="attribute">
-                <p>-53%</p>
-              </div>
-            </div>
-            <a class="card__link" href="#0"></a>
-          </div>
-          <!-- Конец - Товар -->
-
-          <!--  Товар -->
-          <div class="card">
-            <div class="card__image">
-              <img
-                src="source/img/goods/sed4.png"
-                alt="АВТОЧЕХОЛ ДЛЯ AUDI 100 45 СЕДАН (1990-1994)"
-              />
-            </div>
-            <div class="card__title">
-              <p class="name">АВТОЧЕХОЛ ДЛЯ AUDI 100 45 СЕДАН (1990-1994)</p>
-            </div>
-            <div class="card__material">
-              <span class="material">Материал: Экокожа</span>
-            </div>
-            <div class="card__price">
-              <ul class="card__price">
-                <li class="old-price"><span>2 800 ₽</span></li>
-                <li class="new-price"><span>2 300 ₽</span></li>
-              </ul>
-            </div>
-            <div class="card__like-button">
-              <img class="svg" src="source/img/like.svg" alt="+1" />
-            </div>
-            <div class="card__buy-button">
-              <img class="svg" src="source/img/buy.svg" alt="Купить" />
-            </div>
-            <div class="card__attributes">
-              <div class="attribute">
-                <p>Хит</p>
-              </div>
-              <div class="attribute">
-                <p>-53%</p>
-              </div>
-            </div>
-            <a class="card__link" href="#0"></a>
-          </div>
-          <!-- Конец - Товар -->
-
-          <!--  Товар -->
-          <div class="card">
-            <div class="card__image">
-              <img
-                src="source/img/goods/sed1.png"
-                alt="АВТОЧЕХОЛ ДЛЯ AUDI 100 45 СЕДАН (1990-1994)"
-              />
-            </div>
-            <div class="card__title">
-              <p class="name">АВТОЧЕХОЛ ДЛЯ AUDI 100 45 СЕДАН (1990-1994)</p>
-            </div>
-            <div class="card__material">
-              <span class="material">Материал: Экокожа</span>
-            </div>
-            <div class="card__price">
-              <ul class="card__price">
-                <li class="old-price"><span>2 800 ₽</span></li>
-                <li class="new-price"><span>2 300 ₽</span></li>
-              </ul>
-            </div>
-            <div class="card__like-button">
-              <img class="svg" src="source/img/like.svg" alt="+1" />
-            </div>
-            <div class="card__buy-button">
-              <img class="svg" src="source/img/buy.svg" alt="Купить" />
-            </div>
-            <div class="card__attributes">
-              <div class="attribute">
-                <p>Хит</p>
-              </div>
-              <div class="attribute">
-                <p>-53%</p>
-              </div>
-            </div>
-            <a class="card__link" href="#0"></a>
-          </div>
-          <!-- Конец - Товар -->
-
-          <!--  Товар -->
-          <div class="card">
-            <div class="card__image">
-              <img
-                src="source/img/goods/sed1.png"
-                alt="АВТОЧЕХОЛ ДЛЯ AUDI 100 45 СЕДАН (1990-1994)"
-              />
-            </div>
-            <div class="card__title">
-              <p class="name">АВТОЧЕХОЛ ДЛЯ AUDI 100 45 СЕДАН (1990-1994)</p>
-            </div>
-            <div class="card__material">
-              <span class="material">Материал: Экокожа</span>
-            </div>
-            <div class="card__price">
-              <ul class="card__price">
-                <li class="old-price"><span>2 800 ₽</span></li>
-                <li class="new-price"><span>2 300 ₽</span></li>
-              </ul>
-            </div>
-            <div class="card__like-button">
-              <img class="svg" src="source/img/like.svg" alt="+1" />
-            </div>
-            <div class="card__buy-button">
-              <img class="svg" src="source/img/buy.svg" alt="Купить" />
-            </div>
-            <div class="card__attributes">
-              <div class="attribute">
-                <p>Хит</p>
-              </div>
-              <div class="attribute">
-                <p>-53%</p>
-              </div>
-            </div>
-            <a class="card__link" href="#0"></a>
-          </div>
-          <!-- Конец - Товар -->
-
-          <!--  Товар -->
-          <div class="card">
-            <div class="card__image">
-              <img
-                src="source/img/goods/sed1.png"
-                alt="АВТОЧЕХОЛ ДЛЯ AUDI 100 45 СЕДАН (1990-1994)"
-              />
-            </div>
-            <div class="card__title">
-              <p class="name">АВТОЧЕХОЛ ДЛЯ AUDI 100 45 СЕДАН (1990-1994)</p>
-            </div>
-            <div class="card__material">
-              <span class="material">Материал: Экокожа</span>
-            </div>
-            <div class="card__price">
-              <ul class="card__price">
-                <li class="old-price"><span>2 800 ₽</span></li>
-                <li class="new-price"><span>2 300 ₽</span></li>
-              </ul>
-            </div>
-            <div class="card__like-button">
-              <img class="svg" src="source/img/like.svg" alt="+1" />
-            </div>
-            <div class="card__buy-button">
-              <img class="svg" src="source/img/buy.svg" alt="Купить" />
-            </div>
-            <div class="card__attributes">
-              <div class="attribute">
-                <p>Хит</p>
-              </div>
-              <div class="attribute">
-                <p>-53%</p>
-              </div>
-            </div>
-            <a class="card__link" href="#0"></a>
-          </div>
-          <!-- Конец - Товар -->
-
-          <!--  Товар -->
-          <div class="card">
-            <div class="card__image">
-              <img
-                src="source/img/goods/sed1.png"
-                alt="АВТОЧЕХОЛ ДЛЯ AUDI 100 45 СЕДАН (1990-1994)"
-              />
-            </div>
-            <div class="card__title">
-              <p class="name">АВТОЧЕХОЛ ДЛЯ AUDI 100 45 СЕДАН (1990-1994)</p>
-            </div>
-            <div class="card__material">
-              <span class="material">Материал: Экокожа</span>
-            </div>
-            <div class="card__price">
-              <ul class="card__price">
-                <li class="old-price"><span>2 800 ₽</span></li>
-                <li class="new-price"><span>2 300 ₽</span></li>
-              </ul>
-            </div>
-            <div class="card__like-button">
-              <img class="svg" src="source/img/like.svg" alt="+1" />
-            </div>
-            <div class="card__buy-button">
-              <img class="svg" src="source/img/buy.svg" alt="Купить" />
-            </div>
-            <div class="card__attributes">
-              <div class="attribute">
-                <p>Хит</p>
-              </div>
-              <div class="attribute">
-                <p>-53%</p>
-              </div>
-            </div>
-            <a class="card__link" href="#0"></a>
-          </div>
-          <!-- Конец - Товар -->
+         
+         
         </div>
         <!-- Конец Обертка товаров -->
       </div>

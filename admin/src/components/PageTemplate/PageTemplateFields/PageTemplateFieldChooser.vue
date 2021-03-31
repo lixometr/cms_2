@@ -22,6 +22,8 @@ import PageTemplateAccordion from "./PageTemplateAccordion.vue";
 import PageTemplateTab from "./PageTemplateTab.vue";
 import PageTemplateGallery from "./PageTemplateGallery.vue";
 import PageTemplateBlock from "./PageTemplateBlock.vue";
+import PageTemplateProducts from './PageTemplateProducts.vue';
+import PageTemplateCategories from './PageTemplateCategories.vue';
 export default {
   props: {
     value: null,
@@ -48,6 +50,8 @@ export default {
         tab: PageTemplateTab,
         gallery: PageTemplateGallery,
         block: PageTemplateBlock,
+        products: PageTemplateProducts,
+        categories: PageTemplateCategories,
       };
       return components[this.type];
     },

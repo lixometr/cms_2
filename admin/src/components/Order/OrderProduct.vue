@@ -5,7 +5,7 @@
       <Label class="mb-3" label="Цена"
         >{{ item.product.price }} {{ currency }}</Label
       >
-      <CCard v-if="filteredOptions.length">
+      <CCard v-if="false">
         <CCardBody>
           <!-- <Label class="mb-3" :label="variation.attr.name" v-if="variation">
             {{ variation.attrValue.name }}

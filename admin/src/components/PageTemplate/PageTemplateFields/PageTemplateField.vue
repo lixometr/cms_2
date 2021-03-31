@@ -156,6 +156,14 @@ export default {
           key: "switcher",
         },
         {
+          label: "Товары",
+          key: "products",
+        },
+        {
+          label: "Категории",
+          key: "categories",
+        },
+        {
           label: "Аккардеон",
           key: "accordion",
         },

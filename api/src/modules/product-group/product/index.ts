@@ -6,6 +6,7 @@ export * from "./entities/product-cnt-sale.entity"
 export * from "./dto/create-product.dto"
 export * from "./dto/update-product.dto"
 export * from "./dto/locale-product.dto"
+export * from "./repositories/product.repository"
  
 export * from "./bo/product.bo"
 export * from "./product.types"

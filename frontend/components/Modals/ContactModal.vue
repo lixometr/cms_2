@@ -1,7 +1,7 @@
 <template>
   <div class="modalwind">
     <!-- <div class="modalwind__position"> -->
-    <ContactModalForm @send="onSend" />
+    <ContactModalForm @send="onSend" @close="$emit('close')"/>
 
     <!-- </div> -->
   </div>
@@ -25,6 +25,7 @@ export default {
   position: relative;
   width: auto;
   height: auto;
+  
   .contact__form {
     position: relative;
     height: 616px;
