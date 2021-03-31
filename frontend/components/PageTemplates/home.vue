@@ -162,7 +162,7 @@
         <!-- Обертка товаров -->
         <div class="goods-block__container">
           <!--  Товар -->
-          <CategoryProduct v-for="(product, idx) in getValue('vivod_tovarov_na_glavnoi')" :key="idx" :product="product"/>
+          <CategoryProduct v-for="(product, idx) in getValue('vivod_tovarov_na_glavnoi.tovary')" :key="idx" :product="product"/>
           <!-- <div class="card">
             <div class="card__image">
               <img
