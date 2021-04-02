@@ -63,6 +63,7 @@
     <CCard>
       <CCardHeader>Информация о доставке</CCardHeader>
       <CCardBody>
+        <Label class="mb-3" label="Город">{{ order.info.city }}</Label>
         <Label class="mb-3" label="Индекс">{{ order.info.index }}</Label>
         <Label class="mb-3" label="Адрес">{{ order.info.address }}</Label>
         <Label class="mb-3" label="Номер дома">{{ order.info.house }}</Label>

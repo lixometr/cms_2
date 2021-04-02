@@ -5,31 +5,30 @@
     <section class="about-us">
       <div class="container">
         <client-only>
-        <swiper
-          class="about-us__swiper-container swiper-container"
-          :options="sliderOptions"
-        >
-          <swiper-slide
-            class="swiper-slide"
-            v-for="(item, idx) in getValue(
-              'o_kompanii.slaid-shou_bloka_o_kompanii'
-            )"
-            :key="idx"
+          <swiper
+            class="about-us__swiper-container swiper-container"
+            :options="sliderOptions"
           >
-            <img
-              :src="
-                getValue(
-                  `o_kompanii.slaid-shou_bloka_o_kompanii[${idx}].izobrazhenie_slaida.url`
-                )
-              "
-              alt=""
-            />
-          </swiper-slide>
-          <!-- Add Pagination -->
-          <div class="swiper-pagination" slot="pagination"></div>
-        </swiper>
+            <swiper-slide
+              class="swiper-slide"
+              v-for="(item, idx) in getValue(
+                'o_kompanii.slaid-shou_bloka_o_kompanii'
+              )"
+              :key="idx"
+            >
+              <img
+                :src="
+                  getValue(
+                    `o_kompanii.slaid-shou_bloka_o_kompanii[${idx}].izobrazhenie_slaida.url`
+                  )
+                "
+                alt=""
+              />
+            </swiper-slide>
+            <!-- Add Pagination -->
+            <div class="swiper-pagination" slot="pagination"></div>
+          </swiper>
         </client-only>
-
 
         <div class="about-us__text">
           <!-- Заголовок и описание на сайте повторяются -->
@@ -103,10 +102,10 @@
     <!--   Заголовок и описание на сайте повторяются -->
     <div class="title fadeUp t-default" data-t-show="2">
       <div class="title-description">
-        <span>Есть всё необходимое</span>
+        <span>{{ getValue("kategorii_kompanii.podzagolovok_kategorij") }}</span>
       </div>
       <div class="title-name">
-        <h2>Категории товара</h2>
+        <h2>{{ getValue("kategorii_kompanii.zagolovok_kategorij") }}</h2>
       </div>
     </div>
     <!--  Конец - Заголовок и описание на сайте повторяются -->
@@ -115,66 +114,28 @@
     <section class="catalog fadeUp t-default" data-t-show="2">
       <div class="container">
         <div class="catalog__grid">
-          <!-- Каталог 1 -->
-          <div class="catalog__block">
-            <a href="#0">
-              <h4 class="catalog__block-name">Накидки</h4>
-              <img
+          <div
+            class="catalog__block"
+            :class="{ block__row: idx % 6 === 1 }"
+            v-for="(item, idx) in getValue('kategorii_kompanii.kategorii')"
+            :key="idx"
+          >
+            <nuxt-link
+              :to="
+                $url.category(
+                  getValue(`kategorii_kompanii.kategorii[${idx}].fullSlug`)
+                ) || '#'
+              "
+            >
+              <h4 class="catalog__block-name">
+                {{ getValue(`kategorii_kompanii.kategorii[${idx}].name`) }}
+              </h4>
+              <AppImage
                 class="catalog__block-image"
-                src="/source/img/catalog/cat1.png"
+                :src="getValue(`kategorii_kompanii.kategorii[${idx}].image`)"
               />
-            </a>
+            </nuxt-link>
           </div>
-          <!-- Каталог 1 -->
-
-          <!-- Каталог 1 -->
-          <div class="catalog__block block__row">
-            <a href="#0">
-              <h4 class="catalog__block-name">Авточехлы</h4>
-              <img
-                class="catalog__block-image"
-                src="/source/img/catalog/cat5.png"
-              />
-            </a>
-          </div>
-          <!-- Каталог 1 -->
-
-          <!-- Каталог 1 -->
-          <div class="catalog__block">
-            <a href="#0">
-              <h4 class="catalog__block-name">Пошив на заказ</h4>
-              <img
-                class="catalog__block-image"
-                src="/source/img/catalog/cat3.png"
-              />
-            </a>
-          </div>
-          <!-- Каталог 1 -->
-
-          <!-- Каталог 1 -->
-          <div class="catalog__block">
-            <a href="#0">
-              <h4 class="catalog__block-name">Коврики</h4>
-              <img
-                class="catalog__block-image"
-                src="/source/img/catalog/cat2.png"
-              />
-            </a>
-          </div>
-          <!-- Каталог 1 -->
-
-          <!-- Каталог 1 -->
-          <div class="catalog__block">
-            <a href="#0">
-              <h4 class="catalog__block-name">Аксессуары</h4>
-              <img
-                class="catalog__block-image"
-                src="/source/img/catalog/cat4.png"
-              />
-            </a>
-          </div>
-
-          <!-- Каталог 1 -->
         </div>
       </div>
     </section>
@@ -269,7 +230,6 @@ export default {
     },
     breadcrumbs() {
       return [
-       
         {
           title: this.value.name,
         },
