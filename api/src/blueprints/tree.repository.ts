@@ -54,7 +54,7 @@ export class DefaultTreeRepository<T extends EntityDefaultBlueprint> extends Def
         this.populate(query, payload)
         this.restrictions(query, payload)
         const items = await query.getMany()
-        items.push(items[0])
+        items.unshift(items[0])
         items.shift()
         items.sort((a: any, b: any) => {
             if(a.id === null) {

@@ -33,7 +33,7 @@
           order.promocode && order.promocode.name
         }}</Label>
         <Label class="mb-3" label="Способ оплаты">{{ paymentType }}</Label>
-        <Label class="mb-3" label="Способ доставки">{{ deliveryType }}</Label>
+        <Label class="mb-3" label="Способ доставки">{{ delivery.type }} {{delivery.address}}</Label>
       </CCardBody>
     </CCard>
     <CCard>
@@ -106,13 +106,17 @@ export default {
     };
   },
   computed: {
-    deliveryType() {
+    delivery() {
       const type = this.order.delivery.type;
       const types = {
         pickup: "Самовывоз",
         courier: "Курьером",
       };
-      return types[type] || type;
+      const deliveryType = types[type] || type;
+      return {
+        type: deliveryType,
+        address: this.order.delivery.address
+      }
     },
     paymentType() {
       const type = this.order.payment.type;
