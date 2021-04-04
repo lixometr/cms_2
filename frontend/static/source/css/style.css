@@ -3431,6 +3431,9 @@ aside {
 	-ms-grid-columns: 2fr 1fr;
 	grid-template-columns: 2fr 1fr;
 }
+.basket-favorite .container {
+	grid-template-columns: 1fr;
+}
 
 .basket h2 {
 	text-align: center;
