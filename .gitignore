@@ -3,3 +3,4 @@ dist
 .env
 acme.json
 ssl
+frontend/package-lock.json
