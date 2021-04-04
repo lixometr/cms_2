@@ -48,10 +48,13 @@ export class Page extends EntityLocaleItemBlueprint {
                 if (_.isArray(currentValue)) {
                     const resolvers = currentValue.map(async idDto => {
                         const item = await productRepository.findById({ id: idDto.id }, payload)
-                        await item.serialize(payload)
+                        if(item) {
+                            await item.serialize(payload)
+                        }
                         return item
                     })
-                    const products = await Promise.all(resolvers)
+                    let products = await Promise.all(resolvers)
+                    products = products.filter(item => !!item)
                     _.set(values, path, products)
                 } else {
                     _.set(values, path, [])
@@ -61,10 +64,13 @@ export class Page extends EntityLocaleItemBlueprint {
                 if (_.isArray(currentValue)) {
                     const resolvers = currentValue.map(async idDto => {
                         const item =await categoryRepository.findById({ id: idDto.id }, payload)
-                        await item.serialize(payload)
+                        if(item) {
+                            await item.serialize(payload)
+                        }
                         return item
                     })
-                    const categories = await Promise.all(resolvers)
+                    let categories = await Promise.all(resolvers)
+                    categories = categories.filter(item => !!item)
                     _.set(values, path, categories)
                 } else {
                     _.set(values, path, [])
