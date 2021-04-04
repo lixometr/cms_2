@@ -11,6 +11,7 @@ export class CartBo {
         return this.products.map(product => new ProductBo(product))
     }
     getPromocodeBo() {
+
         if (!this.promocode) return null
         return new PromocodeBo({ promocode: this.promocode })
     }
@@ -18,6 +19,12 @@ export class CartBo {
         const products = this.getProductsBo()
         return products.reduce((sum, product) => {
             return sum + product.getTotalPrice()
+        }, 0)
+    }
+    getProductsPriceNoSale() {
+        const products = this.getProductsBo()
+        return products.reduce((sum, product) => {
+            return sum + product.getTotalPriceNoSale()
         }, 0)
     }
     getPromocodeSale(): number {
@@ -31,6 +38,11 @@ export class CartBo {
         if (promocodeBo) {
             totalPrice = promocodeBo.apply(totalPrice)
         }
+        return totalPrice
+    }
+    getTotalPriceNoSale() {
+        const productsPrice = this.getProductsPriceNoSale()
+        let totalPrice = productsPrice
         return totalPrice
     }
 }

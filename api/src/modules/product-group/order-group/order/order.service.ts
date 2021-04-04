@@ -78,7 +78,7 @@ export class OrderService extends ServiceBlueprint<Order>{
     if (!toCreate) throw new BadRequestException('Error while creating order')
     const result = await this.create({ data: toCreate }, payload)
     return new OrderResponse({
-      payment: await paymentStrategy.toResponse({ order: result }),
+      payment: await paymentStrategy.toResponse({ order: result }, payload),
       delivery: await deliveryStrategy.toResponse({ order: result }),
       order: result
     })
@@ -173,9 +173,10 @@ export class OrderService extends ServiceBlueprint<Order>{
   async makeProducts({ products }: { products: ToCreateOrderProductDto[] }, payload: RequestPayload): Promise<CreateOrderProductDto[]> {
     const resolvers = products.map(async toCreateOrderProduct => {
       const productId = toCreateOrderProduct.product.id
-      const product = await this.productService.findById({ id: productId, }, payload)
+      const product = await this.productService.getItemInfo({ id: productId, info: {...toCreateOrderProduct}}, payload)
       if (!product) return
       await product.serialize(payload)
+      console.log(product)
       let orderProduct: CreateOrderProductDto = { ...toCreateOrderProduct, product, }
       return orderProduct
     })

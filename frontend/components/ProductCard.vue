@@ -22,7 +22,7 @@
           <span>{{ product.oldPrice }} ₽</span>
         </li>
         <li class="new-price">
-          <span>{{ product.price }} ₽</span>
+          <span>{{ product.totalPrice }} ₽</span>
         </li>
       </ul>
     </div>

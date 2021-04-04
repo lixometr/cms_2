@@ -18,7 +18,7 @@ export class PaymentStrategy {
         }
     }
     // Ответ после создания заказа
-    async toResponse({ order }): Promise<any> {
+    async toResponse({ order }, payload: RequestPayload): Promise<any> {
         return
     }
 

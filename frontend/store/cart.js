@@ -149,12 +149,14 @@ export const actions = {
                 promocode: this.getters['promocode/promocode'],
                 products: cartProducts
             })
+            console.log(cartInfo)
 
             commit('setItems', cartInfo.products)
 
             commit('setInfo', {
                 totalPrice: cartInfo.totalPrice,
                 promocodeSale: cartInfo.promocodeSale,
+                totalPriceNoSale: cartInfo.totalPriceNoSale
             })
             let cookieCart = this.$cookies.get('cart')
             cookieCart = cookieCart.filter(cookieItem => cartInfo.products.findIndex(productItem => productItem.id === cookieItem.id) >= 0)

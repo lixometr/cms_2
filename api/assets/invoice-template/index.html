@@ -130,19 +130,19 @@
             <tbody>
                 <tr>
                     <td class="padding">
-                        Банк получателя <span>123 bank</span>
+                        Банк получателя <span>{{bank }}</span>
                     </td>
                     <td class="border-left">
                         <table>
                             <tr>
                                 <td width="120" class="border-bottom border-right padding">БИК</td>
-                                <td class="padding">121232132131233</td>
+                                <td class="padding">{{bik}}</td>
                             </tr>
                             <tr>
                                 <td class="border-right padding">
                                     СЧ №
                                 </td>
-                                <td class="padding">122131231231231233</td>
+                                <td class="padding">{{ rc}}</td>
                             </tr>
                         </table>
                     </td>
@@ -152,14 +152,14 @@
                         <table class="border-top ">
                             <tr height="40">
                                 <td class="padding border-bottom">
-                                    ИНН <span>21321321321321313</span>
+                                    ИНН <span>{{ inn}}</span>
                                 </td>
                                 <td class="border-left border-bottom padding">
-                                    КПП <span>213112312312321323</span>
+                                    КПП <span>{{kpp}}</span>
                                 </td>
                             </tr>
                             <tr height="110" class="">
-                                <td class="padding " valign="bottom">Получатель <span>Иванов Иван Иванович</span></td>
+                                <td class="padding " valign="bottom">Получатель <span>{{company}}</span></td>
                             </tr>
                         </table>
                     </td>
@@ -167,14 +167,14 @@
                         <table height="150" class="border-top ">
                             <tr>
                                 <td valign="top" width="120" class="padding border-right">Сч №</td>
-                                <td valign="top" class="padding">123</td>
+                                <td valign="top" class="padding">{{ kc}}</td>
                             </tr>
                         </table>
                     </td>
                 </tr>
             </tbody>
         </table>
-        <h2>Счет на оплату № 20 от "20" сентября 2020г.</h2>
+        <h2>Счет на оплату от {{invoiceDate}}</h2>
         <div class="invoice-items">
             <table>
                 <thead>
@@ -186,22 +186,16 @@
                     <th width="300">Сумма</th>
                 </thead>
                 <tbody>
+                    {{#each products}}
                     <tr>
                         <td>1</td>
-                        <td>Продукт 1</td>
-                        <td>10</td>
+                        <td>{{this.product.name}}</td>
+                        <td>{{this.cnt}}</td>
                         <td>р</td>
-                        <td>1000</td>
-                        <td>10 000р</td>
+                        <td>{{this.product.price}}р</td>
+                        <td>{{this.product.totalPrice}}р</td>
                     </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Продукт 1</td>
-                        <td>10</td>
-                        <td>р</td>
-                        <td>1000</td>
-                        <td>10 000р</td>
-                    </tr>
+                    {{/each}}
                 </tbody>
                 <tfoot>
                     <tr>
@@ -210,8 +204,9 @@
                         <td></td>
                         <td></td>
                         <td>Итого:</td>
-                        <td>100р </td>
+                        <td>{{totalPrice}}р</td>
                     </tr>
+                    {{#if false}}
                     <tr>
                         <td></td>
                         <td></td>
@@ -220,13 +215,15 @@
                         <td>В том числе НДС:</td>
                         <td>20р </td>
                     </tr>
+
+                    {{/if}}
                     <tr>
                         <td></td>
                         <td></td>
                         <td></td>
                         <td></td>
                         <td>Всего к оплате:</td>
-                        <td>120р </td>
+                        <td>{{totalPrice}}р </td>
                     </tr>
                 </tfoot>
             </table>
@@ -238,11 +235,11 @@
         <div class="invoice-contacts">
             <div class="invoice-contact">
                 <b>Руководитель: </b>
-                <span>Иван Иванов</span>
+                <span>{{leader}}</span>
             </div>
             <div class="invoice-contact">
                 <b>Главный бухгалтер: </b>
-                <span>Иван Иванов</span>
+                <span>{{buhgalter}}</span>
 
             </div>
         </div>

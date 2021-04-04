@@ -3,6 +3,7 @@ import { EntitySeo, ID } from "src/internal"
 import { Image } from "src/modules/upload-group/image"
 import { CartProductActiveOptions } from "../../cart"
 import { ProductOption } from "../../product-option"
+import { Product } from "./product.entity"
 export type ProductInfoProps = {
     name: string
     slug: string
@@ -20,6 +21,7 @@ export type ProductInfoProps = {
     images: Image[]
 
     totalPrice: number
+    totalPriceNoSale: number
     optionsPrice: number
 
     cnt: number
@@ -29,13 +31,14 @@ export type ProductInfoProps = {
 
 
 }
-export class ProductInfo extends EntityBase {
+export class ProductInfo extends Product {
     name: string
     slug: string
 
     price: number
     oldPrice: number
     sale: number
+    totalPriceNoSale: number
 
     totalPrice: number
 
@@ -44,7 +47,7 @@ export class ProductInfo extends EntityBase {
 
     defaultImage: Image
 
-    images: Image
+    images: Image[]
 
 
     activeOptions: CartProductActiveOptions

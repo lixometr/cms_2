@@ -26,11 +26,15 @@ export class CartService {
     let cartProducts = await Promise.all(resolvers)
     cartProducts = cartProducts.filter(item => !!item)
     const promocode = await this.promocodeService.findByName({name: info.promocode}, payload)
+    if(promocode) {
+      await promocode.serialize(payload)
+    }
     const cartBo = new CartBo({ products: cartProducts, promocode })
     const cartInfo = {
       totalPrice: cartBo.getTotalPrice(),
       promocodeSale: cartBo.getPromocodeSale(),
-      products: []
+      products: [],
+      totalPriceNoSale: cartBo.getTotalPriceNoSale()
     }
     const productInfosResolvers = cartProducts.map(async (cartProduct) => {
       const productInfo = await this.productService.getItemInfo({

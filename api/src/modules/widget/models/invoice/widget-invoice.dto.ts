@@ -15,17 +15,23 @@ class WidgetInvoiceValues {
     @IsString()
     kpp: string
 
-    // @IsString()
-    // bank: string
+    @IsString()
+    bank: string
 
-    // @IsString()
-    // bik: string
+    @IsString()
+    bik: string
 
-    // @IsString()
-    // rc: string
+    @IsString()
+    rc: string
     
-    // @IsString()
-    // kc: string
+    @IsString()
+    kc: string
+
+    @IsString()
+    leader: string
+
+    @IsString()
+    buhgalter: string
 
 }
 export class WidgetInvoiceDto extends WidgetModelDto {

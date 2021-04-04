@@ -22,7 +22,8 @@ export class PromocodeService extends ServiceBlueprint<Promocode> {
   canUse({ promocode }: { promocode: Promocode }, payload: RequestPayload): boolean {
     if (!promocode) return false
     const user = payload.getUser()
-    if (!user) return false
+    // if (!user) return false
+    
     if (promocode.endDate) {
       const nowDate = new Date()
       if (new Date(promocode.endDate).getTime() > nowDate.getTime()) return false
@@ -30,7 +31,7 @@ export class PromocodeService extends ServiceBlueprint<Promocode> {
     if (promocode.useCount > -1) {
       if (promocode.usedTimes >= promocode.useCount) return false
     }
-    if (!this.canUserUse({ promocode }, payload)) return false
+    // if (!this.canUserUse({ promocode }, payload)) return false
     return true
   }
   async useUser({ promocode }: { promocode: Promocode }, payload: RequestPayload): Promise<boolean> {
@@ -72,7 +73,7 @@ export class PromocodeService extends ServiceBlueprint<Promocode> {
     await this.useUser({ promocode }, payload)
     return true
   }
-  async check({ promocode }: CheckPromocodeDto, payload) {
+  async check({ promocode }: CheckPromocodeDto, payload: RequestPayload) {
     const promo = await this.findByName({ name: promocode }, payload)
     if (!promo) return false
     return this.canUse({ promocode: promo }, payload)

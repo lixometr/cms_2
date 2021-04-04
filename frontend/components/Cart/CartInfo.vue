@@ -13,7 +13,7 @@
       </div> -->
       <div class="basket__line" v-if="sale > 0">
         <p class="basket-title">Скидка на товары</p>
-        <p class="basket-price">{{ sale }} ₽</p>
+        <p class="basket-price">{{ totalSale }} ₽</p>
       </div>
       <div class="basket__line">
         <p class="basket-title">Итого</p>

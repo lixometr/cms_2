@@ -8,25 +8,11 @@ export default {
             return info.totalPrice;
         },
         totalSale() {
-            const items = this.$store.getters["cart/items"];
-            return items.reduce((sum, item) => {
-                let d = 0;
-                if (item.oldPrice) {
-                    d = Math.abs(item.oldPrice - item.price);
-                }
-                d *= item.cnt;
-                return sum + d;
-            }, 0);
+            return this.totalNoSale - this.totalPrice
         },
         totalNoSale() {
-            const items = this.$store.getters["cart/items"];
-            return items.reduce((sum, item) => {
-                let price = item.totalPrice;
-                if (item.oldPrice) {
-                    price = item.oldPrice * item.cnt;
-                }
-                return sum + price;
-            }, 0);
+            const info = this.$store.getters["cart/info"];
+            return info.totalPriceNoSale;
         },
         sale() {
             const totalSale = this.items.reduce((sum, item) => {

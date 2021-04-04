@@ -34,7 +34,7 @@ export class PromocodeController extends ControllerBlueprint {
   }
 
   @Post('/check')
-  async check(@Body() data: CheckPromocodeDto, payload: RequestPayload) {
+  async check(@Body() data: CheckPromocodeDto, @GetRequestPayload() payload: RequestPayload) {
     return this.promocodeService.check(data, payload)
   }
 }

@@ -5,11 +5,15 @@
     <label class="mobile-menu__items">
       <div class="logo">
         <nuxt-link to="/">
-          <img src="/source/img/logo.svg" />
+          <AppImage
+            class="logo"
+            :src="headerLogo"
+            alt="Авточехлы и Аксессуары"
+          />
         </nuxt-link>
       </div>
       <div class="phone">
-        <a href="tel:8 (473) 232-37-98">
+        <a :href="'tel:' + phone">
           <img src="/source/img/telephone.png" />
         </a>
       </div>
@@ -40,12 +44,27 @@
 
 <script>
 export default {
+  data: () => ({
+    item: {},
+  }),
+  async fetch() {
+    await this.fetchHeader();
+  },
   computed: {
     cartCnt() {
       return this.$store.getters["cart/cnt"];
     },
     favouriteCnt() {
       return this.$store.getters["favourite/cnt"];
+    },
+    values() {
+      return this.item.values || {};
+    },
+    headerLogo() {
+      return this.values.logo;
+    },
+    phone() {
+      return this.values.phone;
     },
   },
   mounted() {
@@ -57,6 +76,16 @@ export default {
         $(this).children(".sub-menu").addClass("active");
       }
     });
+  },
+  methods: {
+    async fetchHeader() {
+      try {
+        const header = await this.$api.$get("widget", { slug: "header" });
+        this.item = header;
+      } catch (err) {
+        this.$error(err);
+      }
+    },
   },
 };
 </script>

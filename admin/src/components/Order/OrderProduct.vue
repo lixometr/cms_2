@@ -1,26 +1,26 @@
 <template>
   <CCard>
     <CCardBody>
-      <Label class="mb-3" label="Название">{{ item.product.name }}</Label>
+      <Label class="mb-3" label="Название">{{ itemName }}</Label>
       <Label class="mb-3" label="Цена"
-        >{{ item.product.price }} {{ currency }}</Label
+        >{{ item.product.totalPrice }} {{ currency }}</Label
       >
-      <CCard v-if="false">
+      <CCard v-if="filteredOptions.length">
         <CCardBody>
           <!-- <Label class="mb-3" :label="variation.attr.name" v-if="variation">
             {{ variation.attrValue.name }}
           </Label> -->
           <div v-for="(option, idx) in filteredOptions" :key="idx">
             <Label class="mb-3" :label="option.name">
-                <span
-                  class="cart-itm-bot__itm__val"
-                  v-for="(value, index) in option.values"
-                  :key="index"
-                  >{{ value.name }}
-                  <template v-if="value.price"
-                    >({{ value.price }} {{ currency }})</template
-                  >{{ option.values.length - 1 > index ? ", " : "" }}
-                </span>
+              <span
+                class="cart-itm-bot__itm__val"
+                v-for="(value, index) in option.values"
+                :key="index"
+                >{{ value.name }}
+                <template v-if="value.price"
+                  >({{ value.price }} {{ currency }})</template
+                >{{ option.values.length - 1 > index ? ", " : "" }}
+              </span>
             </Label>
           </div>
         </CCardBody>
@@ -40,6 +40,18 @@ export default {
     order: { type: Object, default: () => ({}) },
   },
   computed: {
+    itemName() {
+      let name = this.item.product.name;
+      if (this.item.product.type === "variation" && this.item.activeVariation && this.item.product.variations) {
+        const activeVariation = this.item.product.variations.find(
+          (variation) => variation.id === this.item.activeVariation
+        );
+        if (activeVariation) {
+          name = activeVariation.name;
+        }
+      }
+      return name;
+    },
     currency() {
       return this.order.currency.sign;
     },
@@ -53,7 +65,7 @@ export default {
         option.values = option.values.filter((optValue) => {
           return activeOptionValues.includes(optValue.id);
         });
-        return true
+        return true;
       });
     },
     options() {

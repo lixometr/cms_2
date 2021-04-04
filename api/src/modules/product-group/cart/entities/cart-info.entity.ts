@@ -5,9 +5,12 @@ interface CartInfoProps {
     totalPrice: number
     promocodeSale: number
     products: ProductInfo[]
+    totalPriceNoSale: number
+
 }
 export class CartInfo extends EntityBase {
     totalPrice: number
+    totalPriceNoSale: number
     promocodeSale: number
     products: ProductInfo[]
     constructor(item: CartInfoProps) {

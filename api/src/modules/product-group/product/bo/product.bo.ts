@@ -33,6 +33,16 @@ export class ProductBo {
             return variation.price
         }
     }
+    getOldPrice() {
+        const type = this.getType()
+        if (type === ProductType.simple || type === ProductType.kit) {
+            return this.getProductOldPrice()
+        } else if (type == ProductType.variation) {
+            const variation = this.getActiveVariation()
+            if (!variation) return this.getProductOldPrice()
+            return variation.oldPrice
+        }
+    }
     getItem() {
         return this.product
     }
@@ -41,6 +51,9 @@ export class ProductBo {
     }
     getProductPrice() {
         return this.product.price
+    }
+    getProductOldPrice() {
+        return this.product.oldPrice
     }
     getSale() {
         return this.product.sale / 100
@@ -95,6 +108,13 @@ export class ProductBo {
         })
         const sale = cntSale ? cntSale.sale / 100 : 1
         return price * sale
+    }
+    getTotalPriceNoSale(): number {
+        let price = this.getOldPrice()
+        let totalPrice = price
+        totalPrice = this.applyCnt(totalPrice)
+        totalPrice = this.applyOptions(totalPrice)
+        return totalPrice
     }
     getTotalPrice(): number {
         let price = this.getPrice()

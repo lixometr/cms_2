@@ -18,6 +18,7 @@
         <AInput class="mb-3" label="ОГРН" v-model="values.ogrn" />
         <AInput class="mb-3" label="КПП" v-model="values.kpp" />
         <AInput class="mb-3" label="Банк" v-model="values.bank" />
+        <AInput class="mb-3" label="Бик" v-model="values.bik" />
         <AInput class="mb-3" label="Расчетный счет" v-model="values.rc" />
         <AInput class="mb-3" label="Кор счет" v-model="values.kc" />
         <AInput class="mb-3" label="Руководитель" v-model="values.leader" />

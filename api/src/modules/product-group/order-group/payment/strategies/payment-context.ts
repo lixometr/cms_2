@@ -25,8 +25,8 @@ export class PaymentContext {
         return this.strategy.getInfo()
     }
 
-    async toResponse({ order }) {
-        return this.strategy.toResponse({ order })
+    async toResponse({ order }, payload: RequestPayload) {
+        return this.strategy.toResponse({ order }, payload)
     }
     async onResult({ data }, payload: RequestPayload) {
         return this.strategy.onResult({ data }, payload)

@@ -28,9 +28,7 @@ export class CreateOrderProductItemDto {
 
     @IsOptional()
     @IsArray()
-    @ValidateNested({ each: true })
-    @Type(() => CreateProductOptionDto)
-    options: CreateProductOptionDto[]
+    options: any
 
     @IsOptional()
     @ValidateNested()
@@ -50,9 +48,7 @@ export class CreateOrderProductItemDto {
 
     @IsOptional()
     @IsArray()
-    @ValidateNested({ each: true })
-    @Type(() => CreateProductVariationDto)
-    variations: CreateProductVariationDto[]
+    variations: any
 
     @IsOptional()
     @IsString()
@@ -63,4 +59,6 @@ export class CreateOrderProductItemDto {
     @Type(() => CreateCntSale)
     cntSale: CreateCntSale[]
 
+    @IsNumber()
+    totalPrice: number
 }

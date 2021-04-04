@@ -24,7 +24,6 @@ export class ProductService extends ServiceBlueprint<Product>{
         return this.productRepository.findByCategoryIdWithFilters({ id }, payload)
     }
     async findByCategoryFullSlug({ slug }: { slug: SLUG }, payload: RequestPayload) {
-        console.log(slug)
 
         const category = await this.categoryService.findByFullSlug({ slug }, payload)
         if (!category) throw new BadRequestException('Category with such slug not found')
@@ -45,13 +44,15 @@ export class ProductService extends ServiceBlueprint<Product>{
         const product = await this.findById({ id }, payload)
         if (!product) throw new BadRequestException('Product not found')
         await product.serialize(payload)
-
+        console.log(product.options)
         const productBo = new ProductBo({ product, activeOptions: info.activeOptions, activeVariation: info.activeVariation, cnt: info.cnt || 1 })
         const totalPrice = productBo.getTotalPrice()
+        const totalPriceNoSale = productBo.getTotalPriceNoSale()
         const optionsPrice = productBo.getOptionsPrice()
         let productInfo = {
             ...product,
             totalPrice,
+            totalPriceNoSale,
             optionsPrice,
             cnt: info.cnt,
             activeOptions: info.activeOptions,

@@ -70,11 +70,6 @@
       </CCardBody>
     </CCard>
 
-    <CCard>
-      <CCardBody>
-        <Label label=""></Label>
-      </CCardBody>
-    </CCard>
 
     <BtnSave @click="save">Сохранить</BtnSave>
     <CButton color="danger mb-3" @click="onDelete">Удалить</CButton>

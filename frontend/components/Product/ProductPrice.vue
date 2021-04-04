@@ -5,7 +5,7 @@
         <span>{{ item.oldPrice }} ₽</span>
       </li>
       <li class="new-price">
-        <span>{{ item.price }} ₽</span>
+        <span>{{ item.totalPrice }} ₽</span>
       </li>
     </ul>
   </div>

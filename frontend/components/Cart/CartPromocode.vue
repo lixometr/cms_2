@@ -14,12 +14,16 @@
 
 <script>
 export default {
-  data: () => ({
-    promocode: "",
-  }),
+  data() {
+    const promocode = this.$store.getters['promocode/promocode']
+    return {
+      promocode
+    }
+  },
   methods: {
     async apply() {
       await this.$store.dispatch("promocode/set", this.promocode);
+      await this.$store.dispatch('cart/fetchItems')
     },
   },
 };
