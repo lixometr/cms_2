@@ -6227,6 +6227,14 @@ aside {
 	}
 }
 
+.home-search-block .select-filter {
+	margin-left: 0 !important;
+	margin-top: 0 !important;
+}
+.home-search-block .search-block__select {
+	align-items: flex-start !important;
+}
+
 /* ============Конец - Мобильная версия================= */
 /* ====================Мобильная версия================= */
 @media screen and (max-width: 768px) {
