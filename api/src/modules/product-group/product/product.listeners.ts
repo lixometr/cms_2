@@ -25,7 +25,7 @@ export class ProductListenersService extends ListenerItemBlueprint {
         return super.preUpdate({ data, payload, id })
     }
     checkAttend({ data, payload, id }: { id: ID, data: UpdateProductDto, payload: RequestPayload }) {
-        if(!data.attendProducts) return true
+        if (!data.attendProducts) return true
         const sameProductIdx = data.attendProducts.findIndex(item => {
             return item.productId.toString() === id.toString()
         })
@@ -38,10 +38,13 @@ export class ProductListenersService extends ListenerItemBlueprint {
     async beforeRemove({ id, payload }) {
         const item = await this.itemService.findById({ id }, payload)
         if (!item) return
-        const resolvers = item.images.map(async image => {
-            return await this.imageService.removeById({ id: image.id }, payload)
-        })
-        resolvers.push(this.imageService.removeById({ id: item.defaultImage.id }, payload))
-        await Promise.all(resolvers)
+        // const resolvers = item.images.map(async image => {
+        //     return await this.imageService.removeById({ id: image.id }, payload)
+        // })
+        // if (item.defaultImage) {
+        //     resolvers.push(this.imageService.removeById({ id: item.defaultImage.id }, payload))
+
+        // }
+        // await Promise.all(resolvers)
     }
 }

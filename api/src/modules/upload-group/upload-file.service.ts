@@ -8,6 +8,6 @@ export class UploadFileService {
                 if (err) return reject(err)
                 resolve(true)
             })
-        })
+        }).catch(err => console.log(err))
     }
 }

@@ -42,6 +42,12 @@ export class ProductController extends ControllerBlueprint {
   }
   @AuthAdmin()
   @SerializeOptions({ groups: [SerializeGroup.Full, SerializeGroup.Admin] })
+  @Get('id/:id/clone')
+  async clone(@Param('id') id: ID, @GetRequestPayload() payload: RequestPayload) {
+    return this.productService.clone({ id }, payload)
+  }
+  @AuthAdmin()
+  @SerializeOptions({ groups: [SerializeGroup.Full, SerializeGroup.Admin] })
   @Put('id/:id')
   update(@Param('id') id: ID, @Body() updateDto: UpdateProductDto) {
     return super.update(id, updateDto)

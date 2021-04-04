@@ -27,6 +27,19 @@
     <template #createdAt="{ item }">
       <td>{{ item.createdAt | moment("DD.MM.YYYY HH:MM") }}</td>
     </template>
+    <template #edit="{ item }">
+      <td>
+        <div class="d-flex">
+          <CButton color="warning" @click="editItem(item.id)">
+            <CIcon name="cil-pencil"></CIcon>
+          </CButton>
+        
+          <CButton color="danger" class="ml-2" @click="removeItem(item.id)">
+            <CIcon name="cil-trash"></CIcon>
+          </CButton>
+        </div>
+      </td>
+    </template>
   </PageItems>
 </template>
 
@@ -71,7 +84,16 @@ export default {
     };
   },
   components: {},
-
+  methods: {
+    async copyItem(id) {
+      try {
+        const reuslt = await this.$api.get("cloneProduct", { id });
+        await this.fetchItems();
+      } catch (err) {
+        this.$error(err);
+      }
+    },
+  },
   computed: {},
 
   watch: {},
