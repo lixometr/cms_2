@@ -1,4 +1,4 @@
-import { EntityLocaleDefaultBlueprint, EntitySeo, RequestPayload, SerializeGroup, } from "src/internal";
+import { EntityLocaleDefaultBlueprint, EntitySeo,   RequestPayload, SerializeGroup, } from "src/internal";
 import { CASCADE_NOT_INSERT, DELETE_OPTIONS } from "src/constants";
 import { ID } from "src/internal";
 import { Column, Entity, JoinTable, ManyToMany, ManyToOne, OneToMany } from "typeorm";
@@ -9,6 +9,7 @@ import { ProductVariationPrice } from "./product-variation.price.entity";
 import { transformCurrency } from "../../product.helpers";
 import { Expose } from "class-transformer";
 import { Image } from "src/internal";
+import { ProductVariationCntSale } from "./product-variation-cnt-sale.entity";
 
 
 @Entity()
@@ -48,7 +49,10 @@ export class ProductVariation extends EntityLocaleDefaultBlueprint {
   @Column({ nullable: true })
   sku: string;
 
-
+  @Expose({ groups: [SerializeGroup.Full, SerializeGroup.AdminFull] })
+  @OneToMany(() => ProductVariationCntSale, cntSale => cntSale.item, { cascade: true, eager: true })
+  cntSale: ProductVariationCntSale[]
+  
   @ManyToOne(() => Image, { cascade: CASCADE_NOT_INSERT, eager: true, nullable: true, onDelete: 'SET NULL' })
   defaultImage: Image;
 

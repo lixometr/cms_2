@@ -31,6 +31,7 @@
           <CollapseCard :open="true">
             <div slot="header">Цена вариации</div>
             <ProductPrice v-model="item.prices" />
+            <ProductCntSale v-model="item.cntSale"/>
           </CollapseCard>
           <CollapseCard :open="true">
             <div slot="header">Описание вариации</div>
@@ -65,6 +66,7 @@ import _ from "lodash";
 import ProductVariationAttributes from "./ProductVariationAttributes";
 import EditImage from "@/components/EditImage";
 import ProductDescription from "@/components/Product/ProductDescription";
+import ProductCntSale from "@/components/Product/ProductCntSale";
 export default {
   props: {
     value: {
@@ -80,6 +82,7 @@ export default {
     };
   },
   components: {
+    ProductCntSale,
     ProductImages,
     AttributeSelect,
     AttributeValueSelect,

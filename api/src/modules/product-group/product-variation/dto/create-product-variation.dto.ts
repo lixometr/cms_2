@@ -2,6 +2,7 @@ import { Type } from "class-transformer";
 import { ArrayNotEmpty, IsArray, IsInt, IsOptional, ValidateNested } from "class-validator";
 import { IdDto } from "src/internal";
 import { ID } from "src/internal";
+import { CreateCntSale } from "../../product/dto/create-cnt-sale.dto";
 import { CreateProductVariationAttributeDto } from "./create-product-variation-attributes.dto";
 import { CreateProductVariationPriceDto } from "./create-product-variation-price.dto";
 import { LocaleProductVariationDto } from "./locale-product-variation.dto";
@@ -43,6 +44,12 @@ export class CreateProductVariationDto {
     @ValidateNested({ each: true })
     @Type(() => IdDto)
     images: IdDto[]
+
+    @IsOptional()
+    @IsArray()
+    @ValidateNested({each: true})
+    @Type(() => CreateCntSale)
+    cntSale: CreateCntSale[]
 
     @IsOptional()
     @IsInt()

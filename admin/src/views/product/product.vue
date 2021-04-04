@@ -58,6 +58,7 @@
       <div slot="header">Цена</div>
       <div>
         <ProductPrice v-model="item.prices" />
+        <ProductCntSale v-model="item.cntSale"/>
       </div>
     </CollapseCard>
     <CollapseCard :open="false">
@@ -119,10 +120,12 @@ import { required } from "vuelidate/lib/validators";
 import ProductDescription from "@/components/Product/ProductDescription";
 import ProductKit from "@/components/Product/ProductKit";
 import ProductAttend from "@/components/Product/ProductAttend";
+import ProductCntSale from "@/components/Product/ProductCntSale";
 export default {
   name: "Product",
   mixins: [PageItemMixin],
   components: {
+    ProductCntSale,
     ProductAttend,
     LabelSelect,
     ProductVariations,
