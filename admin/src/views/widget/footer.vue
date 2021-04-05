@@ -3,9 +3,14 @@
     <CCard>
       <!-- <CCardHeader></CCardHeader> -->
       <CCardBody>
-      
         <AInput class="mb-3" label="Телефон" v-model="values.phone" />
-        <AInput label="Копирайт" v-model="values.copyright" />
+        <AInput class="mb-3" label="Копирайт" v-model="values.copyright" />
+        <AppMultiplyer addText="Добавить иконку" v-model="values.socIcons">
+          <template v-slot="{ item }">
+            <AInput class="mb-3" v-model="item.link" label="Ссылка"/>
+            <EditImage v-model="item.icon" label="Иконка"/>
+          </template>
+        </AppMultiplyer>
       </CCardBody>
     </CCard>
   </div>
@@ -14,7 +19,7 @@
 <script>
 import AInput from "@/components/AInput";
 import EditImage from "@/components/EditImage";
-
+import AppMultiplyer from "@/components/AppMultiplyer";
 import merge from "lodash.merge";
 export default {
   data() {
@@ -26,6 +31,7 @@ export default {
 
   components: {
     AInput,
+    AppMultiplyer,
     EditImage,
   },
   async created() {
@@ -36,12 +42,11 @@ export default {
   computed: {},
   methods: {
     async save() {
-     return await this.$api.put(
+      return await this.$api.put(
         "widget",
         { slug: "footer" },
         { values: this.values }
       );
-      
     },
     async fetchItem() {
       try {

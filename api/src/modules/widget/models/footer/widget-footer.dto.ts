@@ -1,9 +1,15 @@
 
 
 import { Type } from "class-transformer";
-import { IsObject, IsString, ValidateNested } from "class-validator";
+import { IsArray, IsObject, IsOptional, IsString, ValidateNested } from "class-validator";
 import { Image } from "src/modules/upload-group/image";
 import { WidgetModelDto } from "../widget.model.dto";
+class SocIcon {
+    @IsString()
+    link: string
+    @IsObject()
+    icon: any
+}
 class WidgetFooterValues {
    
 
@@ -13,6 +19,11 @@ class WidgetFooterValues {
     @IsString()
     copyright: string
 
+    @IsOptional()
+    @IsArray()
+    @ValidateNested({each: true})
+    @Type(() => SocIcon)
+    socIcons: SocIcon
 }
 export class WidgetFooterDto extends WidgetModelDto {
     @IsObject()

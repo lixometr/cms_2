@@ -62,11 +62,11 @@
             </div>
 
             <div class="title-button">
-              <nuxt-link
-                :to="getValue('usluga.ssilka_knopki') || '#'"
+              <a
+                :href="'#'"
                 class="button"
-                >{{ getValue("usluga.nazvanie_knopki") }}</nuxt-link
-              >
+                @click.prevent="openModal"
+                >{{ getValue("usluga.nazvanie_knopki") }}</a>
             </div>
           </div>
           <!-- Конец - Заголовок и описание на сайте повторяются -->
@@ -170,20 +170,23 @@
                 class="block-help__row-input"
                 type="text"
                 placeholder="Имя*"
+                v-model="name"
               />
               <input
                 class="block-help__row-input"
                 type="text"
                 placeholder="Телефон *"
+                v-model="phone"
               />
               <input
                 class="block-help__row-input"
                 type="text"
                 placeholder="Email *"
+                v-model="email"
               />
 
               <div class="agree">
-                <input id="contact__formch" type="checkbox" checked hidden />
+                <input id="contact__formch" type="checkbox" checked hidden v-model="agreement"/>
                 <label for="contact__formch"
                   ><span>
                     Я согласен(на) на обработку персональных данных</span
@@ -191,8 +194,8 @@
                 >
               </div>
 
-              <div class="button">
-                <a href="#">
+              <div class="button" @click="submit">
+                <a href="#" @click.prevent>
                   {{
                     getValue(
                       "blok_tochki_zakhvata_na_stranitse_usluga.nazvanie_knopki"
@@ -211,9 +214,9 @@
 
 <script>
 import PageTemplateMixin from "@/mixins/PageTemplateMixin";
-
+import ContactFormMixin from "@/mixins/ContactFormMixin"
 export default {
-  mixins: [PageTemplateMixin],
+  mixins: [PageTemplateMixin, ContactFormMixin],
   data: () => ({
     services: [],
   }),
@@ -286,6 +289,9 @@ export default {
   },
   mounted() {},
   methods: {
+    openModal() {
+      this.$modal.open('contact')
+    },
     async fetchServices() {
       try {
         const serviceMenu = await this.$api.$get("menu", { slug: "service_menu" });

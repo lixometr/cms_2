@@ -1,5 +1,5 @@
 <template>
-  <div class="select" :id="itemId" :class="{ open: isOpen }" v-click-outside="close">
+  <div class="select" :id="itemId" :class="{ open: isOpen, disabled}" v-click-outside="close">
     <input class="select__input" type="hidden" name="" />
     <div class="select__head" @click="toggle" >{{ activeOption.name }}</div>
     <ul class="select__list" v-show="isOpen">
@@ -25,6 +25,10 @@ export default {
     },
     value: [String, Number],
     placeholder: String,
+    disabled: {
+      type: Boolean,
+      default: false
+    }
   },
   data() {
     return {
@@ -50,6 +54,7 @@ export default {
       }
     },
     toggle() {
+      if(this.disabled) return
       this.isOpen = !this.isOpen;
     },
     close() {
@@ -88,6 +93,9 @@ export default {
 
 <style lang="scss" >
 .select {
+  &.disabled {
+    background: transparent;
+  }
   .select__list {
     display: block;
   }

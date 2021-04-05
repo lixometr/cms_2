@@ -3,10 +3,11 @@
     <AppSelect
       class="select-filter"
       :placeholder="'Выберите категорию'"
-      :options="child"
-      :value="value[idx]"
+      :options="val.child"
+      :value="val.value"
+      :disabled="val.disabled"
       @input="onItemChange($event, idx)"
-      v-for="(child, idx) in children"
+      v-for="(val, idx) in subCategories"
       :key="idx"
     />
   </div>
@@ -26,6 +27,7 @@ export default {
   },
   data: () => ({
     children: [],
+    fetchedChildren: [],
   }),
   async fetch() {
     await this.fetchItems();
@@ -33,6 +35,23 @@ export default {
   computed: {
     toFetchChildren() {
       return [this.item.id, ...this.value];
+    },
+    subCategories() {
+      let values = this.children.map((child, idx) => ({
+        value: this.value[idx],
+        child,
+        disabled: false,
+      }));
+
+      if (values.length < 2) {
+        if (
+          this.fetchedChildren[this.toFetchChildren.length - 1] &&
+          this.children[this.toFetchChildren.length - 1]
+        ) {
+          values.push({ disabled: true });
+        }
+      }
+      return [...values];
     },
   },
   methods: {
@@ -48,11 +67,14 @@ export default {
           }));
         };
 
-        const resolvers = this.toFetchChildren.map(async (id) => {
-          return await fetchChildren(id);
+        const resolvers = this.toFetchChildren.map(async (id, idx) => {
+          const child = await fetchChildren(id);
+          this.$set(this.fetchedChildren, idx, true);
+          return child;
         });
         let children = await Promise.all(resolvers);
         children = children.filter((child) => child.length > 0);
+
         this.children = children;
       } catch (err) {
         this.$error(err);
@@ -61,8 +83,8 @@ export default {
     onItemChange(newValue, idx) {
       let values = [...this.value];
       values[idx] = newValue;
-      values = values.filter((_, index)  => index <= idx)
-      this.children = this.children.filter((_, index)  => index <= idx)
+      values = values.filter((_, index) => index <= idx);
+      this.children = this.children.filter((_, index) => index <= idx);
       this.$emit("input", values);
     },
   },

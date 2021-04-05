@@ -161,20 +161,23 @@
                 class="block-help__row-input"
                 type="text"
                 placeholder="Имя*"
+                v-model="name"
               />
               <input
                 class="block-help__row-input"
                 type="text"
                 placeholder="Телефон *"
+                v-model="phone"
               />
               <input
                 class="block-help__row-input"
                 type="text"
                 placeholder="Email *"
+                v-model="email"
               />
 
               <div class="agree">
-                <input id="contact__formch" type="checkbox" checked hidden />
+                <input id="contact__formch" type="checkbox" checked hidden v-model="agreement"/>
                 <label for="contact__formch"
                   ><span>
                     Я согласен(на) на обработку персональных данных</span
@@ -182,7 +185,7 @@
                 >
               </div>
 
-              <div class="button">
+              <div class="button" @click.prevent="submit">
                 <a href="#">{{
                   getValue("tochka_zakhvata.tekst_knopki_t/z")
                 }}</a>
@@ -198,9 +201,9 @@
 
 <script>
 import PageTemplateMixin from "@/mixins/PageTemplateMixin";
-
+import ContactFormMixin from "@/mixins/ContactFormMixin"
 export default {
-  mixins: [PageTemplateMixin],
+  mixins: [PageTemplateMixin, ContactFormMixin],
   mounted() {},
   computed: {
     sliderOptions() {
@@ -240,4 +243,9 @@ export default {
 </script>
 
 <style lang="scss" >
+.company__advantag-block-icon {
+  img {
+    display: inline-block;
+  }
+}
 </style>

@@ -33,7 +33,7 @@
             </p>
           </div>
           <div class="questions-block__bg-columns">
-            <div class="button" id="myBtn2">
+            <div class="button" @click.prevent="openModal">
               <a href="#">{{
                 getValue("tochka_zakhvata.nazvanie_knopki_bloka_t/z")
               }}</a>
@@ -60,6 +60,11 @@ export default {
       ];
     },
   },
+  methods: {
+    openModal() {
+      this.$modal.open('contact')
+    }
+  }
 };
 </script>
 

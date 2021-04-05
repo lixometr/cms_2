@@ -2,22 +2,21 @@
   <footer class="footer">
     <div class="container">
       <div class="footer__rights-reserved">
-        {{copyright}}
+        {{ copyright }}
       </div>
       <div class="footer__social-links">
-        <div class="social__links-instagram">
-          <a href="#0" target="_blank"
-            ><img src="source/img/social/instagramm.svg"
-          /></a>
-        </div>
-        <div class="social__links-instagram">
-          <a href="#0" target="_blank"
-            ><img src="source/img/social/vk.svg"
+        <div
+          class="social__links-instagram"
+          v-for="(socIcon, idx) in socIcons"
+          :key="idx"
+        >
+          <a :href="socIcon.link" target="_blank"
+            ><AppImage :src="socIcon.icon"
           /></a>
         </div>
 
         <div class="telephone">
-          <a :href="'tel:'+phone">{{phone}}</a>
+          <a :href="'tel:' + phone">{{ phone }}</a>
         </div>
       </div>
       <div class="footer__made-by">
@@ -44,8 +43,11 @@ export default {
     await this.fetchFooter();
   },
   computed: {
+    socIcons() {
+      return this.values.socIcons;
+    },
     copyright() {
-      return this.values.copyright
+      return this.values.copyright;
     },
     values() {
       return this.item.values || {};

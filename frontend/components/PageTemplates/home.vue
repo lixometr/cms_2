@@ -375,16 +375,14 @@
               }}
             </p>
           </div>
-          <div class="questions-block__bg-columns" id="myBtn2">
-            <nuxt-link
-              :to="
-                getValue('tochka_zakhvata_na_glavnoi.ssilka_knopki_bloka_t/z')
-              "
+          <div class="questions-block__bg-columns" @click="openModal">
+            <a
+              href="#"
               class="questions-block__bg-button button"
+              @click.prevent
               >{{
                 getValue("tochka_zakhvata_na_glavnoi.nazvanie_knopki_bloka_t/z")
-              }}</nuxt-link
-            >
+              }}</a>
           </div>
         </div>
       </div>
@@ -457,6 +455,9 @@ export default {
   },
 
   methods: {
+    openModal() {
+      this.$modal.open('contact')
+    },
     initSlider1() {
       var swiper = new Swiper(".offer-swiper-container ", {
         direction: "vertical",
