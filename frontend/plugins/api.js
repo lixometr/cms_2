@@ -14,14 +14,14 @@ export default async ({ app, $axios, store }, inject) => {
     })
     let baseUrl = globalConfig.api.baseUrl
     if (process.env.NODE_ENV === 'development') {
-        baseUrl = `https://api.st-cms.ru`
-        // baseUrl = `http://localhost:3001`
+        // baseUrl = `https://api.st-cms.ru`
+        baseUrl = `http://localhost:3001`
 
     }
     if (process.server) {
         if (process.env.NODE_ENV === 'development') {
-            baseUrl = `https://api.st-cms.ru`
-            // baseUrl = `http://localhost:3001`
+            // baseUrl = `https://api.st-cms.ru`
+            baseUrl = `http://localhost:3001`
         } else {
             baseUrl = `http://localhost:${globalConfig.api.port}`
         }

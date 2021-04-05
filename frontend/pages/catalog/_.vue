@@ -3,9 +3,13 @@
     <AppBreadcrumbs class="breadcrumb__silver" :items="breadcrumbs" />
 
     <CategoryTitle :item="category" />
-    <CategoryFilters :item="category" v-if="showFilters"/>
-    <CategorySubCategories :items="children" :item="category" v-if="hasSubCategories" />
-    <CategoryProducts :items="products" v-else/>
+    <CategoryFilters :item="category" v-if="showFilters" />
+    <CategorySubCategories
+      :items="children"
+      :item="category"
+      v-if="hasSubCategories"
+    />
+    <CategoryProducts :items="products" v-else />
   </main>
 </template>
 
@@ -54,19 +58,21 @@ export default {
         breadcrumbsItems,
         category,
         productsData,
-
       };
     } catch (err) {
-      error(err);
+      error({ statusCode: 404 });
     }
   },
   computed: {
     showFilters() {
-
-      return this.hasSubCategories ||  this.category.showFilterPrice || this.category.availableFilterAttributes.length > 0
+      return (
+        this.hasSubCategories ||
+        this.category.showFilterPrice ||
+        this.category.availableFilterAttributes.length > 0
+      );
     },
     products() {
-      return this.productsData.items || []
+      return this.productsData.items || [];
     },
     hasSubCategories() {
       return this.children.length > 0;
