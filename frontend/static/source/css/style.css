@@ -6271,6 +6271,9 @@ aside {
 		justify-content: center;
 		width: 100%;
 	}
+	.goods-block.fadeUp.t-default {
+		margin-bottom: -125px;
+	}
 }
 @media screen and (max-width: 768px) {
 	.search-block .select-filter {
