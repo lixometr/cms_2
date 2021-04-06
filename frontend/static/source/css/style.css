@@ -6799,6 +6799,6 @@ aside {
 }
 
 /* ============Конец - Мобильная версия================= */
-div:empty {
+.search-block__select div:empty {
 	display: none;
 }
