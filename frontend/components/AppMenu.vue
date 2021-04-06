@@ -6,7 +6,7 @@
       v-for="(item, idx) in items"
       :key="idx"
     >
-      <MenuLink class="menu__link" :link="item">{{ item.name }}</MenuLink>
+      <MenuLink class="menu__link" @click.native="clickMenuItem(item)" :link="item">{{ item.name }}</MenuLink>
 
       <ol class="sub-menu" v-if="item.children.length > 0">
         <li
@@ -14,7 +14,7 @@
           v-for="(child, index) in item.children"
           :key="index"
         >
-          <MenuLink :link="child"></MenuLink>
+          <MenuLink :link="child" @click.native="clickMenuChild(child)"></MenuLink>
         </li>
       </ol>
     </li>
@@ -30,6 +30,15 @@ export default {
     await this.fetchItems();
   },
   methods: {
+    clickMenuItem(item){ 
+      if(item.children && item.children.length) {
+      } else {
+        this.$emit('close')
+      }
+    },
+    clickMenuChild() {
+      this.$emit('close')
+    },
     async fetchItems() {
       try {
         const menu = await this.$api.$get("menu", { slug: "header_menu" });

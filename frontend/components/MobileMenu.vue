@@ -1,6 +1,12 @@
 <template>
   <nav class="mobile-menu">
-    <input type="checkbox" id="checkbox" class="mobile-menu__checkbox" />
+    <input
+      type="checkbox"
+      id="checkbox"
+      ref="checkbox"
+      v-model="menuOpen"
+      class="mobile-menu__checkbox"
+    />
 
     <label class="mobile-menu__items">
       <div class="logo">
@@ -37,7 +43,7 @@
     </label>
 
     <div class="mobile-menu__container">
-      <AppMenu />
+      <AppMenu @close="closeMenu" />
     </div>
   </nav>
 </template>
@@ -46,6 +52,7 @@
 export default {
   data: () => ({
     item: {},
+    menuOpen: false,
   }),
   async fetch() {
     await this.fetchHeader();
@@ -78,6 +85,9 @@ export default {
     });
   },
   methods: {
+    closeMenu() {
+      this.menuOpen = false;
+    },
     async fetchHeader() {
       try {
         const header = await this.$api.$get("widget", { slug: "header" });
