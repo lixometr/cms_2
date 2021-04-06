@@ -6742,12 +6742,19 @@ aside {
 		width: 100%;
 		margin: 0 auto;
 	}
+	.home-search-block .select-filter:last-of-type {
+		margin-right: 20px !important;
+	}
 	.search-block .select-filter:last-of-type {
 		margin-right: 10px !important;
 	}
 	.search-block .offer__text-button {
 		margin-top: 14px;
 		/* margin: 0 auto; */
+	}
+	.select.search-block__item {
+		display: block;
+		margin: 0 auto;
 	}
 
 	.page404__wrapp {
