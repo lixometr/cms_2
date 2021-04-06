@@ -4581,6 +4581,17 @@ aside {
 
 /* ====================Мобильная версия================= */
 @media screen and (max-width: 768px) {
+	.mobile-menu__items .logo {
+		display: -webkit-inline-box;
+		display: -ms-inline-flexbox;
+		display: inline-flex;
+		-webkit-box-pack: start;
+		-ms-flex-pack: start;
+		justify-content: flex-start;
+		width: 100%;
+		margin-left: 0px;
+	}
+
 	.paymant__card svg {
 		width: 100%;
 		display: block;
@@ -5494,7 +5505,7 @@ aside {
 	}
 
 	.offer__text {
-		top: 30%;
+		/* top: 30%; */
 	}
 
 	.search-block__select {
@@ -5505,7 +5516,7 @@ aside {
 		-ms-grid-columns: 1fr;
 		grid-template-columns: 1fr;
 		padding: 45px 0;
-		padding-bottom: 85px;
+		/* padding-bottom: 85px; */
 	}
 
 	.phone img {
@@ -6240,6 +6251,21 @@ aside {
 
 /* ============Конец - Мобильная версия================= */
 /* ====================Мобильная версия================= */
+
+@media screen and (max-width: 450px) {
+	.offer__text-text {
+		padding-bottom: 50px;
+		max-width: 350px;
+		width: 100%;
+	}
+	.search-block .select-filter {
+		margin-right: 0;
+	}
+	.home-search-block .search-block__filters {
+		flex-direction: column;
+		gap: 10px;
+	}
+}
 @media screen and (max-width: 768px) {
 	.breadcrumb {
 		display: none;
