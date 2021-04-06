@@ -6274,7 +6274,7 @@ aside {
 }
 @media screen and (max-width: 768px) {
 	.search-block .select-filter {
-		margin-right: 0;
+		margin-right: 0 !important;
 	}
 	.home-search-block .search-block__filters {
 		flex-direction: column;
@@ -6295,6 +6295,24 @@ aside {
 		justify-content: flex-start;
 		width: 100%;
 		margin-left: 0;
+	}
+
+	.page__cat .select,
+	.page__seat .select {
+		min-width: 250px;
+		max-width: unset !important;
+		margin: 0 auto;
+		width: 100% !important;
+	}
+
+	.category-filters__sub-categories {
+		justify-content: center !important;
+		gap: 10px !important;
+		width: 100% !important;
+	}
+	.select.search-block__item {
+		display: block;
+		margin: 0 auto;
 	}
 
 	.breadcrumb {
@@ -6716,6 +6734,17 @@ aside {
 }
 
 @media (min-width: 1024px) and (max-width: 1580px) {
+	.page__cat .search-block__select,
+	.page__seat .search-block__select {
+		justify-content: center;
+	}
+	.select.search-block__item {
+		width: 100%;
+		margin: 0 auto;
+	}
+	.search-block .select-filter:last-of-type {
+		margin-right: 10px !important;
+	}
 	.search-block .offer__text-button {
 		margin-top: 14px;
 		/* margin: 0 auto; */
@@ -6763,3 +6792,6 @@ aside {
 }
 
 /* ============Конец - Мобильная версия================= */
+div:empty {
+	display: none;
+}
