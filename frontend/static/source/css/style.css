@@ -6624,8 +6624,23 @@ aside {
 }
 
 @media (min-width: 768px) and (max-width: 1024px) {
+	.mobile-menu__items .logo {
+		display: -webkit-inline-box;
+		display: -ms-inline-flexbox;
+		display: inline-flex;
+		-webkit-box-pack: start;
+		-ms-flex-pack: start;
+		justify-content: flex-start;
+		width: 100%;
+		margin-left: 0;
+	}
+
 	.home-search-block .search-block__filters {
-		flex-direction: row;
+		flex-direction: row !important;
+		gap: 15px;
+	}
+	.search-block .select-filter {
+		margin-right: 0px;
 	}
 	.search-block .offer__text-button {
 		margin-top: 14px;
