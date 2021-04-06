@@ -6248,7 +6248,9 @@ aside {
 .home-search-block .search-block__select {
 	align-items: flex-start !important;
 }
-
+.select-filter {
+	max-width: 190px;
+}
 /* ============Конец - Мобильная версия================= */
 /* ====================Мобильная версия================= */
 
