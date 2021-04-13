@@ -16,7 +16,7 @@ export class ProductAttribute extends EntityDefaultBlueprint {
     @JoinTable()
     attrValues: AttributeValue[]
 
-    @Column({default: true})
+    @Column({default: false})
     showInProduct: boolean
 
     @ManyToOne(() => Product, product => product.attributes, DELETE_OPTIONS)

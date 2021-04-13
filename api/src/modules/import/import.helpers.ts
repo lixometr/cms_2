@@ -61,7 +61,7 @@ export class ImportHelpersService {
             .pipe(csv({ separator: ';' }))
 
         stream.on('data', async (data: ImportProduct) => {
-            if (limit >= 100) return
+            if (limit >= 1000) return
             if (data.Type !== 'variation') {
                 if (currentItems.length) {
                     stream.pause()
@@ -204,7 +204,7 @@ export class ImportHelpersService {
     }
     async makeProductImages(item: ImportProduct): Promise<IdDto[]> {
         return []
-        const imagesPath = item.Images.split(', ')
+        const imagesPath = item.Images.split(', ').slice(0,1)
         const resolvers = imagesPath.map(async path => {
             const file = await this.downloadImage(path)
             const image = this.imageService.upload({ file, alt: '' }, this.payload)
@@ -235,7 +235,8 @@ export class ImportHelpersService {
     }
     async makeProduct(item: ImportProduct) {
         console.log('prod')
-        const attributes = await this.makeAttributes(item)
+        let attributes = await this.makeAttributes(item)
+        const productAttributes = attributes.map(attribute => ({...attribute}))
         console.log('prod attrs')
         const images = await this.makeProductImages(item)
         console.log('prod images')
@@ -257,7 +258,7 @@ export class ImportHelpersService {
             ],
             slug: this.makeSlug(item.Name),
             sku: item.SKU,
-            attributes,
+            attributes: productAttributes,
             defaultImage,
             images,
             // prices: [productPrice]
@@ -283,7 +284,12 @@ export class ImportHelpersService {
             locale: [
                 this.getLocaleValues({
                     name: item.Name,
-
+                    description: [
+                        {
+                            tab: '',
+                            content: item.Description
+                        }
+                    ]
                 })
             ],
             sku: item.SKU,
