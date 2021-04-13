@@ -106,6 +106,7 @@ export class Product extends EntityLocaleItemBlueprint {
   @OneToMany(() => ProductAttend, productAttend => productAttend.hostProduct, { cascade: true, eager: true })
   attendProducts: ProductAttend[]
 
+  @Expose({groups: [SerializeGroup.Full, SerializeGroup.AdminFull]})
   @OneToMany(() => ProductVariation, productVariation => productVariation.product, { cascade: true, eager: true })
   variations: ProductVariation[]
 
