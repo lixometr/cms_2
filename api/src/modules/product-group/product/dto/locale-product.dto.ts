@@ -6,7 +6,7 @@ import { CreateProductDescription } from './create-product-description';
 export class LocaleProductDto {
   @IsOptional()
   @IsInt()
-  id: ID;
+  id?: ID;
   
   @IsString()
   name: string;
@@ -15,7 +15,7 @@ export class LocaleProductDto {
   @IsArray()
   @ValidateNested({each: true})
   @Type(() => CreateProductDescription)
-  description: CreateProductDescription[];
+  description?: CreateProductDescription[];
 
   @IsInt()
   localeId: ID;
@@ -23,5 +23,5 @@ export class LocaleProductDto {
   @IsOptional()
   @ValidateNested()
   @Type(() => SeoDto)
-  seo: SeoDto
+  seo?: SeoDto
 }

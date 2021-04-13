@@ -20,12 +20,15 @@ export class ServiceBlueprint<T extends EntityBase>{
         return result
     }
     async search({ name }, payload: RequestPayload) {
-        if(name) {
+        if (name) {
             return this.repository.search({ value: name }, payload)
 
         } else {
             return this.findAll({}, payload)
         }
+    }
+    async findByName({ name }: { name: string }, payload: RequestPayload) {
+        return this.repository.findByName({ name }, payload)
     }
     async findAll({ }, payload: RequestPayload): Promise<PaginationResponse<T>> {
         await this.event.emitAsync(`${this.name}.${EventName.beforeFindAll}`, { payload })
@@ -37,7 +40,7 @@ export class ServiceBlueprint<T extends EntityBase>{
         return result
 
     }
- 
+
 
 
     async findById({ id }: { id: ID }, payload?: RequestPayload): Promise<T> {

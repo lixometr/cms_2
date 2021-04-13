@@ -34,83 +34,83 @@ export class CreateProductDto {
     @IsArray()
     @ValidateNested({ each: true })
     @Type(() => CreateProductPriceDto)
-    prices: CreateProductPriceDto[];
+    prices?: CreateProductPriceDto[];
 
     @IsOptional()
     @IsArray()
     @ValidateNested({ each: true })
     @Type(() => CreateProductOptionDto)
-    options: CreateProductOptionDto[]
+    options?: CreateProductOptionDto[]
 
     @IsOptional()
     @ValidateNested()
     @Type(() => IdDto)
-    defaultImage: IdDto
+    defaultImage?: IdDto
 
     @IsOptional()
     @ValidateNested({ each: true })
     @Type(() => IdDto)
-    images: IdDto[]
+    images?: IdDto[]
 
     @IsOptional()
     @IsEnum(ProductStatus)
-    status: ProductStatus;
+    status?: ProductStatus;
 
     @IsOptional()
     @ValidateNested({ each: true })
     @Type(() => CreateProductAttributeDto)
-    attributes: CreateProductAttributeDto[]
+    attributes?: CreateProductAttributeDto[]
 
 
     @IsOptional()
     @ValidateNested({ each: true })
     @Type(() => IdDto)
-    tags: IdDto[]
+    tags?: IdDto[]
 
     @IsOptional()
     @ValidateNested({ each: true })
     @Type(() => IdDto)
-    category: IdDto[]
+    category?: IdDto[]
 
     @IsOptional()
     @IsInt()
-    sortOrder: number;
+    sortOrder?: number;
 
     @IsOptional()
     @IsEnum(ProductType)
-    type: ProductType
+    type?: ProductType
 
     @IsOptional()
     @IsArray()
     @ValidateNested({ each: true })
     @Type(() => CreateProductVariationDto)
-    variations: CreateProductVariationDto[]
+    variations?: CreateProductVariationDto[]
 
     @IsOptional()
     @IsArray()
     @ValidateNested({ each: true })
     @Type(() => CreateKitProductDto)
-    kitProducts: CreateKitProductDto[]
+    kitProducts?: CreateKitProductDto[]
     
     @IsOptional()
     @IsArray()
     @ValidateNested({ each: true })
     @Type(() => AttendProductDto)
-    attendProducts: AttendProductDto[]
+    attendProducts?: AttendProductDto[]
 
     @IsOptional()
     @IsArray()
     @ValidateNested({each: true})
     @Type(() => CreateCntSale)
-    cntSale: CreateCntSale[]
+    cntSale?: CreateCntSale[]
 
     @IsOptional()
     @IsBoolean()
-    showTags: boolean
+    showTags?: boolean
 
     @IsOptional()
     @IsString()
-    sku: string;
+    sku?: string;
 
 
 }

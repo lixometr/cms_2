@@ -7,13 +7,13 @@ export class CreateProductAttributeDto {
 
     @IsOptional()
     @IsInt()
-    id: ID;
+    id?: ID;
 
     @IsOptional()
     @IsObject()
     @ValidateNested()
     @Type(() => IdDto)
-    attr: IdDto
+    attr?: IdDto
 
 
     @IsInt()
@@ -27,15 +27,15 @@ export class CreateProductAttributeDto {
 
     @IsOptional()
     @IsBoolean()
-    showInProduct: boolean
+    showInProduct?: boolean
 
     @IsOptional()
     @IsObject()
     @ValidateNested()
     @Type(() => IdDto)
-    product: IdDto
+    product?: IdDto
 
     @IsOptional()
     @IsInt()
-    sortOrder: number
+    sortOrder?: number
 }

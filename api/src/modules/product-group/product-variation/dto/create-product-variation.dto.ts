@@ -11,7 +11,7 @@ export class CreateProductVariationDto {
 
     @IsOptional()
     @IsInt()
-    id: ID
+    id?: ID
     
     @IsArray()
     @ArrayNotEmpty()
@@ -20,7 +20,7 @@ export class CreateProductVariationDto {
     attributes: CreateProductVariationAttributeDto[]
 
     @IsOptional()
-    sku: string
+    sku?: string
 
     @IsArray()
     @ArrayNotEmpty()
@@ -38,20 +38,20 @@ export class CreateProductVariationDto {
     @IsOptional()
     @ValidateNested()
     @Type(() => IdDto)
-    defaultImage: IdDto
+    defaultImage?: IdDto
 
     @IsOptional()
     @ValidateNested({ each: true })
     @Type(() => IdDto)
-    images: IdDto[]
+    images?: IdDto[]
 
     @IsOptional()
     @IsArray()
     @ValidateNested({each: true})
     @Type(() => CreateCntSale)
-    cntSale: CreateCntSale[]
+    cntSale?: CreateCntSale[]
 
     @IsOptional()
     @IsInt()
-    sortOrder: number
+    sortOrder?: number
 }

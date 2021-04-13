@@ -7,5 +7,5 @@ export class IdDto {
 
     @IsOptional()
     @IsInt()
-    sortOrder: number
+    sortOrder?: number
 }

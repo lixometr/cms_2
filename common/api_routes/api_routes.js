@@ -24,8 +24,10 @@ import AuthRoutes from "./routes/auth"
 import AuthAdminRoutes from "./routes/auth-admin"
 import MenuRoutes from "./routes/menu"
 import SendFormRoutes from "./routes/send-form"
+import ImportRoutes from "./routes/import"
 
 const routes = {
+    ...ImportRoutes,
     ...ProductRoutes,
     ...CategoryRoutes,
     ...LocaleRoutes,

@@ -4,7 +4,7 @@ import { ID } from "src/types";
 export class CreateProductPriceDto {
     @IsOptional()
     @IsInt()
-    id: ID;
+    id?: ID;
     
     @IsInt()
     currencyId: ID;
@@ -14,11 +14,11 @@ export class CreateProductPriceDto {
 
     @IsOptional()
     @IsNumber()
-    oldPrice: number;
+    oldPrice?: number;
 
     @IsOptional()
     @IsNumber()
-    sale: number;
+    sale?: number;
 
     
 }

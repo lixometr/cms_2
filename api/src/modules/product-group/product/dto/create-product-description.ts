@@ -3,7 +3,7 @@ import { ID } from "src/internal";
 
 export class CreateProductDescription {
     @IsOptional()
-    id: ID
+    id?: ID
 
     @IsString()
     tab: string

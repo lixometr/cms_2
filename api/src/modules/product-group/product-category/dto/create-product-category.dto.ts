@@ -36,7 +36,7 @@ export class CreateProductCategoryDto {
     @IsObject()
     @ValidateNested()
     @Type(() => IdDto)
-    parent: IdDto;
+    parent?: IdDto;
 
     @IsOptional()
     @IsInt()

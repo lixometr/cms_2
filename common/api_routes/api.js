@@ -54,7 +54,12 @@ export default class Api {
                 return result;
             } catch (err) {
                 if (process.env.NODE_ENV === 'development') {
-                    console.log(`Error from: ${theRoute}`, err.response.data)
+                    if (err.isAxiosError) {
+                        console.log(`Error from: ${theRoute}`, err.response.data)
+
+                    } else {
+                        console.log('some error', err)
+                    }
                 }
                 throw err;
             }
@@ -69,7 +74,7 @@ export default class Api {
     //     if (this.options.region) {
     //         str += `?region=${this.options.region}`
     //     }
-    
+
     //     return str
     // }
     // _applyQueryString(route) {

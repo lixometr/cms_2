@@ -16,7 +16,11 @@ import { ArrayResponse } from 'src/helpers';
 @EntityRepository(Product)
 export class ProductRepository extends DefaultRepository<Product> {
     public name = ProductName
+    // populate(query: SelectQueryBuilder<Product>, payload: RequestPayload) {
+    //     FindOptionsUtils.joinEagerRelations(query, query.alias, query.expressionMap.mainAlias!.metadata)
 
+    //     return query
+    // }
     QFindByCategoryId({ id }, payload: RequestPayload) {
         return this.createQueryBuilder(this.name)
             .leftJoinAndSelect(`${this.name}.category`, '_category')

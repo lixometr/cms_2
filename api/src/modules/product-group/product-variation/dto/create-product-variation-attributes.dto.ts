@@ -4,7 +4,7 @@ import { ID } from "src/internal"
 export class CreateProductVariationAttributeDto {
     @IsOptional()
     @IsInt()
-    id: ID;
+    id?: ID;
     
     @IsInt()
     attrId: ID

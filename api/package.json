@@ -35,6 +35,7 @@
     "@types/passport-local": "^1.0.33",
     "class-transformer": "^0.3.2",
     "class-validator": "^0.13.1",
+    "csv-parser": "^3.0.0",
     "dotenv": "^8.2.0",
     "express-rate-limit": "^5.2.6",
     "helmet": "^4.4.1",

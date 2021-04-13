@@ -3,7 +3,7 @@ import { ID } from "src/types";
 
 export class CreateProductVariationPriceDto {
     @IsOptional()
-    id: ID;
+    id?: ID;
     
     @IsInt()
     currencyId: ID;
@@ -13,11 +13,11 @@ export class CreateProductVariationPriceDto {
 
     @IsOptional()
     @IsNumber()
-    oldPrice: number;
+    oldPrice?: number;
 
     @IsOptional()
     @IsNumber()
-    sale: number;
+    sale?: number;
 
     
 }

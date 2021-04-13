@@ -36,6 +36,7 @@ import currency from './currency'
 import delivery from './delivery'
 import payment from './payment'
 import menu from './menu'
+import importRoutes from './import'
 
 Vue.use(Router)
 const router = new Router({
@@ -73,6 +74,7 @@ function configRoutes() {
       component: TheContainer,
 
       children: [
+        importRoutes,
         widget,
         product,
         category,

@@ -24,8 +24,9 @@ import { WidgetModule } from './modules/widget/widget.module';
 import { MailModule } from './modules/mail/mail.modules';
 import { MenuModule } from './modules/menu/menu.module';
 import { FormModule } from './modules/form/form.module';
+import { ImportModule } from './modules/import/import.module';
 @Module({
-  imports: [ServeStaticModule, EventEmiterModule, DatabaseModule, UserGroupModule, AuthGroupModule, LocaleModule, SettingsModule, UploadModuleGroup, ProductGroupModule, PageGroupModule, NotificationModule, WidgetModule, MailModule, MenuModule, FormModule],
+  imports: [ServeStaticModule, EventEmiterModule, DatabaseModule, UserGroupModule, AuthGroupModule, LocaleModule, SettingsModule, UploadModuleGroup, ProductGroupModule, PageGroupModule, NotificationModule, WidgetModule, MailModule, MenuModule, FormModule, ImportModule],
   controllers: [AppController],
   providers: [
     { provide: APP_FILTER, useClass: DatabaseFilter },
