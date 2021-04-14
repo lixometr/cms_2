@@ -1,4 +1,4 @@
-import { ID, CartProductDto } from "src/internal"
+import { ID, CartProductDto, ProductVariation } from "src/internal"
 import { ProductOptionBo } from "src/internal";
 import { OrderProductItem } from "src/internal";
 import { Product } from "../entities/product.entity"
@@ -19,7 +19,7 @@ export class ProductBo {
         this.activeVariation = activeVariation
     }
     getActiveVariation() {
-        const idx = this.product.variations.findIndex(variation => variation.id === this.activeVariation)
+        const idx = (this.product.variations as ProductVariation[]).findIndex(variation => variation.id === this.activeVariation)
         if (idx < 0) return null
         return this.product.variations[idx]
     }

@@ -17,7 +17,7 @@ export class OrderProductItem implements OrderProductItemType {
     options: ProductOption[]
     defaultImage: Image
     type: ProductType
-    variations: ProductVariation[]
+    variations: Promise<ProductVariation[]>
     rating: number
     sku: string
     cntSale: ProductCntSale[]

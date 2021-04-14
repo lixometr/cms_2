@@ -108,7 +108,7 @@ export class Product extends EntityLocaleItemBlueprint {
 
   @Expose({groups: [SerializeGroup.Full, SerializeGroup.AdminFull]})
   @OneToMany(() => ProductVariation, productVariation => productVariation.product, { cascade: true, eager: true })
-  variations: ProductVariation[]
+  variations: Promise<ProductVariation[]> | ProductVariation[]
 
   @Expose({ groups: [SerializeGroup.Full, SerializeGroup.AdminFull] })
   @OneToMany(() => ProductCntSale, cntSale => cntSale.item, { cascade: true, eager: true })
@@ -126,10 +126,12 @@ export class Product extends EntityLocaleItemBlueprint {
 
     await super.serialize(payload);
     if (this.type === ProductType.variation) {
-      let variationPrices = this.variations.map(variation => variation.price)
+      const variations = await this.variations
+      this.variations = variations
+      let variationPrices = variations.map(variation => variation.price)
       variationPrices = variationPrices.filter(price => typeof price === 'number')
       const price = Math.min(...variationPrices)
-      let variationOldPrices = this.variations.map(variation => variation.oldPrice)
+      let variationOldPrices = variations.map(variation => variation.oldPrice)
       variationPrices = variationOldPrices.filter(price => typeof price === 'number')
       const oldPrice = Math.min(...variationOldPrices)
       this.price = price
