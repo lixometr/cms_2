@@ -19,7 +19,7 @@ export class ProductBo {
         this.activeVariation = activeVariation
     }
     getActiveVariation() {
-        const idx = (this.product.variations as ProductVariation[]).findIndex(variation => variation.id === this.activeVariation)
+        const idx = (this.product.variations as any).findIndex(variation => variation.id === this.activeVariation)
         if (idx < 0) return null
         return this.product.variations[idx]
     }
