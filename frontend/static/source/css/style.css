@@ -1790,6 +1790,9 @@ aside {
 	min-width: 250px;
 	max-width: 250px;
 }
+.search-block .select-filter:last-of-type {
+	margin-right: 0;
+}
 
 .page__cat .select .button,
 .page__seat .select .button {
@@ -1816,6 +1819,9 @@ aside {
 	color: #797979;
 	background: rgba(235, 235, 235, 0.14);
 	border: 1px solid #ebebeb;
+	white-space: nowrap;
+	overflow-x: hidden;
+	text-overflow: ellipsis;
 }
 
 .page__cat .select__head::after,
@@ -1878,6 +1884,7 @@ aside {
 	-moz-transition: 0.5s;
 	-ms-transition: 0.5s;
 	-o-transition: 0.5s;
+	width: 175px;
 }
 
 .brands-item:hover {
@@ -1911,6 +1918,25 @@ aside {
 .brands-item-title {
 	text-align: center;
 	padding: 24px 5px;
+}
+.brands-item-title {
+	text-align: center;
+	padding: unset;
+	display: -webkit-box;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
+	overflow-y: hidden;
+	margin: 24px 5px;
+}
+.brands-item-img img {
+	margin: 0 auto;
+	display: block;
+	margin-top: 20px;
+	object-fit: contain;
+	object-position: center;
+	max-width: 86px;
+	max-height: 65px;
+	min-width: 86px;
 }
 
 .brands-item-link {
