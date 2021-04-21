@@ -19,7 +19,7 @@
             </span>
 
             <div class="single-product__preview-image-zoom">
-              <img src="/source/img/zoom.svg" alt="" />
+              <AppImage :src="defaultImage" />
             </div>
           </div>
           <!-- end Big img -->
