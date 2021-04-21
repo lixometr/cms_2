@@ -110,7 +110,7 @@ export class ProductBo {
         return price * sale
     }
     getTotalPriceNoSale(): number {
-        let price = this.getOldPrice()
+        let price = this.getOldPrice() || this.getPrice()
         let totalPrice = price
         totalPrice = this.applyCnt(totalPrice)
         totalPrice = this.applyOptions(totalPrice)
