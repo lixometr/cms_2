@@ -18,5 +18,5 @@ export default {
     domain,
     upload,
     order,
-    adminEmail: 'lixometr@gmail.com'
+    adminEmail: 'support@st-cms.ru'
 }

@@ -43,7 +43,7 @@ export default {
         disabled: false,
       }));
 
-      if (values.length < 2) {
+      if (values.length < 3) {
         if (
           this.fetchedChildren[this.toFetchChildren.length - 1] &&
           this.children[this.toFetchChildren.length - 1]
