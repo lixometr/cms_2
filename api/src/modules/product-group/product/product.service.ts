@@ -45,7 +45,6 @@ export class ProductService extends ServiceBlueprint<Product>{
         const product = await this.findById({ id }, payload)
         if (!product) throw new BadRequestException('Product not found')
         await product.serialize(payload)
-        console.log(product.options)
         const productBo = new ProductBo({ product, activeOptions: info.activeOptions, activeVariation: info.activeVariation, cnt: info.cnt || 1 })
         const totalPrice = productBo.getTotalPrice()
         const totalPriceNoSale = productBo.getTotalPriceNoSale()
@@ -61,6 +60,7 @@ export class ProductService extends ServiceBlueprint<Product>{
         }
         if (product.type === ProductType.variation) {
             const activeVariation = productBo.getActiveVariation()
+            console.log('active variation', activeVariation, activeVariation.oldPrice)
             if (activeVariation) {
                 const variationProps = {
                     price: activeVariation.price,

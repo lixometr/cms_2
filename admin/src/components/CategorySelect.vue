@@ -58,14 +58,14 @@ export default {
       const { data: categories } = await this.$api.get(
         "categoriesSearch",
         { text },
-        { params: options }
+        { params: { perPage: 10 } }
       );
       let resolvers = categories.items.map(async (item) => {
         const { data } = await this.$api.get("categoryParents", {
           id: item.id,
         });
         const parents = data.items;
-      
+
         return { ...item, parents };
       });
       const items = await Promise.all(resolvers);

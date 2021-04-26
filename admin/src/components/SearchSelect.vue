@@ -22,7 +22,7 @@
           <div class="selected d-center">{{ option.name }}</div>
         </slot>
       </template>
-      <template #list-footer>
+      <!-- <template #list-footer>
         <div class="d-flex pt-3" v-if="itemsInfo.totalPages > 1">
           <CButton class="flex-1" color="secondary" @click="prevPage"
             >Назад</CButton
@@ -32,7 +32,7 @@
           >
         </div>
         <slot name="list-footer"></slot>
-      </template>
+      </template> -->
     </v-select>
   </Label>
 </template>
