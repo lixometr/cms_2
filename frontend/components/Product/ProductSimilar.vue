@@ -1,19 +1,28 @@
 <template>
-  <div class="cards__row">
-    <!-- Swiper -->
-    <client-only>
-      <swiper :options="sliderOpts" class="recommended swiper-container" v-if="items.length > 0">
-        <swiper-slide
-          class="swiper-slide"
-          v-for="(item, idx) in items"
-          :key="idx"
+  <div>
+    <h3 class="single-product__preview-recomended-title" v-if="items.length > 0">
+      С этим товаром покупают
+    </h3>
+    <div class="cards__row">
+      <!-- Swiper -->
+      <client-only>
+        <swiper
+          :options="sliderOpts"
+          class="recommended swiper-container"
+          v-if="items.length > 0"
         >
-          <ProductSimilarItem :product="item" />
-        </swiper-slide>
-        <!-- Add Pagination -->
-        <div class="swiper-pagination" slot="pagination"></div>
-      </swiper>
-    </client-only>
+          <swiper-slide
+            class="swiper-slide"
+            v-for="(item, idx) in items"
+            :key="idx"
+          >
+            <ProductSimilarItem :product="item" />
+          </swiper-slide>
+          <!-- Add Pagination -->
+          <div class="swiper-pagination" slot="pagination"></div>
+        </swiper>
+      </client-only>
+    </div>
   </div>
 </template>
 

@@ -1,7 +1,8 @@
 <template>
-  <section class="basket">
+  <section class="basket page-basket">
+    <div class="breadcrumbs"></div>
     <h2>
-      В корзине <span class="basket__cout">{{ cnt }}</span> {{itemSclon}}
+      В корзине <span class="basket__cout">{{ cnt }}</span> {{ itemSclon }}
     </h2>
     <div class="container">
       <!-- блок с продуктами -->
@@ -50,12 +51,23 @@ export default {
         };
         return { exec };
       }
-      const {exec} = useWordSclon(["товар", "товара", "товаров"]);
-	  return exec(this.cnt)
+      const { exec } = useWordSclon(["товар", "товара", "товаров"]);
+      return exec(this.cnt);
+    },
+  },
+  watch: {
+    items() {
+      console.log(this.items.length);
+      if (this.items.length < 1) {
+        this.$router.push("/");
+      }
     },
   },
 };
 </script>
 
 <style lang="scss" >
+.page-basket {
+	padding-top: 110px;
+}
 </style>

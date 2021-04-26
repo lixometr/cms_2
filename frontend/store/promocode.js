@@ -84,6 +84,7 @@ export const actions = {
         }
         commit('set', promocode)
         commit('setData', item)
+
         return true
     }
 }

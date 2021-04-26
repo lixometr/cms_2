@@ -143,12 +143,6 @@ export default async () => {
             },
             {
               _name: 'CSidebarNavItem',
-              name: 'Импорт',
-              to: '/import',
-              // icon: 'cil-globe-alt',
-            },
-            {
-              _name: 'CSidebarNavItem',
               name: 'Настройки',
               to: '/settings',
               // icon: 'cil-file',

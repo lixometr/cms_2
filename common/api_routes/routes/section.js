@@ -8,5 +8,5 @@ export default {
     sectionItemsById: "/section/id/{{id}}/pages",
     sectionItemsByIdAdmin: "/section/admin/id/{{id}}/pages",
     sectionItemsByIdSearch: "/section/id/{{id}}/pages/search/{{text}}",
-    sectionItems: "/section/{{slug}}/pages",
+    sectionItems: "/section/slug/{{slug}}/pages",
 }

@@ -15,15 +15,20 @@
 <script>
 export default {
   data() {
-    const promocode = this.$store.getters['promocode/promocode']
+    const promocode = this.$store.getters["promocode/promocode"];
     return {
-      promocode
-    }
+      promocode,
+    };
   },
   methods: {
     async apply() {
-      await this.$store.dispatch("promocode/set", this.promocode);
-      await this.$store.dispatch('cart/fetchItems')
+      const isSet = await this.$store.dispatch("promocode/set", this.promocode);
+      await this.$store.dispatch("cart/fetchItems");
+      if (isSet) {
+        this.$toast.success("Промокод применен");
+      } else {
+        this.$toast.error("Промокод не найден");
+      }
     },
   },
 };
