@@ -27,7 +27,6 @@ export default {
       if (isSet) {
         this.$toast.success("Промокод применен");
       } else {
-        this.$toast.error("Промокод не найден");
       }
     },
   },
