@@ -134,7 +134,7 @@ export default {
     },
   },
   methods: {
-    oneClickBuy() {
+    async oneClickBuy() {
       await this.addToCart();
       this.$router.push(this.$url.checkout());
       
