@@ -1,5 +1,5 @@
 import { EntityBase } from "src/blueprints"
-import { EntitySeo, ID } from "src/internal"
+import { EntitySeo, ID, RequestPayload } from "src/internal"
 import { Image } from "src/modules/upload-group/image"
 import { CartProductActiveOptions } from "../../cart"
 import { ProductOption } from "../../product-option"
@@ -58,7 +58,7 @@ export class ProductInfo extends Product {
         Object.assign(this, item)
         console.log('sending info', this)
     }
-    async serialize() {
+    async serialize(payload: RequestPayload) {
         return this
     }
 }
