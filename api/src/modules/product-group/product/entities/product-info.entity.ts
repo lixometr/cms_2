@@ -56,5 +56,9 @@ export class ProductInfo extends Product {
     constructor(item: ProductInfoProps) {
         super()
         Object.assign(this, item)
+        console.log('sending info', this)
+    }
+    async serialize() {
+        return this
     }
 }

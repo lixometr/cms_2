@@ -71,7 +71,6 @@ export class ProductService extends ServiceBlueprint<Product>{
                     name: activeVariation.name,
                     sku: activeVariation.sku,
                 }
-            console.log('active variation test', variationProps)
 
                 productInfo = { ...productInfo, ...variationProps }
             }

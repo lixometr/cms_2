@@ -42,10 +42,10 @@
             <a href="#0" class="button" @click.prevent="addToCart"
               >ДОБАВИТ В КОРЗИНУ</a
             >
-            <a href="#0" class="button silver" @click="oneClickBuy"
+            <a href="#0" class="button silver" @click.prevent="oneClickBuy"
               >КУПИТЬ В ОДИН КЛИК</a
             >
-            <a href="#like" class="svg-silver" @click="addToFavourite"
+            <a href="#like" class="svg-silver" @click.prevent="addToFavourite"
               ><img class="svg" src="/source/img/like_offer.svg" alt=""
             /></a>
           </div>
@@ -135,16 +135,18 @@ export default {
   },
   methods: {
     oneClickBuy() {
-      this.addToCart();
+      await this.addToCart();
       this.$router.push(this.$url.checkout());
+      
     },
-    addToCart() {
-      this.$store.dispatch("cart/add", {
+    async addToCart() {
+      await this.$store.dispatch("cart/add", {
         id: this.product.id,
         cnt: this.cnt,
         activeVariation: this.activeVariation,
         activeOptions: this.activeOptions,
       });
+      this.$toast.success('Товар добавлен в корзину!')
     },
     addToFavourite() {
       this.$store.dispatch("favourite/add", {
