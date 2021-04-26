@@ -60,7 +60,6 @@ export class ProductService extends ServiceBlueprint<Product>{
         }
         if (product.type === ProductType.variation) {
             const activeVariation = productBo.getActiveVariation()
-            console.log('active variation', activeVariation, activeVariation.oldPrice)
             if (activeVariation) {
                 const variationProps = {
                     price: activeVariation.price,
@@ -72,8 +71,11 @@ export class ProductService extends ServiceBlueprint<Product>{
                     name: activeVariation.name,
                     sku: activeVariation.sku,
                 }
+            console.log('active variation test', variationProps)
+
                 productInfo = { ...productInfo, ...variationProps }
             }
+            console.log("final product info", productInfo)
         }
         return new ProductInfo(productInfo)
     }
