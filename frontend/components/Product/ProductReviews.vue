@@ -8,7 +8,7 @@
 
       <div class="reviews-button">
         <!-- тоже модальное окно, отличия лишь в наличии текстареа -->
-        <a id="myBtn" href="#0" class="button">Оставить отзыв</a>
+        <a id="myBtn" href="#0" class="button" @click.prevent="sendReview">Оставить отзыв</a>
       </div>
     </div>
 
@@ -63,6 +63,9 @@ export default {
     });
   },
   methods: {
+    sendReview() {
+      this.$modal.open("contact");
+    },
     shuffle(a) {
       var j, x, i;
       for (i = a.length - 1; i > 0; i--) {

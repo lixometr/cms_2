@@ -43,11 +43,12 @@ export default {
         disabled: false,
       }));
 
-      if (values.length < 3) {
+      if (values.length < 2) {
         if (
           this.fetchedChildren[this.toFetchChildren.length - 1] &&
           this.children[this.toFetchChildren.length - 1]
         ) {
+          values.push({ disabled: true });
           values.push({ disabled: true });
         }
       }
