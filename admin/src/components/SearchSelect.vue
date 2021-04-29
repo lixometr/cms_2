@@ -22,9 +22,9 @@
           <div class="selected d-center">{{ option.name }}</div>
         </slot>
       </template>
-      <!-- <template #list-footer>
+      <template #list-footer>
         <div class="d-flex pt-3" v-if="itemsInfo.totalPages > 1">
-          <CButton class="flex-1" color="secondary" @click="prevPage"
+          <CButton class="flex-1 mr-2 ml-4" color="secondary" @click="prevPage"
             >Назад</CButton
           >
           <CButton class="flex-1" color="secondary" @click="nextPage"
@@ -32,7 +32,7 @@
           >
         </div>
         <slot name="list-footer"></slot>
-      </template> -->
+      </template>
     </v-select>
   </Label>
 </template>
@@ -63,6 +63,7 @@ export default {
       selectValues: [],
       itemsInfo: {},
       page: 1,
+      searchPhrase: "",
     };
   },
   created() {
@@ -80,7 +81,7 @@ export default {
         return;
       }
       this.page--;
-      this.onOpen();
+      this.fetchWithSearch();
     },
     nextPage() {
       if (this.page >= this.itemsInfo.totalPages) {
@@ -88,12 +89,16 @@ export default {
         return;
       }
       this.page++;
-      this.onOpen();
+      this.fetchWithSearch();
     },
     async onSearch(text, loading) {
+      this.searchPhrase = text;
       try {
         loading(true);
-        const data = await this.searchItem(text, { perPage: -1 });
+        const data = await this.searchItem(this.searchPhrase, {
+          perPage: -1,
+          page: this.page,
+        });
         this.options = data.items;
         this.itemsInfo = data.info || {};
         this.page = this.itemsInfo.nowPage;
@@ -101,6 +106,19 @@ export default {
         console.log(err);
       } finally {
         loading(false);
+      }
+    },
+    async fetchWithSearch() {
+      try {
+        const data = await this.searchItem(this.searchPhrase, {
+          perPage: -1,
+          page: this.page,
+        });
+        this.options = data.items;
+        this.itemsInfo = data.info || {};
+        this.page = this.itemsInfo.nowPage;
+      } catch (err) {
+        console.log(err);
       }
     },
 
@@ -117,9 +135,12 @@ export default {
       let values;
       if (!value) return this.$emit("input", null);
       if (this.multiple) {
-        values = value.map((val) => ({[this.keyField]: val[this.keyField]}));
+        values = value.map((val) => ({ [this.keyField]: val[this.keyField] }));
         values = values.filter(
-          (value, index) => values.findIndex((val) => val[this.keyField] === value[this.keyField]) === index
+          (value, index) =>
+            values.findIndex(
+              (val) => val[this.keyField] === value[this.keyField]
+            ) === index
         );
       } else {
         values = value[this.keyField];
@@ -134,7 +155,9 @@ export default {
       try {
         if (this.multiple) {
           try {
-            const resolvers = this.value.map((val) => this.findItem(val[this.keyField]));
+            const resolvers = this.value.map((val) =>
+              this.findItem(val[this.keyField])
+            );
 
             const items = await Promise.all(resolvers);
             this.selectValues = items;

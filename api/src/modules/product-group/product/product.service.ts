@@ -74,7 +74,6 @@ export class ProductService extends ServiceBlueprint<Product>{
 
                 productInfo = { ...productInfo, ...variationProps }
             }
-            console.log("final product info", productInfo)
         }
         return new ProductInfo(productInfo)
     }

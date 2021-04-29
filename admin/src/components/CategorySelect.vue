@@ -58,7 +58,7 @@ export default {
       const { data: categories } = await this.$api.get(
         "categoriesSearch",
         { text },
-        { params: { perPage: 10 } }
+        { params: { perPage: 10, page: options.page} }
       );
       let resolvers = categories.items.map(async (item) => {
         const { data } = await this.$api.get("categoryParents", {

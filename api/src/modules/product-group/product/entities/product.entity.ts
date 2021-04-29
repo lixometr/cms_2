@@ -126,14 +126,15 @@ export class Product extends EntityLocaleItemBlueprint {
 
     await super.serialize(payload);
     if (this.type === ProductType.variation) {
-      let variationPrices = this.variations.map(variation => variation.price)
-      variationPrices = variationPrices.filter(price => typeof price === 'number')
-      const price = Math.min(...variationPrices)
-      let variationOldPrices = this.variations.map(variation => variation.oldPrice)
-      variationPrices = variationOldPrices.filter(price => typeof price === 'number')
-      const oldPrice = Math.min(...variationOldPrices)
-      this.price = price
-      this.oldPrice = oldPrice
+      const defaultVariation = this.variations[0]
+      // let variationPrices = this.variations.map(variation => variation.price)
+      // variationPrices = variationPrices.filter(price => typeof price === 'number')
+      // const price = Math.min(...variationPrices)
+      // let variationOldPrices = this.variations.map(variation => variation.oldPrice)
+      // variationPrices = variationOldPrices.filter(price => typeof price === 'number')
+      // const oldPrice = Math.min(...variationOldPrices)
+      this.price = defaultVariation?.price
+      this.oldPrice = defaultVariation?.oldPrice
     }
     return this
   }
