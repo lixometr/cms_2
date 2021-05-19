@@ -64,8 +64,8 @@ export class ProductRepository extends DefaultRepository<Product> {
       .where(`${this.name}.id = :id`, { id })
       .leftJoinAndSelect(`${this.name}.category`, '_productCategory')
     const item = await query.getOne()
-    console.log(item)
-    return item
+    const categories = item.category
+    return new ArrayResponse(categories)
   }
   async findByCategoryId({ id }: { id: ID }, payload: RequestPayload) {
     const query = this.QFindByCategoryId({ id }, payload)
