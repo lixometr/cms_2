@@ -39,7 +39,7 @@ export class ProductController extends ControllerBlueprint {
   @SerializeOptions({ groups: [SerializeGroup.Info, SerializeGroup.Translate] })
   @Get('id/:id/categories')
   findCategoriesById(
-    @Param('id') id: number,
+    @Param('id') id: ID,
     @GetRequestPayload() requestPayload: RequestPayload,
   ) {
     return this.productService.findCategoriesById({ id }, requestPayload)
