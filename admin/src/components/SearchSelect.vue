@@ -93,6 +93,7 @@ export default {
     },
     async onSearch(text, loading) {
       this.searchPhrase = text;
+      this.page = 1
       try {
         loading(true);
         const data = await this.searchItem(this.searchPhrase, {

@@ -48,13 +48,15 @@ export default {
   methods: {
     async findItem(id) {
       const { data: category } = await this.$api.get("categoryById", { id });
-      const { data } = await this.$api.get("categoryParents", {
-        id: id,
-      });
-      const parents = data.items;
+      // const { data } = await this.$api.get("categoryParents", {
+      //   id: id,
+      // });
+      // const parents = data.items;
+      const parents = []
       return { ...category, parents };
     },
     async searchItem(text, options) {
+      // if(!text) return
       const { data: categories } = await this.$api.get(
         "categoriesSearch",
         { text },

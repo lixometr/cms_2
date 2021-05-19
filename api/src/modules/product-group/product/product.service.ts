@@ -40,6 +40,9 @@ export class ProductService extends ServiceBlueprint<Product>{
     async findSimilarItems({ id }: { id: ID }, payload: RequestPayload) {
         return this.productRepository.findSimilarItems({ id }, payload)
     }
+    async findCategoriesById({id}: {id: ID}, payload: RequestPayload) {
+        return this.productRepository.findCategoriesById({id}, payload)
+    }
 
     async getItemInfo({ id, info }: { id: ID, info: ProductInfoDto }, payload: RequestPayload) {
         const product = await this.findById({ id }, payload)

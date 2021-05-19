@@ -77,7 +77,7 @@ export class Product extends EntityLocaleItemBlueprint {
   attributes: ProductAttribute[];
 
   @Expose({ groups: [SerializeGroup.Full, SerializeGroup.Admin] })
-  @ManyToMany(() => ProductCategory, (productCat) => productCat.products, { cascade: CASCADE_NOT_INSERT, eager: true })
+  @ManyToMany(() => ProductCategory, (productCat) => productCat.products, { cascade: CASCADE_NOT_INSERT, eager: false })
   @JoinTable()
   category: ProductCategory[];
 

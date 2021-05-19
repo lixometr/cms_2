@@ -16,7 +16,7 @@ export default {
     id: [Number, String],
   },
   created() {
-    this.fetchAttendProducts();
+    // this.fetchAttendProducts();
   },
   data: () => ({}),
   computed: {
