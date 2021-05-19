@@ -19,7 +19,7 @@
             </span>
 
             <div class="single-product__preview-image-zoom">
-              <img src="/source/img/zoom.svg" alt="zoom">
+              <img src="/source/img/zoom.svg" alt="zoom" />
             </div>
           </div>
           <!-- end Big img -->
@@ -74,8 +74,9 @@ export default {
   async asyncData({ error, $api, params, $url }) {
     try {
       const item = await $api.$get("product", { slug: params.slug });
+      const categories = await $api.$get("productCategories", { id: item.id });
       if (!item) throw { statusCode: 404 };
-      const mainCategory = item.category[0];
+      const mainCategory = categories[0];
       let breadcrumbsItems = [];
       if (mainCategory) {
         const { items } = await $api.$get("categoryBreadcrumbs", {
@@ -137,7 +138,6 @@ export default {
     async oneClickBuy() {
       await this.addToCart();
       this.$router.push(this.$url.checkout());
-      
     },
     async addToCart() {
       await this.$store.dispatch("cart/add", {
@@ -146,7 +146,7 @@ export default {
         activeVariation: this.activeVariation,
         activeOptions: this.activeOptions,
       });
-      this.$toast.success('Товар добавлен в корзину!')
+      this.$toast.success("Товар добавлен в корзину!");
     },
     addToFavourite() {
       this.$store.dispatch("favourite/add", {

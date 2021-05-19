@@ -8,5 +8,6 @@ export default {
     productSimilarItems: "/product/id/{{id}}/similar-products",
     productInfo: '/product/id/{{id}}/info',
     cloneProduct: '/product/id/{{id}}/clone',
+    productCategories: '/product/id/{{id}}/categories',
     cartInfo: '/cart/info'
 }

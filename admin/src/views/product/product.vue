@@ -54,11 +54,14 @@
       :product="item"
       v-model="item.kitProducts"
     />
-    <CollapseCard :open="false" v-if="item.type === 'simple' || item.type === 'kit'">
+    <CollapseCard
+      :open="false"
+      v-if="item.type === 'simple' || item.type === 'kit'"
+    >
       <div slot="header">Цена</div>
       <div>
         <ProductPrice v-model="item.prices" />
-        <ProductCntSale v-model="item.cntSale"/>
+        <ProductCntSale v-model="item.cntSale" />
       </div>
     </CollapseCard>
     <CollapseCard :open="false">
@@ -194,6 +197,23 @@ export default {
         this.$set(this.item, "variations", []);
       }
     },
+    async afterFetchItem() {
+      if (this.isNew) return;
+      await this.fetchCategories()
+    },
+    async fetchCategories() {
+      try {
+        const { data } = await this.$api.get("productCategories", {
+          id: this.item.id,
+        });
+        this.$set(this.item, "category", data.items);
+      } catch (err) {
+        this.$error(err);
+      }
+    },
+    async afterSave() {
+      await this.fetchCategories()
+    }
   },
 };
 </script>
