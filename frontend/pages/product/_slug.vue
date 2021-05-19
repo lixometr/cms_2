@@ -74,7 +74,7 @@ export default {
   async asyncData({ error, $api, params, $url }) {
     try {
       const item = await $api.$get("product", { slug: params.slug });
-      const categories = await $api.$get("productCategories", { id: item.id });
+      const {items: categories} = await $api.$get("productCategories", { id: item.id });
       if (!item) throw { statusCode: 404 };
       const mainCategory = categories[0];
       let breadcrumbsItems = [];
