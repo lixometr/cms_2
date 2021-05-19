@@ -42,6 +42,7 @@ export class ProductController extends ControllerBlueprint {
     @Param('id') id: ID,
     @GetRequestPayload() requestPayload: RequestPayload,
   ) {
+    console.log('here')
     return this.productService.findCategoriesById({ id }, requestPayload)
   }
 

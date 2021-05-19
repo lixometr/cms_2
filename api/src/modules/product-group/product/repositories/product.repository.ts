@@ -55,11 +55,15 @@ export class ProductRepository extends DefaultRepository<Product> {
     return query
   }
   async findCategoriesById({ id }: { id: ID }, payload: RequestPayload) {
-    console.log('fetchind', id)
-    const item = await this.findOne({
-      where: { id },
-      relations: ['category'],
-    })
+    console.log('where?', id)
+    // const item = await this.findOne({
+    //   where: { id },
+    //   relations: ['category'],
+    // })
+    const query = this.createQueryBuilder(
+      this.name,
+    ).where(`${this.name}.id = :id`, { id })
+    const item = await query.getOne()
     console.log(item)
     return item
   }
